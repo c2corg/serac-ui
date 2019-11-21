@@ -19,18 +19,18 @@ const routes = [
     component: Reports,
   },
   {
-    path: 'reports/:id(\\d+)',
+    path: '/reports/:id(\\d+)',
     name: 'report',
     component: Report,
   },
   {
-    path: 'reports/edit/:id(\\d+)',
+    path: '/reports/edit/:id(\\d+)',
     name: 'report-edit',
     component: ReportEdit,
   },
   {
-    path: 'reports/add',
-    name: 'report-edit',
+    path: '/reports/add',
+    name: 'report-add',
     component: ReportEdit,
   },
   {
