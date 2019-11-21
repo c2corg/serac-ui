@@ -1,19 +1,20 @@
 import axios from 'axios';
-import { Report } from '../model/report';
+import Report from '../model/report';
+import { Page } from '../model/page';
 
 const baseUrl: string = 'http://localhost:8080';
 
 // FIXME error handling, interceptors & all
-export class ApiService {
+export default {
   reports(): Promise<Report[]> {
     return axios
-      .get<Report[]>(`${baseUrl}/reports`)
-      .then(response => response.data);
-  }
+      .get<Page<Report>>(`${baseUrl}/xreports`)
+      .then(response => response.data.content);
+  },
 
   report(id: string): Promise<Report> {
     return axios
-      .get<Report>(`${baseUrl}/reports/${id}`)
+      .get<Report>(`${baseUrl}/xreports/${id}`)
       .then(response => response.data);
-  }
-}
+  },
+};

@@ -4,23 +4,36 @@
     <ul>
       <li v-for="report in reports" :key="report.id">
         <router-link :to="{ name: 'report', params: { id: report.id } }"
-          >{{ report.id }}: {{ report.title }}</router-link
+          >{{ report.id }}: {{ report.locales[0].title }}</router-link
         >
       </li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'reports',
-  data: () => ({
-    reports: [
-      {
-        id: 1234,
-        title: 'QSDx',
-      },
-    ],
-  }),
-};
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
+import Report from '../model/report';
+import api from '../services/api.service';
+
+@Component
+export default class Reports extends Vue {
+  name = 'report';
+
+  loading = true;
+  reports: Report[] = [];
+
+  created() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    api.reports().then(reports => {
+      this.reports = [...reports];
+      this.loading = false;
+    });
+  }
+}
 </script>
