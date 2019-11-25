@@ -3,9 +3,10 @@
     <h1>Rapports incidents/accidents</h1>
     <ul>
       <li v-for="report in reports" :key="report.id">
-        <router-link :to="{ name: 'report', params: { id: report.id } }"
-          >{{ report.id }}: {{ report.locales[0].title }}</router-link
-        >
+        <router-link :to="{ name: 'report', params: { id: report.id } }">
+          {{ report.id }} | {{ report.date }} | {{ report.locales[0].title }} |
+          {{ report.event_type.join(', ') }}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -18,10 +19,8 @@ import { Component } from 'vue-property-decorator';
 import Report from '../model/report';
 import api from '../services/api.service';
 
-@Component
-export default class Reports extends Vue {
-  name = 'report';
-
+@Component({ name: 'reports' })
+export default class ReportsView extends Vue {
   loading = true;
   reports: Report[] = [];
 

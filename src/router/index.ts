@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Reports from '../views/Reports.vue';
-import Report from '../views/Report.vue';
+import ReportsView from '../views/ReportsView.vue';
+import ReportView from '../views/ReportView.vue';
 import ReportEdit from '../views/ReportEdit.vue';
 
 Vue.use(VueRouter);
@@ -16,15 +16,15 @@ const routes = [
   {
     path: '/reports',
     name: 'reports',
-    component: Reports,
+    component: ReportsView,
   },
   {
-    path: '/reports/:id(\\d+)',
+    path: '/reports/:id',
     name: 'report',
-    component: Report,
+    component: ReportView,
   },
   {
-    path: '/reports/edit/:id(\\d+)',
+    path: '/reports/edit/:id',
     name: 'report-edit',
     component: ReportEdit,
   },
