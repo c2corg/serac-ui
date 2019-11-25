@@ -1,6 +1,5 @@
 <template>
-  <!--<fa-icon :icon="['activity', activity]" />-->
-  <span>{{ activity }}</span>
+  <fa-icon :icon="['activity', activity]" />
 </template>
 
 <script lang="ts">
