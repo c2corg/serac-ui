@@ -1,7 +1,9 @@
 import './class-component-hooks';
 
 import Vue, { CreateElement, VNode } from 'vue';
-import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import VueProgressBar from 'vue-progressbar';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import App from './App.vue';
@@ -37,7 +39,9 @@ library.add(
 
 Vue.component('fa-icon', FontAwesomeIcon);
 
-Vue.config.productionTip = false;
+Vue.use(VueProgressBar, {});
+
+Vue.config.productionTip = false; //! FIXME:
 
 new Vue({
   router,

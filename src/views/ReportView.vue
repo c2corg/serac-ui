@@ -2,7 +2,10 @@
   <div v-if="report">
     <h1>{{ report.locales[0].title }}</h1>
     <div>
-      <p>Activités: <activities :activities="report.activities" /></p>
+      <p>
+        Activités:
+        <activities :activities="report.activities" />
+      </p>
     </div>
   </div>
 </template>
@@ -25,9 +28,12 @@ export default class ReportView extends Vue {
     from: Route,
     next: (to?: RawLocation | false | ((vm: ReportView) => any) | void) => void
   ): void {
-    api.report(to.params.id).then(report => {
-      next(vm => vm.setReport(report));
-    });
+    api
+      .report(to.params.id)
+      .then(report => {
+        next(vm => vm.setReport(report));
+      })
+      .catch((err: Error) => next(err));
   }
 
   beforeRouteUpdate(
@@ -36,10 +42,13 @@ export default class ReportView extends Vue {
     next: (to?: RawLocation | false | ((vm: ReportView) => any) | void) => void
   ): void {
     this.report = null;
-    api.report(to.params.id).then(report => {
-      this.report = report;
-      next();
-    });
+    api
+      .report(to.params.id)
+      .then(report => {
+        this.report = report;
+        next();
+      })
+      .catch((err: Error) => next(err));
   }
 
   setReport(report: Report) {
