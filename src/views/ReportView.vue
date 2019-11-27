@@ -6,7 +6,10 @@
         Activités:
         <activity-list :activities="report.activities" />
       </p>
-      <p>{{ report.locales[0].description }}</p>
+      <h2>Description</h2>
+      <p>
+        <markdown-view :content="report.locales[0].description"></markdown-view>
+      </p>
     </div>
   </div>
 </template>
@@ -19,8 +22,9 @@ import { Route, RawLocation } from 'vue-router';
 import api from '../services/api.service';
 import Report from '../model/report';
 import ActivityList from '../components/ActivityList.vue';
+import MarkdownView from '../components/MardownView.vue';
 
-@Component({ name: 'report', components: { ActivityList } })
+@Component({ name: 'report', components: { ActivityList, MarkdownView } })
 export default class ReportView extends Vue {
   report: Report | null = null;
 

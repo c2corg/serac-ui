@@ -2,7 +2,8 @@ import './class-component-hooks';
 
 import Vue, { CreateElement, VNode } from 'vue';
 import VueProgressBar from 'vue-progressbar';
-
+import VueDOMPurifyHTML from 'vue-dompurify-html';
+import { Config } from 'dompurify';
 import 'bulma/css/bulma.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -42,6 +43,11 @@ library.add(
 Vue.component('fa-icon', FontAwesomeIcon);
 
 Vue.use(VueProgressBar, {});
+const dompurifyOptions: Config = {
+  FORBID_TAGS: ['style'],
+  FORBID_ATTR: ['style'],
+};
+Vue.use(VueDOMPurifyHTML, dompurifyOptions);
 
 Vue.config.productionTip = false; //! FIXME:
 
