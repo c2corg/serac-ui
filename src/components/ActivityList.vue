@@ -12,7 +12,7 @@ import { Component, Prop } from 'vue-property-decorator';
 
 import IconActivity from '../components/IconActivity.vue';
 
-@Component({ name: 'activities', components: { IconActivity } })
+@Component({ components: { IconActivity } })
 export default class Activities extends Vue {
   @Prop({ default: [] })
   activities!: string[];

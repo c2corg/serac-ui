@@ -4,8 +4,9 @@
     <div>
       <p>
         Activités:
-        <activities :activities="report.activities" />
+        <activity-list :activities="report.activities" />
       </p>
+      <p>{{ report.locales[0].description }}</p>
     </div>
   </div>
 </template>
@@ -17,9 +18,9 @@ import { Route, RawLocation } from 'vue-router';
 
 import api from '../services/api.service';
 import Report from '../model/report';
-import Activities from '../components/Activities.vue';
+import ActivityList from '../components/ActivityList.vue';
 
-@Component({ name: 'report', components: { Activities } })
+@Component({ name: 'report', components: { ActivityList } })
 export default class ReportView extends Vue {
   report: Report | null = null;
 
