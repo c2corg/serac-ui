@@ -3,6 +3,8 @@ import './class-component-hooks';
 import Vue, { CreateElement, VNode } from 'vue';
 import VueProgressBar from 'vue-progressbar';
 
+import 'bulma/css/bulma.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 

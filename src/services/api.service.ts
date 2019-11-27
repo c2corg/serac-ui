@@ -6,10 +6,10 @@ const baseUrl: string = 'http://localhost:8080';
 
 // FIXME error handling, interceptors & all
 export default {
-  reports(): Promise<Report[]> {
+  reports(page: number = 1): Promise<Page<Report>> {
     return axios
-      .get<Page<Report>>(`${baseUrl}/xreports`)
-      .then(response => response.data.content);
+      .get<Page<Report>>(`${baseUrl}/xreports?page=${page - 1}`)
+      .then(response => response.data);
   },
 
   report(id: string): Promise<Report> {

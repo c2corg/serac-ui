@@ -32,8 +32,8 @@ export default class ReportsView extends Vue {
   }
 
   fetchData() {
-    api.reports().then(reports => {
-      this.reports = [...reports];
+    api.reports().then(page => {
+      this.reports = [...page.content];
       this.loading = false;
     });
   }
