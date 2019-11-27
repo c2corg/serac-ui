@@ -4,7 +4,7 @@ export default interface Report {
   custom: Record<string, any>;
   elevation?: number;
   nb_participants?: number;
-  geometry: string;
+  geometry?: string;
   age?: number;
   autonomy?: 'non_autonomous' | 'autonomous' | 'initiator' | 'expert';
   avalanche_slope?:

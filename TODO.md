@@ -6,4 +6,7 @@
 - use mixins for loading error & co => with a fetchData method overriden by each component?
 - navigation in table
 - ag grid styling
-- markdown!!
+- markdown!! -> doc dans l'UI
+- recherche
+- error page
+- submit form

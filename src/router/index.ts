@@ -19,9 +19,9 @@ const routes = [
     component: ReportsView,
   },
   {
-    path: '/reports/:id',
-    name: 'report',
-    component: ReportView,
+    path: '/reports/add',
+    name: 'report-add',
+    component: ReportEdit,
   },
   {
     path: '/reports/edit/:id',
@@ -29,9 +29,9 @@ const routes = [
     component: ReportEdit,
   },
   {
-    path: '/reports/add',
-    name: 'report-add',
-    component: ReportEdit,
+    path: '/reports/:id',
+    name: 'report',
+    component: ReportView,
   },
   {
     path: '/about',

@@ -1,6 +1,9 @@
 <template>
   <div v-if="report">
     <h1>{{ report.locales[0].title }}</h1>
+    <router-link :to="{ name: 'report-edit', params: { id: report.id } }">
+      Éditer
+    </router-link>
     <div>
       <p>
         Activités:
