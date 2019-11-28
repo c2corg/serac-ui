@@ -30,6 +30,7 @@ import {
   faExclamationCircle,
   faAngleLeft,
   faAngleRight,
+  faCalendar,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -47,7 +48,8 @@ library.add(
 
   faExclamationCircle,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faCalendar
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);

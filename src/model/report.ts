@@ -40,23 +40,8 @@ export default interface Report {
     | 'secondary_impacted'
     | 'internal_witness'
     | 'external_witness';
-  event_type: (
-    | 'avalanche'
-    | 'stone_fall'
-    | 'falling_ice'
-    | 'person_fall'
-    | 'crevasse_fall'
-    | 'roped_fall'
-    | 'physical_failure'
-    | 'lightning'
-    | 'other'
-  )[];
-  severity?:
-    | 'severity_no'
-    | '1d_to_3d'
-    | '4d_to_1m'
-    | '1m_to_3m'
-    | 'more_than_3m';
+  event_type: EventType[];
+  severity?: Severity;
   activity_rate?:
     | 'activity_rate_150'
     | 'activity_rate_50'
@@ -94,3 +79,41 @@ export interface Locale {
   conditions?: string;
   group_management?: string;
 }
+
+export const ALL_SEVERITIES = [
+  'severity_no',
+  '1d_to_3d',
+  '4d_to_1m',
+  '1m_to_3m',
+  'more_than_3m',
+];
+
+export type Severity =
+  | 'severity_no'
+  | '1d_to_3d'
+  | '4d_to_1m'
+  | '1m_to_3m'
+  | 'more_than_3m';
+
+export const ALL_EVENT_TYPES = [
+  'avalanche',
+  'stone_fall',
+  'falling_ice',
+  'person_fall',
+  'crevasse_fall',
+  'roped_fall',
+  'physical_failure',
+  'lightning',
+  'other',
+];
+
+export type EventType =
+  | 'avalanche'
+  | 'stone_fall'
+  | 'falling_ice'
+  | 'person_fall'
+  | 'crevasse_fall'
+  | 'roped_fall'
+  | 'physical_failure'
+  | 'lightning'
+  | 'other';
