@@ -1,19 +1,28 @@
 <template>
-  <validation-observer v-slot="{ handleSubmit }">
-    <form v-if="model" action="#" @submit.prevent="handleSubmit(onSubmit)">
-      <h1>Edition</h1>
+  <section>
+    <validation-observer v-slot="{ handleSubmit }">
+      <form v-if="model" action="#" @submit.prevent="handleSubmit(onSubmit)">
+        <validation-provider rules="required_title" v-slot="{ errors }">
+          <b-field
+            label="Titre"
+            :type="{ 'is-danger': errors.length }"
+            :message="errors[0]"
+          >
+            <b-input
+              v-model.trim="model.locales[0].title"
+              name="title"
+            ></b-input>
+          </b-field>
+          <span>{{ errors[0] }}</span>
+        </validation-provider>
 
-      <h2>Titre</h2>
-      <validation-provider rules="required_title" v-slot="{ errors }">
-        <input type="text" v-model.trim="model.locales[0].title" />
-        <span>{{ errors[0] }}</span>
-      </validation-provider>
-      <h2>Description</h2>
-      <textarea v-model.trim="model.locales[0].description"></textarea>
+        <h2>Description</h2>
+        <textarea v-model.trim="model.locales[0].description"></textarea>
 
-      <button type="submit">Soumettre</button>
-    </form>
-  </validation-observer>
+        <button type="submit">Soumettre</button>
+      </form>
+    </validation-observer>
+  </section>
 </template>
 
 <script lang="ts">

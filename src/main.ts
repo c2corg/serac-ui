@@ -4,7 +4,8 @@ import Vue, { CreateElement, VNode } from 'vue';
 import VueProgressBar from 'vue-progressbar';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import { Config } from 'dompurify';
-import 'bulma/css/bulma.css';
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -25,6 +26,7 @@ import {
   snow_ice_mixed,
   via_ferrata,
 } from '@/assets/font-awesome-custom/js/activity';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
   hiking,
@@ -37,7 +39,9 @@ library.add(
   slacklining,
   snowshoeing,
   snow_ice_mixed,
-  via_ferrata
+  via_ferrata,
+
+  faExclamationCircle
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
@@ -48,6 +52,12 @@ const dompurifyOptions: Config = {
   FORBID_ATTR: ['style'],
 };
 Vue.use(VueDOMPurifyHTML, dompurifyOptions);
+
+//! FIXME optimize import, using only required components
+Vue.use(Buefy, {
+  defaultIconComponent: 'fa-icon',
+  defaultIconPack: 'fas',
+});
 
 Vue.config.productionTip = false; //! FIXME:
 
