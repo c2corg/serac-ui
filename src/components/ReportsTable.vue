@@ -46,5 +46,6 @@ export default class ReportsTable extends Vue {
 }
 </script>
 
+<!-- FIXME: -->
 <style src="@ag-grid-community/all-modules/dist/styles/ag-grid.css" />
 <style src="@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css" />

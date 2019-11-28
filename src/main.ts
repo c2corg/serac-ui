@@ -26,7 +26,11 @@ import {
   snow_ice_mixed,
   via_ferrata,
 } from '@/assets/font-awesome-custom/js/activity';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExclamationCircle,
+  faAngleLeft,
+  faAngleRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
   hiking,
@@ -41,7 +45,9 @@ library.add(
   snow_ice_mixed,
   via_ferrata,
 
-  faExclamationCircle
+  faExclamationCircle,
+  faAngleLeft,
+  faAngleRight
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);

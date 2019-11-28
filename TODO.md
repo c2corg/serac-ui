@@ -9,3 +9,4 @@
 - markdown!! -> doc dans l'UI
 - recherche
 - error page
+- url when navigating pages
