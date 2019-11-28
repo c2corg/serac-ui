@@ -37,7 +37,7 @@ export default class ReportView extends Vue {
     next: (to?: RawLocation | false | ((vm: ReportView) => any) | void) => void
   ): void {
     api
-      .report(to.params.id)
+      .getReport(to.params.id)
       .then(report => {
         next(vm => vm.setReport(report));
       })
@@ -51,7 +51,7 @@ export default class ReportView extends Vue {
   ): void {
     this.report = null;
     api
-      .report(to.params.id)
+      .getReport(to.params.id)
       .then(report => {
         this.report = report;
         next();

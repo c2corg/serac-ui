@@ -1,5 +1,5 @@
 export default interface Report {
-  id: number;
+  id: string;
   validated: boolean;
   custom: Record<string, any>;
   elevation?: number;
