@@ -11,3 +11,4 @@
 - map for geolocation
 - error message in form -> field is not interpolated
 - helper in form
+- ERROR must be out of page flow, stick to top
