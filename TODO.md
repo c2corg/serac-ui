@@ -1,15 +1,15 @@
 # TODO
 
-- error handling -> correctly display error, cloasable, etc
-- prefetch data -> everywhere
-- loading indicator -> color
-- use mixins for loading error & co => with a fetchData method overriden by each component?
-- ag grid styling
-- markdown!! -> doc dans l'UI
-- recherche
-- error page
-- map for geolocation
-- error message in form -> field is not interpolated
-- helper in form
+- Error handling -> correctly display error, closable, etc
+- Prefetch data -> everywhere
+- Loading indicator -> color
+- Ag grid styling
+- Error page
+- Map for geolocation
+- Error message in form -> field is not interpolated
+- Helper in form
 - ERROR must be out of page flow, stick to top
-  -rechargement de l'édit?
+- Edit reload on dev
+- Collapse and sections in form
+- Markdown toolbar
+- markdown!! -> Doc in UI?
