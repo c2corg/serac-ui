@@ -15,7 +15,10 @@
           </b-field>
         </validation-provider>
 
-        <!-- ! activités -->
+        <b-field label="Activités">
+          <!-- TODO: error handling, activity is mandatory -->
+          <input-activity v-model="model.activities"></input-activity>
+        </b-field>
 
         <!-- ! geolocation -->
 
@@ -103,6 +106,7 @@ import { required, email } from 'vee-validate/dist/rules';
 import { formatISO } from 'date-fns';
 
 import api from '../services/api.service';
+import InputActivity from '../components/form/InputActivity.vue';
 import Report, { ALL_SEVERITIES, ALL_EVENT_TYPES } from '../model/report';
 import i18n from '../model/i18n';
 
@@ -131,7 +135,9 @@ const newReport = (): Omit<Report, 'id'> => ({
   ],
 });
 
-@Component({ components: { ValidationProvider, ValidationObserver } })
+@Component({
+  components: { ValidationProvider, ValidationObserver, InputActivity },
+})
 export default class ReportEdit extends Vue {
   @Prop()
   report!: Report;

@@ -13,19 +13,7 @@ export default interface Report {
     | 'slope_35_40'
     | 'slope_40_45'
     | 'slope_gt_45';
-  activities?: (
-    | 'skitouring'
-    | 'snow_ice_mixed'
-    | 'mountain_climbing'
-    | 'rock_climbing'
-    | 'ice_climbing'
-    | 'hiking'
-    | 'snowshoeing'
-    | 'paragliding'
-    | 'mountain_biking'
-    | 'via_ferrata'
-    | 'slacklining'
-  )[];
+  activities?: Activity[];
   nb_outings?:
     | 'nb_outings_4'
     | 'nb_outings_9'
@@ -79,6 +67,33 @@ export interface Locale {
   conditions?: string;
   group_management?: string;
 }
+
+export const ALL_ACTIVITIES = [
+  'skitouring',
+  'snow_ice_mixed',
+  'mountain_climbing',
+  'rock_climbing',
+  'ice_climbing',
+  'hiking',
+  'snowshoeing',
+  'paragliding',
+  'mountain_biking',
+  'via_ferrata',
+  'slacklining',
+];
+
+export type Activity =
+  | 'skitouring'
+  | 'snow_ice_mixed'
+  | 'mountain_climbing'
+  | 'rock_climbing'
+  | 'ice_climbing'
+  | 'hiking'
+  | 'snowshoeing'
+  | 'paragliding'
+  | 'mountain_biking'
+  | 'via_ferrata'
+  | 'slacklining';
 
 export const ALL_SEVERITIES = [
   'severity_no',
