@@ -1,36 +1,97 @@
 <template>
-  <div id="app">
+  <div id="container">
     <vue-progress-bar></vue-progress-bar>
     <network-error :error="error"></network-error>
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/reports">Reports</router-link>|
-      <router-link to="/about">About</router-link>
-    </div>
+    <b-navbar>
+      <template slot="brand"><h1>Serac-UI</h1></template>
+      <template slot="start">
+        <b-navbar-item><router-link to="/">Home</router-link></b-navbar-item>
+        <b-navbar-item>
+          <router-link to="/reports">Reports</router-link>
+        </b-navbar-item>
+        <b-navbar-item>
+          <router-link to="/about">À propos</router-link>
+        </b-navbar-item>
+      </template>
+      <template slot="end">
+        <b-navbar-item tag="div">
+          <a class="button is-primary">Login</a>
+        </b-navbar-item>
+      </template>
+    </b-navbar>
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+// ! to customize as needed
+// ! see https://bulma.io/documentation/overview/modular/ and https://buefy.org/documentation/customization/
+// Import Bulma's core
+@import '~bulma/sass/utilities/_all';
 
-#nav {
-  padding: 30px;
+// Set your colors
+$primary: #8c67ef;
+$primary-invert: findColorInvert($primary);
+$twitter: #4099ff;
+$twitter-invert: findColorInvert($twitter);
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+  'white': (
+    $white,
+    $black,
+  ),
+  'black': (
+    $black,
+    $white,
+  ),
+  'light': (
+    $light,
+    $light-invert,
+  ),
+  'dark': (
+    $dark,
+    $dark-invert,
+  ),
+  'primary': (
+    $primary,
+    $primary-invert,
+  ),
+  'info': (
+    $info,
+    $info-invert,
+  ),
+  'success': (
+    $success,
+    $success-invert,
+  ),
+  'warning': (
+    $warning,
+    $warning-invert,
+  ),
+  'danger': (
+    $danger,
+    $danger-invert,
+  ),
+  'twitter': (
+    $twitter,
+    $twitter-invert,
+  ),
+);
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Import Bulma and Buefy styles
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+</style>
+
+<style scoped lang="scss">
+.router-link-active {
+  color: #42b983;
 }
 </style>
 

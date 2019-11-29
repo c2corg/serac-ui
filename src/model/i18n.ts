@@ -26,6 +26,27 @@ const i18n = new Map<string, string>([
   ['physical_failure', 'Défaillance physique'],
   ['lightning', 'Foudre'],
   ['other', 'Autre'],
+
+  ['level_1', '1 - faible'],
+  ['level_2', '2 - limité'],
+  ['level_3', '3 - marqué'],
+  ['level_4', '4 - fort'],
+  ['level_5', '5 - très fort'],
+  ['level_na', 'Niveau non renseigné'],
+
+  ['slope_lt_30', 'Pente inférieure à 30°'],
+  ['slope_30_35', 'Pente de 30 à 35°'],
+  ['slope_35_40', 'Pente de 35 à 40°'],
+  ['slope_40_45', 'Pente de 40 à 45°'],
+  ['slope_gt_45', 'Pente supérieure à 45°'],
+
+  ['male', 'Homme'],
+  ['female', 'Femme'],
+
+  ['primary_impacted', 'Victime principale'],
+  ['secondary_impacted', 'Victime secondaire'],
+  ['internal_witness', 'Témoin direct'],
+  ['external_witness', 'Témoin indirect'],
 ]);
 
 export default i18n;

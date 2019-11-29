@@ -7,27 +7,18 @@ export default interface Report {
   geometry?: string;
   age?: number;
   autonomy?: 'non_autonomous' | 'autonomous' | 'initiator' | 'expert';
-  avalanche_slope?:
-    | 'slope_lt_30'
-    | 'slope_30_35'
-    | 'slope_35_40'
-    | 'slope_40_45'
-    | 'slope_gt_45';
+  avalanche_slope?: AvalancheSlope;
   activities?: Activity[];
   nb_outings?:
     | 'nb_outings_4'
     | 'nb_outings_9'
     | 'nb_outings_14'
     | 'nb_outings_15';
-  gender?: 'male' | 'female';
+  gender?: Gender;
   nb_impacted?: number;
-  date?: string; //!
+  date?: string;
   rescue?: boolean;
-  author_status?:
-    | 'primary_impacted'
-    | 'secondary_impacted'
-    | 'internal_witness'
-    | 'external_witness';
+  author_status?: AuthorStatus;
   event_type: EventType[];
   severity?: Severity;
   activity_rate?:
@@ -39,13 +30,7 @@ export default interface Report {
     | 'activity_rate_5'
     | 'activity_rate_1';
   previous_injuries?: 'no' | 'previous_injuries_2' | 'previous_injuries_3';
-  avalanche_level?:
-    | 'level_1'
-    | 'level_2'
-    | 'level_3'
-    | 'level_4'
-    | 'level_5'
-    | 'level_na';
+  avalanche_level?: AvalancheLevel;
   locales: Locale[];
 }
 
@@ -132,3 +117,51 @@ export type EventType =
   | 'physical_failure'
   | 'lightning'
   | 'other';
+
+export const ALL_AVALANCHE_LEVELS = [
+  'level_1',
+  'level_2',
+  'level_3',
+  'level_4',
+  'level_5',
+  'level_na',
+];
+
+export type AvalancheLevel =
+  | 'level_1'
+  | 'level_2'
+  | 'level_3'
+  | 'level_4'
+  | 'level_5'
+  | 'level_na';
+
+export const ALL_AVALANCHE_SLOPES = [
+  'slope_lt_30',
+  'slope_30_35',
+  'slope_35_40',
+  'slope_40_45',
+  'slope_gt_45',
+];
+export type AvalancheSlope =
+  | 'slope_lt_30'
+  | 'slope_30_35'
+  | 'slope_35_40'
+  | 'slope_40_45'
+  | 'slope_gt_45';
+
+export const ALL_GENDERS = ['male', 'female'];
+
+export type Gender = 'male' | 'female';
+
+export const ALL_AUTHOR_STATUSES = [
+  'primary_impacted',
+  'secondary_impacted',
+  'internal_witness',
+  'external_witness',
+];
+
+export type AuthorStatus =
+  | 'primary_impacted'
+  | 'secondary_impacted'
+  | 'internal_witness'
+  | 'external_witness';

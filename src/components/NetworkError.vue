@@ -1,5 +1,7 @@
 <template>
-  <div v-if="error">Error: {{ error }}</div>
+  <b-notification closable="false" type="is-danger" v-if="error">
+    Error: {{ error }}
+  </b-notification>
 </template>
 
 <script lang="ts">
