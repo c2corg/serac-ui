@@ -47,6 +47,28 @@ const i18n = new Map<string, string>([
   ['secondary_impacted', 'Victime secondaire'],
   ['internal_witness', 'Témoin direct'],
   ['external_witness', 'Témoin indirect'],
+
+  ['non_autonomous', 'Non autonome'],
+  ['autonomous', 'Autonome'],
+  ['initiator', 'Débrouillé'],
+  ['expert', 'Expert'],
+
+  ['nb_outings_4', 'De 0 à 4'],
+  ['nb_outings_9', 'De 5 à 9'],
+  ['nb_outings_14', 'De 10 à 14'],
+  ['nb_outings_15', '15 et plus'],
+
+  ['activity_rate_150', 'Au moins 3 fois par semaine'],
+  ['activity_rate_50', '1 à 2 fois par semaine'],
+  ['activity_rate_30', '2 à 3 fois par mois'],
+  ['activity_rate_20', '1 fois par mois'],
+  ['activity_rate_10', "Moins d'une fois par mois"],
+  ['activity_rate_5', "Moins d'une fois par an"],
+  ['activity_rate_1', 'Première fois de sa vie'],
+
+  ['no', 'Non'],
+  ['previous_injuries_2', 'Autres blessures'],
+  ['previous_injuries_3', 'Autres blessures'],
 ]);
 
 export default i18n;

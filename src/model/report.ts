@@ -6,14 +6,10 @@ export default interface Report {
   nb_participants?: number;
   geometry?: string;
   age?: number;
-  autonomy?: 'non_autonomous' | 'autonomous' | 'initiator' | 'expert';
+  autonomy?: Autonomy;
   avalanche_slope?: AvalancheSlope;
   activities?: Activity[];
-  nb_outings?:
-    | 'nb_outings_4'
-    | 'nb_outings_9'
-    | 'nb_outings_14'
-    | 'nb_outings_15';
+  nb_outings?: NbOutings;
   gender?: Gender;
   nb_impacted?: number;
   date?: string;
@@ -21,15 +17,8 @@ export default interface Report {
   author_status?: AuthorStatus;
   event_type: EventType[];
   severity?: Severity;
-  activity_rate?:
-    | 'activity_rate_150'
-    | 'activity_rate_50'
-    | 'activity_rate_30'
-    | 'activity_rate_20'
-    | 'activity_rate_10'
-    | 'activity_rate_5'
-    | 'activity_rate_1';
-  previous_injuries?: 'no' | 'previous_injuries_2' | 'previous_injuries_3';
+  activity_rate?: ActivityRate;
+  previous_injuries?: PreviousInjuries;
   avalanche_level?: AvalancheLevel;
   locales: Locale[];
 }
@@ -165,3 +154,55 @@ export type AuthorStatus =
   | 'secondary_impacted'
   | 'internal_witness'
   | 'external_witness';
+
+export const ALL_AUTONOMIES = [
+  'non_autonomous',
+  'autonomous',
+  'initiator',
+  'expert',
+];
+
+export type Autonomy = 'non_autonomous' | 'autonomous' | 'initiator' | 'expert';
+
+export const ALL_NB_OUTINGS = [
+  'nb_outings_4',
+  'nb_outings_9',
+  'nb_outings_14',
+  'nb_outings_15',
+];
+
+export type NbOutings =
+  | 'nb_outings_4'
+  | 'nb_outings_9'
+  | 'nb_outings_14'
+  | 'nb_outings_15';
+
+export const ALL_ACTIVITY_RATES = [
+  'activity_rate_150',
+  'activity_rate_50',
+  'activity_rate_30',
+  'activity_rate_20',
+  'activity_rate_10',
+  'activity_rate_5',
+  'activity_rate_1',
+];
+
+export type ActivityRate =
+  | 'activity_rate_150'
+  | 'activity_rate_50'
+  | 'activity_rate_30'
+  | 'activity_rate_20'
+  | 'activity_rate_10'
+  | 'activity_rate_5'
+  | 'activity_rate_1';
+
+export const ALL_PREVIOUS_INJURIES = [
+  'no',
+  'previous_injuries_2',
+  'previous_injuries_3',
+];
+
+export type PreviousInjuries =
+  | 'no'
+  | 'previous_injuries_2'
+  | 'previous_injuries_3';

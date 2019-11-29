@@ -76,7 +76,7 @@
 
             <div class="column">
               <b-field label="Gravité">
-                <b-select v-model="model.severity">
+                <b-select expanded v-model="model.severity">
                   <option
                     v-for="option in severities"
                     :key="option.key"
@@ -108,7 +108,7 @@
           <div class="columns">
             <div class="column">
               <b-field label="Niveau de risque d'avalanche">
-                <b-select v-model="model.avalanche_level">
+                <b-select expanded v-model="model.avalanche_level">
                   <option
                     v-for="option in avalancheLevels"
                     :key="option.key"
@@ -121,7 +121,7 @@
             </div>
             <div class="column">
               <b-field label="Pente de la zone de départ">
-                <b-select v-model="model.avalanche_slope">
+                <b-select expanded v-model="model.avalanche_slope">
                   <option
                     v-for="option in avalancheSlopes"
                     :key="option.key"
@@ -143,7 +143,7 @@
             </div>
             <div class="column">
               <b-field label="Sexe">
-                <b-select v-model="model.gender">
+                <b-select expanded v-model="model.gender">
                   <option
                     v-for="option in genders"
                     :key="option.key"
@@ -156,7 +156,7 @@
             </div>
             <div class="column">
               <b-field label="Implication dans la situation">
-                <b-select v-model="model.author_status">
+                <b-select expanded v-model="model.author_status">
                   <option
                     v-for="option in statuses"
                     :key="option.key"
@@ -170,13 +170,61 @@
           </div>
 
           <div class="columns">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
+            <div class="column">
+              <b-field label="Niveau de pratique">
+                <b-select expanded v-model="model.autonomy">
+                  <option
+                    v-for="option in autonomies"
+                    :key="option.key"
+                    :value="option.key"
+                  >
+                    {{ option.value }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field label="Fréquence de pratique dans l'activité">
+                <b-select expanded v-model="model.activity_rate">
+                  <option
+                    v-for="option in activityRates"
+                    :key="option.key"
+                    :value="option.key"
+                  >
+                    {{ option.value }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field label="Implication dans la situation">
+                <b-select expanded v-model="model.nb_outings">
+                  <option
+                    v-for="option in nbOutings"
+                    :key="option.key"
+                    :value="option.key"
+                  >
+                    {{ option.value }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
           </div>
 
           <div class="columns">
-            <div class="column"></div>
+            <div class="column">
+              <b-field label="Implication dans la situation">
+                <b-select expanded v-model="model.previous_injuries">
+                  <option
+                    v-for="option in previousInjuries"
+                    :key="option.key"
+                    :value="option.key"
+                  >
+                    {{ option.value }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
             <div class="column"></div>
             <div class="column"></div>
           </div>
@@ -195,6 +243,124 @@
               placeholder="Décrivez le déroulement de la sortie et de l'incident/accident. Si vous avez déjà saisi une sortie, vous pouvez décrire uniquement l'évènement, puis associez ce compte-rendu à la sortie."
             ></b-input>
           </b-field>
+
+          <b-field label="Lieu">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].place"
+              placeholder="Information sur la localisation de l'incident. Positionner la localisation sur la carte ci-dessus, même de manière peu précise (auquel cas vous pouvez ajouter plus de détails dans ce champ). Après avoir complété le rapport, vous pouvez associer un itinéraire, un point de passage ou une sortie."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Étude de l'itinéraire">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].route_study"
+              placeholder="Carte, topos, connaissance de l’itinéraire, anticipation d’un plan B, réévaluation de l’itinéraire en cours de sortie ?"
+            ></b-input>
+          </b-field>
+
+          <b-field label="Conditions">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].conditions"
+              placeholder="Décrivez les informations récoltées avant la sortie et le suivi de leur évolution sur le terrain. Cela concerne les prévisions météo, les bulletins d'évaluation du risque d'avalanche, la qualité du regel, la qualité de la neige/glace/rocher, les compte rendu des jours précédents, etc."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Préparation physique et niveau technique">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].training"
+              placeholder="Décrivez votre niveau technique et expérience par rapport à l’objectif choisi, votre condition physique, la fatigue accumulée avant la sortie, l’acclimatation pour une sortie en altitude, etc."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Motivations">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].motivations"
+              placeholder="Pourquoi avoir choisi cette sortie ? A quel point étiez-vous attaché à l'objectif fixé ? Considérez l'influence de possibles choix effectués en amont (jours de congés, long trajet, réservations de nuitées...), des efforts réalisés jusque-là, de la rareté de l'opportunité, etc."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Gestion du groupe">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].group_management"
+              placeholder="Communication des objectifs et attentes de chacun, des craintes et observations en cours de sortie, briefing pour établir de nouvelles stratégies, éléments de conduite de groupe et de responsabilités, groupe habitué à fonctionner ensemble ou non, émulation, etc."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Niveau de l'attention et évaluation des risques">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].risk"
+              placeholder="Avez-vous (ré)évalué les risques à chaque changement de situation ?&#10;Considérez des facteurs qui ont pu influencer votre niveau d'attention tels que la fatigue, le stress, la baisse d'attention une fois les difficultés passées ou à la descente, un secteur connu ou réputé facile, la présence de traces ou d'autres personnes, une confiance totale dans le responsable du groupe, etc."
+            ></b-input>
+          </b-field>
+
+          <b-field label="Gestion de l'horaire">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].time_management"
+              placeholder="Un horaire avait-il été prévu ? A t-il été tenu ? La gestion du temps a t-elle eu une influence sur le déclenchement de l'événement ?"
+            ></b-input>
+          </b-field>
+
+          <b-field label="Mesures et techniques de sécurité mises en oeuvre">
+            <b-input
+              type="textarea"
+              v-model="model.locales[0].safety"
+              placeholder="Type d'assurage et de protection, vérifications entre grimpeurs, tests de stabilité du manteau neigeux, test des DVA, etc."
+            ></b-input>
+          </b-field>
+
+          <div class="columns">
+            <div class="column">
+              <b-field
+                label="Éléments ayant atténué les conséquences de l'évènement"
+              >
+                <b-input
+                  type="textarea"
+                  v-model="model.locales[0].reduce_impact"
+                ></b-input>
+              </b-field>
+            </div>
+
+            <div class="column">
+              <b-field
+                label="Éléments ayant aggravé les conséqunces de l'évènement"
+              >
+                <b-input
+                  type="textarea"
+                  v-model="model.locales[0].increase_impact"
+                ></b-input>
+              </b-field>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <b-field label="Conséquences sur les pratiques">
+                <b-input
+                  type="textarea"
+                  v-model="model.locales[0].modifications"
+                  placeholder="Cet évènement a-t-il modifié vos habitudes ? Quels enseignements en avez-vous tiré ?"
+                ></b-input>
+              </b-field>
+            </div>
+
+            <div class="column">
+              <b-field label="Conséquences physiques et autres commentaires">
+                <b-input
+                  type="textarea"
+                  v-model="model.locales[0].other_comments"
+                  placeholder="Décrivez brièvement les blessures éventuelles, et ce que vous feriez aujourd'hui avec du recul. Les commentaires qui n'entrent dans aucun autre champ peuvent être saisis ici."
+                ></b-input>
+              </b-field>
+            </div>
+          </div>
 
           <button type="submit">Soumettre</button>
         </form>
@@ -220,6 +386,10 @@ import Report, {
   ALL_AVALANCHE_SLOPES,
   ALL_GENDERS,
   ALL_AUTHOR_STATUSES,
+  ALL_AUTONOMIES,
+  ALL_ACTIVITY_RATES,
+  ALL_NB_OUTINGS,
+  ALL_PREVIOUS_INJURIES,
 } from '../model/report';
 import i18n from '../model/i18n';
 
@@ -265,6 +435,10 @@ export default class ReportEdit extends Vue {
   avalancheSlopes = this.select(ALL_AVALANCHE_SLOPES);
   genders = this.select(ALL_GENDERS);
   statuses = this.select(ALL_AUTHOR_STATUSES);
+  autonomies = this.select(ALL_AUTONOMIES);
+  activityRates = this.select(ALL_ACTIVITY_RATES);
+  nbOutings = this.select(ALL_NB_OUTINGS);
+  previousInjuries = this.select(ALL_PREVIOUS_INJURIES);
 
   beforeRouteEnter(
     to: Route,
