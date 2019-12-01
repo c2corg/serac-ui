@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import App from './App.vue';
 import router from './router';
+import i18n from './model/i18n';
 
 import {
   hiking,
@@ -31,6 +32,10 @@ import {
   faAngleLeft,
   faAngleRight,
   faCalendar,
+  faEdit,
+  faUpload,
+  faInfo,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -49,7 +54,11 @@ library.add(
   faExclamationCircle,
   faAngleLeft,
   faAngleRight,
-  faCalendar
+  faCalendar,
+  faEdit,
+  faUpload,
+  faInfo,
+  faPlus
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
@@ -67,7 +76,7 @@ Vue.use(Buefy, {
   defaultIconPack: 'fas',
 });
 
-Vue.config.productionTip = false; //! FIXME:
+Vue.config.productionTip = false;
 
 new Vue({
   router,

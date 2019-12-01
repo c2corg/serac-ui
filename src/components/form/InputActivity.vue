@@ -1,15 +1,21 @@
 <template>
-  <div>
-    <span
+  <div class="input-activity">
+    <div
       v-for="activity of activities"
       :key="activity.key"
       :title="activity.value"
-      :checked="value_.includes(activity.key)"
       @click="toggle(activity.key)"
+      class="input-activity__item has-text-centered"
     >
-      <icon-activity :activity="activity.key"></icon-activity>
-      <span>{{ activity.value }}</span>
-    </span>
+      <icon-activity
+        :activity="activity.key"
+        class="input-activity__icon is-size-2"
+        v-bind:class="{
+          'has-text-primary': value_.includes(activity.key),
+        }"
+      ></icon-activity>
+      <div>{{ activity.value }}</div>
+    </div>
   </div>
 </template>
 
@@ -54,7 +60,15 @@ export default class InputActivity extends Vue {
 </script>
 
 <style lang="scss" scoped>
-span[checked] {
-  color: red;
+.input-activity {
+  &__item {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100px;
+  }
+  &__icon {
+    margin: auto;
+    cursor: pointer;
+  }
 }
 </style>

@@ -29,6 +29,10 @@ export default {
       .put<void>(`${baseUrl}/xreports/${report.id}`, report)
       .then(response => response.data);
   },
+
+  validateReport(report: Report): Promise<void> {
+    return this.editReport({ ...report, validated: true });
+  },
 };
 
 export interface CreateResponse {

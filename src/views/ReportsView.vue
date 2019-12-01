@@ -1,6 +1,18 @@
 <template>
   <div>
-    <h1>Rapports incidents/accidents</h1>
+    <p class="title">Rapports incidents/accidents</p>
+
+    <b-button
+      type="is-primary"
+      @click="
+        $router.push({
+          name: 'report-add',
+        })
+      "
+    >
+      <fa-icon icon="plus"></fa-icon> Ajouter un nouveau rapport
+    </b-button>
+
     <b-pagination
       :total="total"
       :current="currentPage"

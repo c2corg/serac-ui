@@ -8,7 +8,7 @@ export default interface Report {
   age?: number;
   autonomy?: Autonomy;
   avalanche_slope?: AvalancheSlope;
-  activities?: Activity[];
+  activities: Activity[];
   nb_outings?: NbOutings;
   gender?: Gender;
   nb_impacted?: number;

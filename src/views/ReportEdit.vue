@@ -16,10 +16,18 @@
             </b-field>
           </validation-provider>
 
-          <b-field label="Activités">
-            <!-- TODO: error handling, activity is mandatory -->
-            <input-activity v-model="model.activities"></input-activity>
-          </b-field>
+          <validation-provider rules="required" v-slot="{ errors }">
+            <b-field
+              label="Activités"
+              :type="{ 'is-danger': errors.length }"
+              :message="errors[0]"
+            >
+              <input-activity
+                class="control"
+                v-model="model.activities"
+              ></input-activity>
+            </b-field>
+          </validation-provider>
 
           <!-- ! geolocation -->
 
@@ -30,7 +38,11 @@
               tag="div"
               class="column"
             >
-              <b-field label="Date" :message="errors[0]">
+              <b-field
+                label="Date"
+                :message="errors[0]"
+                :type="{ 'is-danger': errors.length }"
+              >
                 <b-datepicker
                   placeholder="Cliquez pour choisir la date"
                   icon="calendar"
@@ -75,6 +87,14 @@
             </div>
 
             <div class="column">
+              <input-select
+                field="severity"
+                :report="model"
+                :values="severities"
+              ></input-select>
+            </div>
+
+            <!--<div class="column">
               <b-field label="Gravité">
                 <b-select expanded v-model="model.severity">
                   <option
@@ -86,9 +106,9 @@
                   </option>
                 </b-select>
               </b-field>
-            </div>
+            </div>-->
 
-            <div clas="column">
+            <div class="column">
               <b-field label="Intervention des services de secours">
                 <div>
                   <b-radio v-model="model.rescue" native-value="true">
@@ -361,8 +381,21 @@
               </b-field>
             </div>
           </div>
-
-          <button type="submit">Soumettre</button>
+          <div class="buttons is-right">
+            <b-button
+              @click="
+                $router.push({
+                  name: 'report',
+                  params: { id: $route.params.id },
+                })
+              "
+            >
+              Annuler
+            </b-button>
+            <b-button type="is-primary" native-type="submit">
+              Soumettre
+            </b-button>
+          </div>
         </form>
       </validation-observer>
     </div>
@@ -374,11 +407,12 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { Route, RawLocation } from 'vue-router';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+import { required } from 'vee-validate/dist/rules';
 import { formatISO } from 'date-fns';
 
 import api from '../services/api.service';
 import InputActivity from '../components/form/InputActivity.vue';
+import InputSelect from '../components/form/InputSelect.vue';
 import Report, {
   ALL_SEVERITIES,
   ALL_EVENT_TYPES,
@@ -395,22 +429,13 @@ import i18n from '../model/i18n';
 
 extend('required', {
   ...required,
-  message: (fieldName, placeholders) => {
-    switch (fieldName) {
-      case 'title':
-        return 'Le titre ne peut pas être vide';
-      default:
-        // ! FIXME:
-        return `Ce champ ${
-          placeholders ? placeholders['_field_'] : 'xx'
-        } ne peut pas être vide`;
-    }
-  },
+  message: 'Ce champ est obligatoire',
 });
 
 const newReport = (): Omit<Report, 'id'> => ({
   validated: false,
   custom: {},
+  activities: [],
   event_type: [],
   locales: [
     {
@@ -420,7 +445,12 @@ const newReport = (): Omit<Report, 'id'> => ({
 });
 
 @Component({
-  components: { ValidationProvider, ValidationObserver, InputActivity },
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+    InputActivity,
+    InputSelect,
+  },
 })
 export default class ReportEdit extends Vue {
   @Prop()
@@ -429,7 +459,7 @@ export default class ReportEdit extends Vue {
   model: Report | Omit<Report, 'id'> | null = null;
 
   today: Date = new Date();
-  severities = this.select(ALL_SEVERITIES);
+  severities = ALL_SEVERITIES;
   eventTypes = this.select(ALL_EVENT_TYPES);
   avalancheLevels = this.select(ALL_AVALANCHE_LEVELS);
   avalancheSlopes = this.select(ALL_AVALANCHE_SLOPES);

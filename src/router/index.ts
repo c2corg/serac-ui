@@ -1,9 +1,10 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, { Route } from 'vue-router';
 import Home from '../views/Home.vue';
 import ReportsView from '../views/ReportsView.vue';
 import ReportView from '../views/ReportView.vue';
 import ReportEdit from '../views/ReportEdit.vue';
+import { Position } from 'vue-router/types/router';
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior: (to: Route, from: Route, savedPosition: void | Position) => {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
 });
 
 export default router;
