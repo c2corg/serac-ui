@@ -1,6 +1,7 @@
 import './class-component-hooks';
 
 import Vue, { CreateElement, VNode } from 'vue';
+import VueI18n from 'vue-i18n';
 import VueProgressBar from 'vue-progressbar';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import { Config } from 'dompurify';
@@ -12,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import App from './App.vue';
 import router from './router';
-import i18n from './model/i18n';
+import i18n from './i18n';
 
 import {
   hiking,
@@ -80,5 +81,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  i18n,
   render: (h: CreateElement): VNode => h(App),
 }).$mount('#app');

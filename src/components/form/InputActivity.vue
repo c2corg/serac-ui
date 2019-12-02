@@ -23,7 +23,6 @@
 import Vue from 'vue';
 import { Prop, Component } from 'vue-property-decorator';
 import { ALL_ACTIVITIES, Activity } from '../../model/report';
-import i18n from '../../model/i18n';
 import IconActivity from '../IconActivity.vue';
 
 @Component({ components: { IconActivity } })
@@ -42,7 +41,7 @@ export default class InputActivity extends Vue {
   get activities() {
     return ALL_ACTIVITIES.map(activity => ({
       key: activity,
-      value: i18n.get(activity),
+      value: this.$t('field.activities.values.' + activity),
     }));
   }
 

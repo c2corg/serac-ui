@@ -1,5 +1,8 @@
 <template>
-  <fa-icon :icon="['activity', activity]" />
+  <fa-icon
+    :icon="['activity', activity]"
+    :title="$t(`field.activities.values.${activity}`)"
+  />
 </template>
 
 <script lang="ts">

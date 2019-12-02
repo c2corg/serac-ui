@@ -32,13 +32,19 @@ export default class ReportsTable extends Vue {
   beforeMount() {
     this.columnDefs = [
       {
-        headerName: 'Date',
+        headerName: this.$t('field.date.label') as string,
         field: 'date',
       },
-      { headerName: 'Titre', cellRendererFramework: TitleCellRenderer },
-      { headerName: 'Type', cellRendererFramework: EventTypeCellRenderer },
       {
-        headerName: 'Activités',
+        headerName: this.$t('field.title.label') as string,
+        cellRendererFramework: TitleCellRenderer,
+      },
+      {
+        headerName: this.$t('field.event_type.label') as string,
+        cellRendererFramework: EventTypeCellRenderer,
+      },
+      {
+        headerName: this.$t('field.activities.label') as string,
         cellRendererFramework: ActivitiesCellRenderer,
       },
     ];

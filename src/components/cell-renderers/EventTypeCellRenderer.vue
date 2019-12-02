@@ -5,7 +5,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import i18n from '../../model/i18n';
 import { EventType } from '../../model/report';
 
 @Component
@@ -17,7 +16,7 @@ export default class EventTypeListCellRenderer extends Vue {
       return '';
     }
     return (this.params.data.event_type as EventType[])
-      .map(event => i18n.get(event))
+      .map(event => this.$t('field.event_type.values.' + event))
       .join(', ');
   }
 }

@@ -5,13 +5,13 @@
       <div class="level-right">
         <router-link
           :to="{ name: 'report-edit', params: { id: report.id } }"
-          title="Modifier"
+          :title="$t('button.edit')"
         >
           <fa-icon icon="edit" />
         </router-link>
         <a
           href="#"
-          title="Publier sur camptcamp.org"
+          :title="$t('button.validate')"
           @click="publish"
           v-if="!report.validated"
         >
@@ -28,7 +28,7 @@
           <!-- FIXME: contributeur -->
           <field-view
             class="is-lowercase"
-            :title="i18n('event_type')"
+            :title="$t('field.event_type.label')"
             v-if="report.event_type && report.event_type.length"
           >
             {{ eventTypes }}
@@ -38,7 +38,10 @@
             field="avalanche_level"
           ></simple-field-view>
           <simple-field-view :report="report" field="avalanche_slope" />
-          <field-view :title="i18n('elevation')" v-if="report.elevation">
+          <field-view
+            :title="$t('field.elevation.label')"
+            v-if="report.elevation"
+          >
             {{ report.elevation }}&nbsp;m
           </field-view>
           <simple-field-view :report="report" field="nb_participants" />
@@ -48,6 +51,7 @@
         </div>
         <div class="box">
           <p>Geolocation</p>
+          <!-- FIXME: i18n -->
         </div>
       </div>
       <div class="column">
@@ -60,7 +64,7 @@
           <div v-for="field in textFields" :key="field">
             <text-view
               v-if="report.locales[0][field]"
-              :title="i18n(field)"
+              :title="$t(`field.${field}.label`)"
               :content="report.locales[0][field]"
             ></text-view>
           </div>
@@ -81,7 +85,6 @@ import ActivityList from '../components/ActivityList.vue';
 import TextView from '../components/TextView.vue';
 import FieldView from '../components/FieldView.vue';
 import SimpleFieldView from '../components/SimpleFieldView.vue';
-import i18n from '../model/i18n';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -146,7 +149,9 @@ export default class ReportView extends Vue {
 
   get eventTypes() {
     return this.report && this.report.event_type
-      ? this.report.event_type.map(event => i18n.get(event)).join(', ')
+      ? this.report.event_type
+          .map(event => this.$t(`field.event_type.values.${event}`))
+          .join(', ')
       : '';
   }
 
@@ -154,10 +159,7 @@ export default class ReportView extends Vue {
     this.report = report;
   }
 
-  i18n(field: string) {
-    return i18n.get(field);
-  }
-
+  // ! FIXME i18n
   publish() {
     this.$buefy.dialog.confirm({
       title: 'Valider et publier sur camptocamp.org?',

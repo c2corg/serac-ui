@@ -12,7 +12,6 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Report from '../../model/report';
-import i18n from '../../model/i18n';
 
 @Component
 export default class InputSelect extends Vue {
@@ -26,11 +25,14 @@ export default class InputSelect extends Vue {
   values!: string[];
 
   get label() {
-    return i18n.get(this.field);
+    return this.$t(`field.${this.field}.label`);
   }
 
   get options() {
-    return this.values.map(value => ({ key: value, value: i18n.get(value) }));
+    return this.values.map(value => ({
+      key: value,
+      value: this.$t(`field.${this.field}.values.${value}`),
+    }));
   }
 }
 </script>

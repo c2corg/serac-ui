@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">Rapports incidents/accidents</p>
+    <p class="title" v-t="'list.title'"></p>
 
     <b-button
       type="is-primary"
@@ -10,7 +10,7 @@
         })
       "
     >
-      <fa-icon icon="plus"></fa-icon> Ajouter un nouveau rapport
+      <fa-icon icon="plus"></fa-icon> {{ $t('button.new') }}
     </b-button>
 
     <b-pagination

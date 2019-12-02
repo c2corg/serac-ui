@@ -17,7 +17,6 @@
 import Vue from 'vue';
 import { Prop, Component } from 'vue-property-decorator';
 import { ALL_EVENT_TYPES, EventType } from '../../model/report';
-import i18n from '../../model/i18n';
 
 @Component
 export default class InputEventType extends Vue {
@@ -35,7 +34,7 @@ export default class InputEventType extends Vue {
   get types() {
     return ALL_EVENT_TYPES.map(type => ({
       key: type,
-      value: i18n.get(type),
+      value: this.$t('field.event_type.values.' + type),
     }));
   }
 

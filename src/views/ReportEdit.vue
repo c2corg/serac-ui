@@ -5,7 +5,7 @@
         <form v-if="model" action="#" @submit.prevent="handleSubmit(onSubmit)">
           <validation-provider rules="required" v-slot="{ errors }">
             <b-field
-              label="Titre"
+              :label="$t('field.title.label')"
               :type="{ 'is-danger': errors.length }"
               :message="errors[0]"
             >
@@ -18,7 +18,7 @@
 
           <validation-provider rules="required" v-slot="{ errors }">
             <b-field
-              label="Activités"
+              :label="$t('field.activities.label')"
               :type="{ 'is-danger': errors.length }"
               :message="errors[0]"
             >
@@ -39,12 +39,12 @@
               class="column"
             >
               <b-field
-                label="Date"
+                :label="$t('field.date.label')"
                 :message="errors[0]"
                 :type="{ 'is-danger': errors.length }"
               >
                 <b-datepicker
-                  placeholder="Cliquez pour choisir la date"
+                  :placeholder="$t('field.date.placeholder')"
                   icon="calendar"
                   :max-date="today"
                   v-model="date"
@@ -53,7 +53,7 @@
             </validation-provider>
 
             <div class="column">
-              <b-field label="Nombre de participants">
+              <b-field :label="$t('field.nb_impacted.label')">
                 <b-input
                   type="number"
                   min="1"
@@ -63,7 +63,7 @@
             </div>
           </div>
 
-          <b-field label="Type d'évènement">
+          <b-field :label="$t('field.event_type.label')">
             <input-event-type
               class="control"
               v-model="model.event_type"
@@ -72,7 +72,7 @@
 
           <div class="columns">
             <div class="column">
-              <b-field label="Nombre de personnes touchées">
+              <b-field :label="$t('field.nb_impacted.label')">
                 <b-input
                   type="number"
                   min="1"
@@ -90,16 +90,20 @@
             </div>
 
             <div class="column">
-              <b-field label="Intervention des services de secours">
+              <b-field :label="$t('field.rescue.label')">
                 <div>
-                  <b-radio v-model="model.rescue" native-value="true">
-                    Oui
-                  </b-radio>
-                  <b-radio v-model="model.rescue" native-value="false">
-                    Non
-                  </b-radio>
+                  <b-radio
+                    v-model="model.rescue"
+                    native-value="true"
+                    v-t="'field.rescue.values.true'"
+                  ></b-radio>
+                  <b-radio
+                    v-model="model.rescue"
+                    native-value="false"
+                    v-t="'field.rescue.values.false'"
+                  ></b-radio>
                   <b-radio v-model="model.rescue" native-value="null">
-                    <em>Pas d'information</em>
+                    <em v-t="'field.rescue.values.null'"></em>
                   </b-radio>
                 </div>
               </b-field>
@@ -126,7 +130,7 @@
 
           <div class="columns">
             <div class="column">
-              <b-field label="Âge">
+              <b-field :label="$t('field.age.label')">
                 <b-input type="number" v-model="model.age" min="1"></b-input>
               </b-field>
             </div>
@@ -189,91 +193,89 @@
             ></b-input>
           </b-field>
 
-          <b-field label="Description">
+          <b-field :label="$t('field.description.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].description"
-              placeholder="Décrivez le déroulement de la sortie et de l'incident/accident. Si vous avez déjà saisi une sortie, vous pouvez décrire uniquement l'évènement, puis associez ce compte-rendu à la sortie."
+              :placeholder="$t('field.description.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Lieu">
+          <b-field :label="$t('field.place.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].place"
-              placeholder="Information sur la localisation de l'incident. Positionner la localisation sur la carte ci-dessus, même de manière peu précise (auquel cas vous pouvez ajouter plus de détails dans ce champ). Après avoir complété le rapport, vous pouvez associer un itinéraire, un point de passage ou une sortie."
+              :placeholder="$t('field.place.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Étude de l'itinéraire">
+          <b-field :label="$t('field.route_study.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].route_study"
-              placeholder="Carte, topos, connaissance de l’itinéraire, anticipation d’un plan B, réévaluation de l’itinéraire en cours de sortie ?"
+              :placeholder="$t('field.route_study.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Conditions">
+          <b-field :label="$t('field.conditions.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].conditions"
-              placeholder="Décrivez les informations récoltées avant la sortie et le suivi de leur évolution sur le terrain. Cela concerne les prévisions météo, les bulletins d'évaluation du risque d'avalanche, la qualité du regel, la qualité de la neige/glace/rocher, les compte rendu des jours précédents, etc."
+              :placeholder="$t('field.conditions.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Préparation physique et niveau technique">
+          <b-field :label="$t('field.training.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].training"
-              placeholder="Décrivez votre niveau technique et expérience par rapport à l’objectif choisi, votre condition physique, la fatigue accumulée avant la sortie, l’acclimatation pour une sortie en altitude, etc."
+              :placeholder="$t('field.training.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Motivations">
+          <b-field :label="$t('field.motivations.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].motivations"
-              placeholder="Pourquoi avoir choisi cette sortie ? A quel point étiez-vous attaché à l'objectif fixé ? Considérez l'influence de possibles choix effectués en amont (jours de congés, long trajet, réservations de nuitées...), des efforts réalisés jusque-là, de la rareté de l'opportunité, etc."
+              :placeholder="$t('field.motivations.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Gestion du groupe">
+          <b-field :label="$t('field.group_management.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].group_management"
-              placeholder="Communication des objectifs et attentes de chacun, des craintes et observations en cours de sortie, briefing pour établir de nouvelles stratégies, éléments de conduite de groupe et de responsabilités, groupe habitué à fonctionner ensemble ou non, émulation, etc."
+              :placeholder="$t('field.group_management.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Niveau de l'attention et évaluation des risques">
+          <b-field :label="$t('field.risk_study.label')">
             <b-input
               type="textarea"
-              v-model="model.locales[0].risk"
-              placeholder="Avez-vous (ré)évalué les risques à chaque changement de situation ?&#10;Considérez des facteurs qui ont pu influencer votre niveau d'attention tels que la fatigue, le stress, la baisse d'attention une fois les difficultés passées ou à la descente, un secteur connu ou réputé facile, la présence de traces ou d'autres personnes, une confiance totale dans le responsable du groupe, etc."
+              v-model="model.locales[0].risk_study"
+              :placeholder="$t('field.risk_study.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Gestion de l'horaire">
+          <b-field :label="$t('field.time_management.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].time_management"
-              placeholder="Un horaire avait-il été prévu ? A t-il été tenu ? La gestion du temps a t-elle eu une influence sur le déclenchement de l'événement ?"
+              :placeholder="$t('field.time_management.placeholder')"
             ></b-input>
           </b-field>
 
-          <b-field label="Mesures et techniques de sécurité mises en oeuvre">
+          <b-field :label="$t('field.safety.label')">
             <b-input
               type="textarea"
               v-model="model.locales[0].safety"
-              placeholder="Type d'assurage et de protection, vérifications entre grimpeurs, tests de stabilité du manteau neigeux, test des DVA, etc."
+              :placeholder="$t('field.safety.placeholder')"
             ></b-input>
           </b-field>
 
           <div class="columns">
             <div class="column">
-              <b-field
-                label="Éléments ayant atténué les conséquences de l'évènement"
-              >
+              <b-field :label="$t('field.reduce_impact.label')">
                 <b-input
                   type="textarea"
                   v-model="model.locales[0].reduce_impact"
@@ -282,9 +284,7 @@
             </div>
 
             <div class="column">
-              <b-field
-                label="Éléments ayant aggravé les conséqunces de l'évènement"
-              >
+              <b-field :label="$t('field.increase_impact.label')">
                 <b-input
                   type="textarea"
                   v-model="model.locales[0].increase_impact"
@@ -295,21 +295,21 @@
 
           <div class="columns">
             <div class="column">
-              <b-field label="Conséquences sur les pratiques">
+              <b-field :label="$t('field.modifications.label')">
                 <b-input
                   type="textarea"
                   v-model="model.locales[0].modifications"
-                  placeholder="Cet évènement a-t-il modifié vos habitudes ? Quels enseignements en avez-vous tiré ?"
+                  :placeholder="$t('field.modifications.placeholder')"
                 ></b-input>
               </b-field>
             </div>
 
             <div class="column">
-              <b-field label="Conséquences physiques et autres commentaires">
+              <b-field :label="$t('field.other_comments.label')">
                 <b-input
                   type="textarea"
                   v-model="model.locales[0].other_comments"
-                  placeholder="Décrivez brièvement les blessures éventuelles, et ce que vous feriez aujourd'hui avec du recul. Les commentaires qui n'entrent dans aucun autre champ peuvent être saisis ici."
+                  :placeholder="$t('field.other_comments.placeholder')"
                 ></b-input>
               </b-field>
             </div>
@@ -322,12 +322,13 @@
                   params: { id: $route.params.id },
                 })
               "
-            >
-              Annuler
-            </b-button>
-            <b-button type="is-primary" native-type="submit">
-              Soumettre
-            </b-button>
+              v-t="'button.cancel'"
+            ></b-button>
+            <b-button
+              type="is-primary"
+              native-type="submit"
+              v-t="'button.submit'"
+            ></b-button>
           </div>
         </form>
       </validation-observer>
@@ -358,11 +359,11 @@ import Report, {
   ALL_NB_OUTINGS,
   ALL_PREVIOUS_INJURIES,
 } from '../model/report';
-import i18n from '../model/i18n';
+import { messages } from '../i18n';
 
 extend('required', {
   ...required,
-  message: 'Ce champ est obligatoire',
+  message: messages.fr.required as string,
 });
 
 const newReport = (): Omit<Report, 'id'> => ({
