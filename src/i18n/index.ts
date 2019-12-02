@@ -214,6 +214,15 @@ export const messages: LocaleMessages = {
       },
     },
     list: { title: 'Rapports incidents/accidents' },
+    markdown: {
+      button: {
+        emphasized: 'Italique',
+        expand: 'Plein écran',
+        heading: 'Titre',
+        shrink: 'Quitter le plein écran',
+        strong: 'Gras',
+      },
+    },
   },
 };
 
