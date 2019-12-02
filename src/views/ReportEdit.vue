@@ -92,16 +92,12 @@
             <div class="column">
               <b-field :label="$t('field.rescue.label')">
                 <div>
-                  <b-radio
-                    v-model="model.rescue"
-                    native-value="true"
-                    v-t="'field.rescue.values.true'"
-                  ></b-radio>
-                  <b-radio
-                    v-model="model.rescue"
-                    native-value="false"
-                    v-t="'field.rescue.values.false'"
-                  ></b-radio>
+                  <b-radio v-model="model.rescue" native-value="true">
+                    {{ $t('field.rescue.values.true') }}
+                  </b-radio>
+                  <b-radio v-model="model.rescue" native-value="false">
+                    {{ $t('field.rescue.values.false') }}
+                  </b-radio>
                   <b-radio v-model="model.rescue" native-value="null">
                     <em v-t="'field.rescue.values.null'"></em>
                   </b-radio>
