@@ -63,16 +63,11 @@
             </div>
           </div>
 
-          <!-- type d'évènement -->
           <b-field label="Type d'évènement">
-            <b-checkbox-button
-              v-for="event in eventTypes"
-              :key="event.key"
+            <input-event-type
+              class="control"
               v-model="model.event_type"
-              :native-value="event.key"
-            >
-              {{ event.value }}
-            </b-checkbox-button>
+            ></input-event-type>
           </b-field>
 
           <div class="columns">
@@ -94,20 +89,6 @@
               ></input-select>
             </div>
 
-            <!--<div class="column">
-              <b-field label="Gravité">
-                <b-select expanded v-model="model.severity">
-                  <option
-                    v-for="option in severities"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
-            </div>-->
-
             <div class="column">
               <b-field label="Intervention des services de secours">
                 <div>
@@ -127,30 +108,18 @@
 
           <div class="columns">
             <div class="column">
-              <b-field label="Niveau de risque d'avalanche">
-                <b-select expanded v-model="model.avalanche_level">
-                  <option
-                    v-for="option in avalancheLevels"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="avalanche_level"
+                :report="model"
+                :values="avalancheLevels"
+              ></input-select>
             </div>
             <div class="column">
-              <b-field label="Pente de la zone de départ">
-                <b-select expanded v-model="model.avalanche_slope">
-                  <option
-                    v-for="option in avalancheSlopes"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="avalanche_slope"
+                :report="model"
+                :values="avalancheSlopes"
+              ></input-select>
             </div>
             <div class="column"></div>
           </div>
@@ -162,88 +131,52 @@
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Sexe">
-                <b-select expanded v-model="model.gender">
-                  <option
-                    v-for="option in genders"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="gender"
+                :report="model"
+                :values="genders"
+              ></input-select>
             </div>
             <div class="column">
-              <b-field label="Implication dans la situation">
-                <b-select expanded v-model="model.author_status">
-                  <option
-                    v-for="option in statuses"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="author_status"
+                :report="model"
+                :values="statuses"
+              ></input-select>
             </div>
           </div>
 
           <div class="columns">
             <div class="column">
-              <b-field label="Niveau de pratique">
-                <b-select expanded v-model="model.autonomy">
-                  <option
-                    v-for="option in autonomies"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="autonomy"
+                :report="model"
+                :values="autonomies"
+              ></input-select>
             </div>
             <div class="column">
-              <b-field label="Fréquence de pratique dans l'activité">
-                <b-select expanded v-model="model.activity_rate">
-                  <option
-                    v-for="option in activityRates"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="activity_rate"
+                :report="model"
+                :values="activityRates"
+              ></input-select>
             </div>
             <div class="column">
-              <b-field label="Implication dans la situation">
-                <b-select expanded v-model="model.nb_outings">
-                  <option
-                    v-for="option in nbOutings"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="nb_outings"
+                :report="model"
+                :values="nbOutings"
+              ></input-select>
             </div>
           </div>
 
           <div class="columns">
             <div class="column">
-              <b-field label="Implication dans la situation">
-                <b-select expanded v-model="model.previous_injuries">
-                  <option
-                    v-for="option in previousInjuries"
-                    :key="option.key"
-                    :value="option.key"
-                  >
-                    {{ option.value }}
-                  </option>
-                </b-select>
-              </b-field>
+              <input-select
+                field="previous_injuries"
+                :report="model"
+                :values="previousInjuries"
+              ></input-select>
             </div>
             <div class="column"></div>
             <div class="column"></div>
@@ -412,10 +345,10 @@ import { formatISO } from 'date-fns';
 
 import api from '../services/api.service';
 import InputActivity from '../components/form/InputActivity.vue';
+import InputEventType from '../components/form/InputEventType.vue';
 import InputSelect from '../components/form/InputSelect.vue';
 import Report, {
   ALL_SEVERITIES,
-  ALL_EVENT_TYPES,
   ALL_AVALANCHE_LEVELS,
   ALL_AVALANCHE_SLOPES,
   ALL_GENDERS,
@@ -450,6 +383,7 @@ const newReport = (): Omit<Report, 'id'> => ({
     ValidationObserver,
     InputActivity,
     InputSelect,
+    InputEventType,
   },
 })
 export default class ReportEdit extends Vue {
@@ -460,15 +394,14 @@ export default class ReportEdit extends Vue {
 
   today: Date = new Date();
   severities = ALL_SEVERITIES;
-  eventTypes = this.select(ALL_EVENT_TYPES);
-  avalancheLevels = this.select(ALL_AVALANCHE_LEVELS);
-  avalancheSlopes = this.select(ALL_AVALANCHE_SLOPES);
-  genders = this.select(ALL_GENDERS);
-  statuses = this.select(ALL_AUTHOR_STATUSES);
-  autonomies = this.select(ALL_AUTONOMIES);
-  activityRates = this.select(ALL_ACTIVITY_RATES);
-  nbOutings = this.select(ALL_NB_OUTINGS);
-  previousInjuries = this.select(ALL_PREVIOUS_INJURIES);
+  avalancheLevels = ALL_AVALANCHE_LEVELS;
+  avalancheSlopes = ALL_AVALANCHE_SLOPES;
+  genders = ALL_GENDERS;
+  statuses = ALL_AUTHOR_STATUSES;
+  autonomies = ALL_AUTONOMIES;
+  activityRates = ALL_ACTIVITY_RATES;
+  nbOutings = ALL_NB_OUTINGS;
+  previousInjuries = ALL_PREVIOUS_INJURIES;
 
   beforeRouteEnter(
     to: Route,
@@ -494,12 +427,6 @@ export default class ReportEdit extends Vue {
         next();
       })
       .catch((err: Error) => next(err));
-  }
-
-  private select(
-    values: string[]
-  ): { key: string; value: string | undefined }[] {
-    return values.map(value => ({ key: value, value: i18n.get(value) }));
   }
 
   setReport(report: Report | Omit<Report, 'id'>) {
