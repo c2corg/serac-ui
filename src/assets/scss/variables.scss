@@ -1,0 +1,19 @@
+// Import Bulma's core
+@import '~bulma/sass/utilities/_all';
+
+$primary-invert: findColorInvert($primary);
+$primary: #f93;
+
+// Set your colors
+
+$colors: (
+  'primary': (
+    $primary,
+    $primary-invert,
+  ),
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;

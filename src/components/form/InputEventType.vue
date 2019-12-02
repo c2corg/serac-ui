@@ -52,6 +52,8 @@ export default class InputEventType extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/scss/variables.scss';
+
 .input-event-type {
   &__button {
     display: inline-flex;

@@ -23,35 +23,6 @@
   </div>
 </template>
 
-<style lang="scss">
-// ! to customize as needed
-// ! see https://bulma.io/documentation/overview/modular/ and https://buefy.org/documentation/customization/
-// Import Bulma's core
-@import '~bulma/sass/utilities/_all';
-
-// Set your colors
-$primary: #f93;
-$primary-invert: findColorInvert($primary);
-
-$colors: (
-  'primary': (
-    $primary,
-    $primary-invert,
-  ),
-);
-
-// Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
-
-// Import Bulma and Buefy styles
-@import '~bulma';
-@import '~buefy/src/scss/buefy';
-</style>
-
-<style scoped lang="scss"></style>
-
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';

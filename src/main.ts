@@ -77,6 +77,8 @@ Vue.use(Buefy, {
   defaultIconPack: 'fas',
 });
 
+require('./assets/scss/main.scss');
+
 Vue.config.productionTip = false;
 
 new Vue({
