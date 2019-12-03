@@ -50,8 +50,7 @@
           <simple-field-view :report="report" field="severity" />
         </div>
         <div class="box">
-          <p>Geolocation</p>
-          <!-- FIXME: i18n -->
+          <geolocation-map :coords="coords"></geolocation-map>
         </div>
       </div>
       <div class="column">
@@ -78,20 +77,27 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Route, RawLocation } from 'vue-router';
-
-import api from '../services/api.service';
-import Report from '../model/report';
-import ActivityList from '../components/ActivityList.vue';
-import TextView from '../components/TextView.vue';
-import FieldView from '../components/FieldView.vue';
-import SimpleFieldView from '../components/SimpleFieldView.vue';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
+import api from '@/services/api.service';
+import Report from '@/model/report';
+import ActivityList from '@/components/ActivityList.vue';
+import TextView from '@/components/TextView.vue';
+import FieldView from '@/components/FieldView.vue';
+import SimpleFieldView from '@/components/SimpleFieldView.vue';
+import GeolocationMap from '@/components/GeolocationMap.vue';
+
 @Component({
   name: 'report',
-  components: { ActivityList, TextView, FieldView, SimpleFieldView },
+  components: {
+    ActivityList,
+    TextView,
+    FieldView,
+    SimpleFieldView,
+    GeolocationMap,
+  },
 })
 export default class ReportView extends Vue {
   report: Report | null = null;
@@ -153,6 +159,14 @@ export default class ReportView extends Vue {
           .map(event => this.$t(`field.event_type.values.${event}`))
           .join(', ')
       : '';
+  }
+
+  get coords(): number[] {
+    return (
+      this.report &&
+      this.report.geometry &&
+      JSON.parse(this.report.geometry).coordinates
+    );
   }
 
   setReport(report: Report) {
