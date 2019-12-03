@@ -23,6 +23,7 @@
         pagination-size="is-small"
         :total="total"
         per-page="30"
+        :current-page.sync="currentPage"
         @page-change="onPageChange"
         :aria-next-label="$t('table.next')"
         :aria-previous-label="$t('table.previous')"
