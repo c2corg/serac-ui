@@ -5,7 +5,7 @@
       :key="type.key"
       :title="type.value"
       class="button is-primary is-rounded input-event-type__button"
-      v-bind:class="{ 'is-outlined': !value_.includes(type.key) }"
+      :class="{ 'is-outlined': !value_.includes(type.key) }"
       @click="toggle(type.key)"
     >
       {{ type.value }}

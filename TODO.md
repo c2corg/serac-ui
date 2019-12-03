@@ -11,9 +11,7 @@
 - ERROR must be out of page flow, stick to top
 - Edit reload on dev
 - Collapse and sections in form
-- Markdown toolbar
 - markdown!! -> Doc in UI?
 - info block in view
 - remove useless columns if narrow enough in edit form
-- some kind of i18n
 - event types input styling on hover

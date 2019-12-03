@@ -10,7 +10,7 @@
       <icon-activity
         :activity="activity.key"
         class="input-activity__icon is-size-2"
-        v-bind:class="{
+        :class="{
           'has-text-primary': value_.includes(activity.key),
         }"
       ></icon-activity>

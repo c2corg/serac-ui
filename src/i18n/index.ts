@@ -214,6 +214,26 @@ export const messages: LocaleMessages = {
       },
     },
     list: { title: 'Rapports incidents/accidents' },
+    markdown: {
+      button: {
+        emphasized: 'Italique',
+        expand: 'Plein écran',
+        heading: 'Titre',
+        link: 'Lien hypertexte',
+        'list-ul': 'Liste à puces',
+        'list-ol': 'Liste ordonnée',
+        preview: 'Aperçu',
+        code: 'Retour au code',
+        shrink: 'Quitter le plein écran',
+        strong: 'Gras',
+      },
+      'link-helper': {
+        button: { insert: 'Insérer le lien' },
+        'text-to-display': 'texte à afficher',
+        title: 'Insérer un lien',
+        url: 'URL',
+      },
+    },
   },
 };
 
