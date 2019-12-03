@@ -74,7 +74,9 @@ export default class App extends Vue {
         return response;
       },
       (error: any) => {
-        this.error = error.response ? error.response.data.message : 'toto'; //! FIXME:
+        this.error = error.response
+          ? error.response.data.message
+          : this.$t('error.default');
         return Promise.reject(new Error(this.error));
       }
     );

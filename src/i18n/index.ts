@@ -11,6 +11,7 @@ export const messages: LocaleMessages = {
       submit: 'Soumettre',
       validate: 'Publier sur camptcamp.org',
     },
+    error: { default: 'Un erreur est survenue', reload: 'Recharger la page' },
     field: {
       activities: {
         label: 'Activités',
