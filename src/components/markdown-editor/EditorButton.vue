@@ -1,6 +1,6 @@
 <template>
   <a
-    class="button has-text-primary"
+    class="button has-text-primary is-small"
     :disabled="disabled"
     :title="tooltip"
     :target="target"

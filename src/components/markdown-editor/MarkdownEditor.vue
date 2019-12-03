@@ -1,21 +1,9 @@
 <template>
   <div
-    class="markdown-editor"
-    :class="{ 'is-active': focus, fullScreen: fullScreen }"
+    class="markdown-editor control"
+    :class="{ 'is-active': focus, fullscreen: fullscreen }"
   >
-    <div class="button-bar">
-      <div class="buttons has-addons is-pulled-right">
-        <editor-button
-          :icon="fullScreen ? 'compress' : 'expand'"
-          :tooltip="
-            fullScreen
-              ? $t('markdown.button.shrink')
-              : $t('markdown.button.expand')
-          "
-          @click="fullScreen = !fullScreen"
-        />
-      </div>
-
+    <div class="markdown-editor__button-bar">
       <div class="buttons has-addons">
         <editor-button
           icon="bold"
@@ -33,44 +21,55 @@
           icon="heading"
           :disabled="preview"
           @click="handleHeading"
-          :tooltip="$gettext('Heading')"
+          :tooltip="$t('markdown.button.heading')"
         />
-
-        <span>&nbsp;</span>
-
+      </div>
+      <div class="buttons has-addons">
         <editor-button
           icon="link"
           :disabled="preview"
           @click="handleLink"
-          :tooltip="$gettext('Insert link')"
+          :tooltip="$t('markdown.button.link')"
         />
-
-        <span>&nbsp;</span>
-
+      </div>
+      <div class="buttons has-addons">
         <editor-button
           icon="list-ul"
           :disabled="preview"
           @click="handleListUl"
-          :tooltip="$gettext('Unordered list')"
+          :tooltip="$t('markdown.button.list-ul')"
         />
         <editor-button
           icon="list-ol"
           :disabled="preview"
           @click="handleListOl"
-          :tooltip="$gettext('Ordered list')"
+          :tooltip="$t('markdown.button.list-ol')"
         />
-
-        <span>&nbsp;</span>
-
+      </div>
+      <div class="buttons has-addons">
         <editor-button
           :icon="preview ? 'code' : 'eye'"
-          :text="preview ? $gettext('Back to code') : $gettext('Preview')"
+          :text="
+            preview ? $t('markdown.button.code') : $t('markdown.button.preview')
+          "
           @click="preview = !preview"
+        />
+      </div>
+
+      <div class="buttons has-addons is-pulled-right">
+        <editor-button
+          :icon="fullscreen ? 'compress' : 'expand'"
+          :tooltip="
+            fullscreen
+              ? $t('markdown.button.shrink')
+              : $t('markdown.button.expand')
+          "
+          @click="fullscreen = !fullscreen"
         />
       </div>
     </div>
 
-    <div class="markdown-editor-content">
+    <div class="markdown-editor__content">
       <textarea
         ref="textarea"
         class="textarea"
@@ -79,129 +78,34 @@
         @focus="focus = true"
         @blur="focus = false"
       />
+
+      <div
+        class="markdown-editor__preview"
+        v-if="preview"
+        v-dompurify-html="cooked"
+      ></div>
     </div>
+
+    <b-modal has-modal-card trap-focus :active.sync="showLinkHelperModal">
+      <link-helper
+        @insert="insertLink"
+        :chunk="linkHelperText"
+        :url="linkHelperUrl"
+      ></link-helper>
+    </b-modal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
+import marked from 'marked';
+
 import EditorButton from './EditorButton.vue';
+import LinkHelper from './LinkHelper.vue';
+import Selection from '../../utils/selection';
 
-class Selection {
-  textarea: HTMLTextAreaElement;
-  onInput: (content: string) => void;
-
-  constructor(
-    textarea: HTMLTextAreaElement,
-    onInput: (content: string) => void
-  ) {
-    this.textarea = textarea;
-    this.onInput = onInput;
-  }
-
-  get start() {
-    return this.textarea.selectionStart;
-  }
-  set start(value) {
-    this.textarea.selectionStart = value;
-  }
-
-  get end() {
-    return this.textarea.selectionEnd;
-  }
-  set end(value) {
-    this.textarea.selectionEnd = value;
-  }
-
-  get length() {
-    return this.end - this.start;
-  }
-
-  get text() {
-    return this.textarea.value.substr(this.start, this.length);
-  }
-
-  get isEmpty() {
-    return this.start === this.end;
-  }
-
-  set(start: number, end: number = start) {
-    this.start = start;
-    this.end = end;
-  }
-
-  // TODO : remove before and after, and rewite calls with f-strings
-  setText(text: string, before: string = '', after: string = '') {
-    const chunk = before + text + after;
-
-    const start = this.start;
-    this.textarea.value =
-      this.textarea.value.substr(0, this.start) +
-      chunk +
-      this.textarea.value.substr(this.end, this.textarea.value.length);
-    this.set(start + before.length, start + before.length + text.length);
-
-    this.onInput(this.textarea.value);
-  }
-
-  replace(
-    pattern: {
-      [Symbol.replace](string: string, replaceValue: string): string;
-    },
-    replacement: string
-  ) {
-    this.setText(this.text.replace(pattern, replacement));
-  }
-
-  isSurroundedBy(before: string, after: string) {
-    const beforeLength = before.length;
-    const afterLength = after.length;
-    const content = this.textarea.value;
-
-    return (
-      content.substr(this.start - beforeLength, beforeLength) === before &&
-      content.substr(this.end, afterLength) === after
-    );
-  }
-
-  expandToEntireLine() {
-    const start = this.textarea.value.lastIndexOf('\n', this.start);
-    this.start = start + 1;
-    const end = this.textarea.value.indexOf('\n', this.end);
-    this.end = end === -1 ? this.textarea.value.length : end;
-  }
-
-  linesStartsWith(tag: string) {
-    for (const line of this.text.split('\n')) {
-      if (!line.startsWith(tag)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  removeLinePrefix(tag: string) {
-    this.setText(
-      this.text
-        .split('\n')
-        .map(line => line.substr(tag.length))
-        .join('\n')
-    );
-  }
-
-  addLinePrefix(tag: string) {
-    this.setText(
-      this.text
-        .split('\n')
-        .map(line => tag + line)
-        .join('\n')
-    );
-  }
-}
-
-@Component({ components: { EditorButton } })
+@Component({ components: { EditorButton, LinkHelper } })
 export default class MarkdownEditor extends Vue {
   @Prop({
     type: String,
@@ -218,7 +122,11 @@ export default class MarkdownEditor extends Vue {
   selection!: Selection;
   focus = false;
   preview = false;
-  fullScreen = false;
+  fullscreen = false;
+
+  showLinkHelperModal: boolean = false;
+  linkText: string = '';
+  linkUrl: string = '';
 
   $refs!: {
     textarea: HTMLTextAreaElement;
@@ -227,6 +135,14 @@ export default class MarkdownEditor extends Vue {
   mounted() {
     this.$refs.textarea.value = this.value;
     this.selection = new Selection(this.$refs.textarea, this.onInput);
+  }
+
+  get linkHelperText() {
+    return this.linkText || '';
+  }
+
+  get linkHelperUrl() {
+    return this.linkUrl || 'https://';
   }
 
   onInput() {
@@ -243,8 +159,10 @@ export default class MarkdownEditor extends Vue {
     if (!this.preview) {
       return;
     }
+  }
 
-    // ! TODO:
+  get cooked() {
+    return marked(this.$refs.textarea.value);
   }
 
   handleSimpleMarkdownTag(tag: string, defaultChunk: string) {
@@ -317,6 +235,12 @@ export default class MarkdownEditor extends Vue {
     this.$refs.textarea.focus();
   }
 
+  handleLink() {
+    this.linkText = this.selection.text;
+    this.linkUrl = 'http://';
+    this.showLinkHelperModal = true;
+  }
+
   insertLink(chunk: string, url: string) {
     this.selection.setText(`[${chunk}](${url})`);
     // give back focus to textarea
@@ -335,42 +259,42 @@ export default class MarkdownEditor extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/scss/variables';
+
 .markdown-editor {
   border: 1px solid lightgrey;
   box-shadow: none;
   transition: 300ms;
   border-radius: 3px;
-  background: white;
 
-  .button-bar {
+  &__button-bar {
+    display: flex;
     padding: 0.5rem;
-    background: #eee;
+    background: $light;
     margin-bottom: 0;
     padding-bottom: 0;
-  }
-
-  .button-bar {
     border-bottom: 1px dashed lightgrey;
   }
 
   .buttons {
-    margin: 0;
+    margin: 0 1em 0 0;
+    &:last-child {
+      margin-left: auto;
+    }
   }
 
-  .markdown-editor-content {
+  &__content {
     position: relative;
+
+    textarea,
+    textarea:focus {
+      border: 0;
+      box-shadow: none;
+      min-height: 120px;
+    }
   }
 
-  textarea,
-  textarea:focus {
-    font-family: monospace;
-    border: 0;
-    box-shadow: none;
-    min-height: 100px;
-  }
-
-  .preview,
-  .preview-error {
+  &__preview {
     padding: 0.5rem;
     position: absolute;
     top: 0;
@@ -382,14 +306,7 @@ export default class MarkdownEditor extends Vue {
   }
 }
 
-.is-active {
-  border: 1px solid #66afe9;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
-  transition: 300ms;
-}
-
-.fullScreen {
+.fullscreen {
   position: fixed;
   top: 0;
   left: 0;
@@ -399,14 +316,15 @@ export default class MarkdownEditor extends Vue {
   display: flex;
   flex-direction: column;
 
-  .markdown-editor-content {
-    flex-grow: 1;
-
-    textarea {
-      height: 100%;
-      resize: None;
-      max-height: None;
+  .markdown-editor {
+    &__content {
+      flex-grow: 1;
     }
+  }
+  textarea {
+    height: 100%;
+    resize: None;
+    max-height: None;
   }
 }
 </style>

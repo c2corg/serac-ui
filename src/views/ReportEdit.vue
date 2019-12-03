@@ -183,108 +183,96 @@
           </div>
 
           <b-field label="Résumé">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].summary"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.description.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].description"
               :placeholder="$t('field.description.placeholder')"
-            ></b-input>
+            >
+            </markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.place.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].place"
               :placeholder="$t('field.place.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.route_study.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].route_study"
               :placeholder="$t('field.route_study.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.conditions.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].conditions"
               :placeholder="$t('field.conditions.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.training.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].training"
               :placeholder="$t('field.training.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.motivations.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].motivations"
               :placeholder="$t('field.motivations.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.group_management.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].group_management"
               :placeholder="$t('field.group_management.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.risk_study.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].risk_study"
               :placeholder="$t('field.risk_study.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.time_management.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].time_management"
               :placeholder="$t('field.time_management.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <b-field :label="$t('field.safety.label')">
-            <b-input
-              type="textarea"
+            <markdown-editor
               v-model="model.locales[0].safety"
               :placeholder="$t('field.safety.placeholder')"
-            ></b-input>
+            ></markdown-editor>
           </b-field>
 
           <div class="columns">
             <div class="column">
               <b-field :label="$t('field.reduce_impact.label')">
-                <b-input
-                  type="textarea"
+                <markdown-editor
                   v-model="model.locales[0].reduce_impact"
-                ></b-input>
+                ></markdown-editor>
               </b-field>
             </div>
 
             <div class="column">
               <b-field :label="$t('field.increase_impact.label')">
-                <b-input
-                  type="textarea"
+                <markdown-editor
                   v-model="model.locales[0].increase_impact"
-                ></b-input>
+                ></markdown-editor>
               </b-field>
             </div>
           </div>
@@ -292,21 +280,19 @@
           <div class="columns">
             <div class="column">
               <b-field :label="$t('field.modifications.label')">
-                <b-input
-                  type="textarea"
+                <markdown-editor
                   v-model="model.locales[0].modifications"
                   :placeholder="$t('field.modifications.placeholder')"
-                ></b-input>
+                ></markdown-editor>
               </b-field>
             </div>
 
             <div class="column">
               <b-field :label="$t('field.other_comments.label')">
-                <b-input
-                  type="textarea"
+                <markdown-editor
                   v-model="model.locales[0].other_comments"
                   :placeholder="$t('field.other_comments.placeholder')"
-                ></b-input>
+                ></markdown-editor>
               </b-field>
             </div>
           </div>
@@ -344,6 +330,7 @@ import api from '../services/api.service';
 import InputActivity from '../components/form/InputActivity.vue';
 import InputEventType from '../components/form/InputEventType.vue';
 import InputSelect from '../components/form/InputSelect.vue';
+import MarkdownEditor from '../components/markdown-editor/MarkdownEditor.vue';
 import Report, {
   ALL_SEVERITIES,
   ALL_AVALANCHE_LEVELS,
@@ -381,6 +368,7 @@ const newReport = (): Omit<Report, 'id'> => ({
     InputActivity,
     InputSelect,
     InputEventType,
+    MarkdownEditor,
   },
 })
 export default class ReportEdit extends Vue {

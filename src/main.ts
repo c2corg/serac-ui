@@ -37,6 +37,16 @@ import {
   faUpload,
   faInfo,
   faPlus,
+  faExpand,
+  faBold,
+  faItalic,
+  faHeading,
+  faListUl,
+  faListOl,
+  faEye,
+  faCode,
+  faCompress,
+  faLink,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -59,7 +69,17 @@ library.add(
   faEdit,
   faUpload,
   faInfo,
-  faPlus
+  faPlus,
+  faExpand,
+  faBold,
+  faItalic,
+  faHeading,
+  faListUl,
+  faListOl,
+  faEye,
+  faCode,
+  faCompress,
+  faLink
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
