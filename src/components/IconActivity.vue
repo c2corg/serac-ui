@@ -2,6 +2,7 @@
   <fa-icon
     :icon="['activity', activity]"
     :title="$t(`field.activities.values.${activity}`)"
+    class="fa-2x"
   />
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <p class="title" v-t="'list.title'"></p>
 
     <b-button
@@ -13,22 +13,56 @@
       <fa-icon icon="plus"></fa-icon> {{ $t('button.new') }}
     </b-button>
 
-    <b-pagination
-      :total="total"
-      :current="currentPage"
-      per-Page="30"
-      @change="onPageChange"
-    ></b-pagination>
-    <div>
-      <reports-table :rowData="reports"></reports-table>
-      <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
-    </div>
-    <b-pagination
-      :total="total"
-      :current="currentPage"
-      per-Page="30"
-      @change="onPageChange"
-    ></b-pagination>
+    <section>
+      <b-table
+        :data="reports"
+        :loading="loading"
+        paginated
+        backend-pagination
+        pagination-position="both"
+        pagination-size="is-small"
+        :total="total"
+        per-page="30"
+        @page-change="onPageChange"
+        :aria-next-label="$t('table.next')"
+        :aria-previous-label="$t('table.previous')"
+        :aria-page-label="$t('table.page')"
+        :aria-current-label="$t('table.current')"
+        striped
+      >
+        <template slot-scope="props">
+          <b-table-column field="date" :label="$t('field.date.label')">
+            <span class="cell--nowrap">{{ props.row.date }}</span>
+          </b-table-column>
+
+          <b-table-column field="title" :label="$t('field.title.label')">
+            <router-link :to="{ name: 'report', params: { id: props.row.id } }">
+              {{ props.row.locales[0].title }}
+            </router-link>
+          </b-table-column>
+
+          <b-table-column
+            field="event_type"
+            :label="$t('field.event_type.label')"
+          >
+            {{
+              props.row.event_type
+                .map(event => $t('field.event_type.values.' + event))
+                .join(', ')
+            }}
+          </b-table-column>
+
+          <b-table-column
+            field="activities"
+            :label="$t('field.activities.label')"
+          >
+            <div class="activities-column">
+              <activity-list :activities="props.row.activities"></activity-list>
+            </div>
+          </b-table-column>
+        </template>
+      </b-table>
+    </section>
   </div>
 </template>
 
@@ -42,7 +76,7 @@ import Report from '../model/report';
 import api from '../services/api.service';
 import { Route, RawLocation } from 'vue-router';
 
-@Component({ name: 'reports', components: { ActivityList, ReportsTable } })
+@Component({ name: 'reports', components: { ActivityList } })
 export default class ReportsView extends Vue {
   loading = true;
   reports: Report[] = [];
@@ -97,3 +131,15 @@ export default class ReportsView extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.cell {
+  &--nowrap {
+    white-space: nowrap;
+  }
+}
+
+.activities-column {
+  min-width: 6em;
+}
+</style>

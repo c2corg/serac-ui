@@ -1,6 +1,10 @@
 <template>
-  <span v-if="activities.length">
-    <span v-for="activity of sortedActivities" :key="activity">
+  <span class="activity-list" v-if="activities.length">
+    <span
+      class="activity-list__item"
+      v-for="activity of sortedActivities"
+      :key="activity"
+    >
       <icon-activity :activity="activity" />
     </span>
   </span>

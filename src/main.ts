@@ -1,7 +1,6 @@
 import './class-component-hooks';
 
 import Vue, { CreateElement, VNode } from 'vue';
-import VueI18n from 'vue-i18n';
 import VueProgressBar from 'vue-progressbar';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import { Config } from 'dompurify';
@@ -47,6 +46,7 @@ import {
   faCode,
   faCompress,
   faLink,
+  faArrowUp,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -79,7 +79,8 @@ library.add(
   faEye,
   faCode,
   faCompress,
-  faLink
+  faLink,
+  faArrowUp
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
@@ -94,7 +95,6 @@ const dompurifyOptions: Config = {
 };
 Vue.use(VueDOMPurifyHTML, dompurifyOptions);
 
-//! FIXME optimize import, using only required components
 Vue.use(Buefy, {
   defaultIconComponent: 'fa-icon',
   defaultIconPack: 'fas',

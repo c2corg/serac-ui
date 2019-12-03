@@ -234,6 +234,12 @@ export const messages: LocaleMessages = {
         url: 'URL',
       },
     },
+    table: {
+      next: 'Page suivante',
+      previous: 'Page précédente',
+      current: 'Page actuelle',
+      page: 'Page',
+    },
   },
 };
 

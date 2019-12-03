@@ -16,3 +16,4 @@
 - remove useless columns if narrow enough in edit form
 - event types input styling on hover
 - <https://www.ffcam.fr/logos-charte-graphique.html>
+- Tri du tableau?
