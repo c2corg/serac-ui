@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
+import { Position } from 'vue-router/types/router';
+
 import Home from '../views/Home.vue';
 import ReportsView from '../views/ReportsView.vue';
 import ReportView from '../views/ReportView.vue';
 import ReportEdit from '../views/ReportEdit.vue';
-import { Position } from 'vue-router/types/router';
+import FourOFour from '../views/FourOFour.vue';
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '*',
+    name: 'four-o-four',
+    component: FourOFour,
   },
 ];
 
