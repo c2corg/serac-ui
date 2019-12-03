@@ -84,7 +84,10 @@ library.add(
 
 Vue.component('fa-icon', FontAwesomeIcon);
 
-Vue.use(VueProgressBar, {});
+Vue.use(VueProgressBar, {
+  color: '#f93',
+});
+
 const dompurifyOptions: Config = {
   FORBID_TAGS: ['style'],
   FORBID_ATTR: ['style'],
