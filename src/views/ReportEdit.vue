@@ -82,11 +82,11 @@
             </validation-provider>
 
             <div class="column">
-              <b-field :label="$t('field.nb_impacted.label')">
+              <b-field :label="$t('field.nb_participants.label')">
                 <b-input
                   type="number"
                   min="1"
-                  v-model="model.nb_impacted"
+                  v-model="model.nb_participants"
                 ></b-input>
               </b-field>
             </div>
