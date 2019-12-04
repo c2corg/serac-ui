@@ -32,7 +32,12 @@
           <div class="columns">
             <div class="column">
               <b-field :label="$t('field.elevation.label')">
-                <b-input type="number" min="1" max="9999"></b-input>
+                <b-field>
+                  <b-input type="number" min="1" max="9999" expanded></b-input>
+                  <p class="control">
+                    <span class="button is-static">m</span>
+                  </p>
+                </b-field>
               </b-field>
             </div>
             <div class="column"></div>
