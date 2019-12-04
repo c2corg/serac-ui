@@ -29,7 +29,36 @@
             </b-field>
           </validation-provider>
 
-          <!-- ! geolocation -->
+          <div class="columns">
+            <div class="column">
+              <b-field :label="$t('field.elevation.label')">
+                <b-input type="number" min="1" max="9999"></b-input>
+              </b-field>
+            </div>
+            <div class="column"></div>
+            <div class="column"></div>
+          </div>
+
+          <b-field :label="$t('field.geometry.label')">
+            <geolocation-map
+              @geolocation="handleGeometry"
+              :editable="true"
+              :coords="coords"
+            ></geolocation-map>
+          </b-field>
+
+          <div class="columns">
+            <div class="column">
+              <b-field :label="$t('field.geometry.lat')">
+                <b-input :value="dmsLat" readonly></b-input>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field :label="$t('field.geometry.lng')">
+                <b-input :value="dmsLng" readonly></b-input>
+              </b-field>
+            </div>
+          </div>
 
           <div class="columns">
             <validation-provider
@@ -53,11 +82,11 @@
             </validation-provider>
 
             <div class="column">
-              <b-field :label="$t('field.nb_impacted.label')">
+              <b-field :label="$t('field.nb_participants.label')">
                 <b-input
                   type="number"
                   min="1"
-                  v-model="model.nb_impacted"
+                  v-model="model.nb_participants"
                 ></b-input>
               </b-field>
             </div>
@@ -75,7 +104,7 @@
               <b-field :label="$t('field.nb_impacted.label')">
                 <b-input
                   type="number"
-                  min="1"
+                  min="0"
                   v-model="model.nb_impacted"
                 ></b-input>
               </b-field>
@@ -325,12 +354,15 @@ import { Route, RawLocation } from 'vue-router';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 import { formatISO } from 'date-fns';
+import { CRS, LatLng, Point } from 'leaflet';
+import DmsCoordinates from 'dms-conversion';
 
-import api from '../services/api.service';
-import InputActivity from '../components/form/InputActivity.vue';
-import InputEventType from '../components/form/InputEventType.vue';
-import InputSelect from '../components/form/InputSelect.vue';
-import MarkdownEditor from '../components/markdown-editor/MarkdownEditor.vue';
+import api from '@/services/api.service';
+import InputActivity from '@/components/form/InputActivity.vue';
+import InputEventType from '@/components/form/InputEventType.vue';
+import InputSelect from '@/components/form/InputSelect.vue';
+import MarkdownEditor from '@/components/markdown-editor/MarkdownEditor.vue';
+import GeolocationMap from '@/components/GeolocationMap.vue';
 import Report, {
   ALL_SEVERITIES,
   ALL_AVALANCHE_LEVELS,
@@ -341,8 +373,8 @@ import Report, {
   ALL_ACTIVITY_RATES,
   ALL_NB_OUTINGS,
   ALL_PREVIOUS_INJURIES,
-} from '../model/report';
-import { messages } from '../i18n';
+} from '@/model/report';
+import { messages } from '@/i18n';
 
 extend('required', {
   ...required,
@@ -369,6 +401,7 @@ const newReport = (): Omit<Report, 'id'> => ({
     InputSelect,
     InputEventType,
     MarkdownEditor,
+    GeolocationMap,
   },
 })
 export default class ReportEdit extends Vue {
@@ -387,6 +420,45 @@ export default class ReportEdit extends Vue {
   activityRates = ALL_ACTIVITY_RATES;
   nbOutings = ALL_NB_OUTINGS;
   previousInjuries = ALL_PREVIOUS_INJURIES;
+
+  lat: number | undefined = 0;
+  lng: number | undefined = 0;
+
+  get coords() {
+    return !this.lat || !this.lng ? undefined : new LatLng(this.lat, this.lng);
+  }
+
+  get dmsLat(): string {
+    if (!this.lat || !this.lng) {
+      return '';
+    }
+    const [degree, minute, seconds, hemisphere] = new DmsCoordinates(
+      this.lat,
+      this.lng
+    ).latitude.getDmsArray();
+    return this.formatDms(degree, minute, seconds, hemisphere);
+  }
+
+  get dmsLng() {
+    if (!this.lat || !this.lng) {
+      return '';
+    }
+    const [degree, minute, seconds, hemisphere] = new DmsCoordinates(
+      this.lat,
+      this.lng
+    ).longitude.getDmsArray();
+    return this.formatDms(degree, minute, seconds, hemisphere);
+  }
+
+  private formatDms(
+    degree: number,
+    minute: number,
+    seconds: number,
+    hemisphere: string
+  ) {
+    return `${degree}°${minute}′${Math.floor(1000 * seconds) /
+      1000}″ ${hemisphere}`;
+  }
 
   beforeRouteEnter(
     to: Route,
@@ -416,6 +488,15 @@ export default class ReportEdit extends Vue {
 
   setReport(report: Report | Omit<Report, 'id'>) {
     this.model = report;
+    if (this.model.geometry) {
+      const coords: [number, number] = JSON.parse(this.model.geometry)
+        .coordinates;
+      const latLng: LatLng = CRS.EPSG3857.unproject(
+        new Point(coords[0], coords[1])
+      );
+      this.lat = latLng.lat;
+      this.lng = latLng.lng;
+    }
   }
 
   onSubmit() {
@@ -453,6 +534,22 @@ export default class ReportEdit extends Vue {
     report: Report | Omit<Report, 'id'>
   ): report is Report {
     return 'id' in report;
+  }
+
+  handleGeometry(coords: LatLng | undefined) {
+    if (!this.model) {
+      return;
+    }
+    if (coords) {
+      this.lat = coords.lat;
+      this.lng = coords.lng;
+      const point: Point = CRS.EPSG3857.project(coords);
+      this.model.geometry = `{"coordinates": [${point.x}, ${point.y}], "type": "Point"}`;
+    } else {
+      this.model.geometry = undefined;
+      this.lat = undefined;
+      this.lng = undefined;
+    }
   }
 }
 </script>

@@ -14,6 +14,9 @@ import App from './App.vue';
 import router from './router';
 import i18n from './i18n';
 
+import { Icon } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
 import {
   hiking,
   ice_climbing,
@@ -27,6 +30,7 @@ import {
   snow_ice_mixed,
   via_ferrata,
 } from '@/assets/font-awesome-custom/js/activity';
+
 import {
   faExclamationCircle,
   faAngleLeft,
@@ -84,6 +88,15 @@ library.add(
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
+
+// this part resolve an issue where the markers would not appear
+// delete Icon.Default.prototype._getIconUrl;
+
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 Vue.use(VueProgressBar, {
   color: '#f93',

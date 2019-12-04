@@ -117,6 +117,11 @@ export const messages: LocaleMessages = {
           female: 'Femme',
         },
       },
+      geometry: {
+        label: 'Coordonnées',
+        lat: 'Latitude',
+        lng: 'Longitude',
+      },
       group_management: {
         label: 'Gestion du groupe',
         placeholder:
@@ -215,6 +220,12 @@ export const messages: LocaleMessages = {
       },
     },
     list: { title: 'Rapports incidents/accidents' },
+    map: {
+      control: {
+        clear: 'Effacer',
+        reset: 'Réinitialiser',
+      },
+    },
     markdown: {
       button: {
         emphasized: 'Italique',
