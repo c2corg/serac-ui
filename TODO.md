@@ -1,7 +1,6 @@
 # TODO
 
 - Error handling -> correctly display error, closable, etc
-- Prefetch data -> everywhere
 - Error page
 - Error message in form -> field is not interpolated
 - Helper in form
