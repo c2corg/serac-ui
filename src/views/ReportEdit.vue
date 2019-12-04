@@ -50,12 +50,12 @@
           <div class="columns">
             <div class="column">
               <b-field :label="$t('field.geometry.lat')" horizontal>
-                <b-input :value="lat" readonly></b-input>
+                <b-input :value="dmsLat" readonly></b-input>
               </b-field>
             </div>
             <div class="column">
               <b-field :label="$t('field.geometry.lng')" horizontal>
-                <b-input :value="lng" readonly></b-input>
+                <b-input :value="dmsLng" readonly></b-input>
               </b-field>
             </div>
           </div>
@@ -104,7 +104,7 @@
               <b-field :label="$t('field.nb_impacted.label')">
                 <b-input
                   type="number"
-                  min="1"
+                  min="0"
                   v-model="model.nb_impacted"
                 ></b-input>
               </b-field>
@@ -354,7 +354,8 @@ import { Route, RawLocation } from 'vue-router';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 import { formatISO } from 'date-fns';
-import { CRS, LatLng } from 'leaflet';
+import { CRS, LatLng, Point } from 'leaflet';
+import DmsCoordinates from 'dms-conversion';
 
 import api from '@/services/api.service';
 import InputActivity from '@/components/form/InputActivity.vue';
@@ -374,7 +375,6 @@ import Report, {
   ALL_PREVIOUS_INJURIES,
 } from '@/model/report';
 import { messages } from '@/i18n';
-import { Point } from 'leaflet';
 
 extend('required', {
   ...required,
@@ -425,7 +425,39 @@ export default class ReportEdit extends Vue {
   lng: number | undefined = 0;
 
   get coords() {
-    return [this.lat, this.lng];
+    return !this.lat || !this.lng ? undefined : new LatLng(this.lat, this.lng);
+  }
+
+  get dmsLat(): string {
+    if (!this.lat || !this.lng) {
+      return '';
+    }
+    const [degree, minute, seconds, hemisphere] = new DmsCoordinates(
+      this.lat,
+      this.lng
+    ).latitude.getDmsArray();
+    return this.formatDms(degree, minute, seconds, hemisphere);
+  }
+
+  get dmsLng() {
+    if (!this.lat || !this.lng) {
+      return '';
+    }
+    const [degree, minute, seconds, hemisphere] = new DmsCoordinates(
+      this.lat,
+      this.lng
+    ).longitude.getDmsArray();
+    return this.formatDms(degree, minute, seconds, hemisphere);
+  }
+
+  private formatDms(
+    degree: number,
+    minute: number,
+    seconds: number,
+    hemisphere: string
+  ) {
+    return `${degree}°${minute}′${Math.floor(1000 * seconds) /
+      1000}″ ${hemisphere}`;
   }
 
   beforeRouteEnter(

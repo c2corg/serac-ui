@@ -43,8 +43,8 @@ export default class GeolocationMap extends Vue {
   @Prop({ type: Boolean, default: false })
   editable!: boolean;
 
-  @Prop({ type: Array, required: false })
-  coords!: [number, number];
+  @Prop({ type: Object, required: false })
+  coords!: LatLng;
 
   zoom: number = 6;
   center: LatLng = latLng(45.011369, 366.141357);
@@ -56,9 +56,9 @@ export default class GeolocationMap extends Vue {
 
   mounted() {
     if (this.coords) {
-      this.initialCoords = new LatLng(this.coords[0], this.coords[1]);
-      this.marker = new LatLng(this.coords[0], this.coords[1]);
-      this.center = new LatLng(this.coords[0], this.coords[1]);
+      this.initialCoords = new LatLng(this.coords.lat, this.coords.lng);
+      this.marker = new LatLng(this.coords.lat, this.coords.lng);
+      this.center = new LatLng(this.coords.lat, this.coords.lng);
       this.zoom = 13;
     } else {
       this.center = latLng(45.011369, 366.141357);

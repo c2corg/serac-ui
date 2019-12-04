@@ -80,6 +80,7 @@ import { Route, RawLocation } from 'vue-router';
 import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { CRS, LatLng, Point } from 'leaflet';
 
 import api from '@/services/api.service';
 import Report from '@/model/report';
@@ -161,12 +162,13 @@ export default class ReportView extends Vue {
       : '';
   }
 
-  get coords(): number[] {
-    return (
-      this.report &&
-      this.report.geometry &&
-      JSON.parse(this.report.geometry).coordinates
-    );
+  get coords(): LatLng | undefined {
+    if (!this.report || !this.report.geometry) {
+      return undefined;
+    }
+    const coords: [number, number] = JSON.parse(this.report.geometry)
+      .coordinates;
+    return CRS.EPSG3857.unproject(new Point(coords[0], coords[1]));
   }
 
   setReport(report: Report) {
