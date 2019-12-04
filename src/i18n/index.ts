@@ -220,6 +220,12 @@ export const messages: LocaleMessages = {
       },
     },
     list: { title: 'Rapports incidents/accidents' },
+    map: {
+      control: {
+        clear: 'Effacer',
+        reset: 'Réinitialiser',
+      },
+    },
     markdown: {
       button: {
         emphasized: 'Italique',

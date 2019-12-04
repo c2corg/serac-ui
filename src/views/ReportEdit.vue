@@ -49,12 +49,12 @@
 
           <div class="columns">
             <div class="column">
-              <b-field :label="$t('field.geometry.lat')" horizontal>
+              <b-field :label="$t('field.geometry.lat')">
                 <b-input :value="dmsLat" readonly></b-input>
               </b-field>
             </div>
             <div class="column">
-              <b-field :label="$t('field.geometry.lng')" horizontal>
+              <b-field :label="$t('field.geometry.lng')">
                 <b-input :value="dmsLng" readonly></b-input>
               </b-field>
             </div>

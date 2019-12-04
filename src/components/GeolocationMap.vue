@@ -20,13 +20,23 @@
       :fillColor="primary"
       fillOpactity="0.3"
     ></l-circle-marker>
+    <l-control v-if="editable">
+      <div class="map__buttons">
+        <b-button size="is-small" @click="resetCoords">
+          {{ $t('map.control.reset') }}
+        </b-button>
+        <b-button size="is-small" @click="clearCoords">
+          {{ $t('map.control.clear') }}
+        </b-button>
+      </div>
+    </l-control>
   </l-map>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { LMap, LTileLayer, LCircleMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LCircleMarker, LControl } from 'vue2-leaflet';
 import {
   latLng,
   MapOptions,
@@ -38,7 +48,7 @@ import {
 
 import { primary } from '@/utils/colors';
 
-@Component({ components: { LMap, LTileLayer, LCircleMarker } })
+@Component({ components: { LMap, LTileLayer, LCircleMarker, LControl } })
 export default class GeolocationMap extends Vue {
   @Prop({ type: Boolean, default: false })
   editable!: boolean;
@@ -93,6 +103,15 @@ export default class GeolocationMap extends Vue {
 .map {
   height: 275px;
   width: 100%;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+
+    .button {
+      margin-bottom: 0.5em;
+    }
+  }
 }
 
 .marker {
