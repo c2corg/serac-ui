@@ -367,7 +367,6 @@ import InputActivity from '@/components/form/InputActivity.vue';
 import InputEventType from '@/components/form/InputEventType.vue';
 import InputSelect from '@/components/form/InputSelect.vue';
 import MarkdownEditor from '@/components/markdown-editor/MarkdownEditor.vue';
-import GeolocationMap from '@/components/GeolocationMap.vue';
 import Report, {
   ALL_SEVERITIES,
   ALL_AVALANCHE_LEVELS,
@@ -380,6 +379,9 @@ import Report, {
   ALL_PREVIOUS_INJURIES,
 } from '@/model/report';
 import { messages } from '@/i18n';
+
+const GeolocationMap = () =>
+  import(/* webpackChunkName: "map" */ '@/components/GeolocationMap.vue');
 
 extend('required', {
   ...required,

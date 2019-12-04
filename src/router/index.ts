@@ -2,10 +2,8 @@ import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
 import { Position } from 'vue-router/types/router';
 
-import Home from '../views/Home.vue';
-import ReportsView from '../views/ReportsView.vue';
-import ReportView from '../views/ReportView.vue';
-import ReportEdit from '../views/ReportEdit.vue';
+import Home from '@/views/Home.vue';
+import About from '@/views/About.vue';
 import FourOFour from '../views/FourOFour.vue';
 
 Vue.use(VueRouter);
@@ -19,31 +17,31 @@ const routes = [
   {
     path: '/reports',
     name: 'reports',
-    component: ReportsView,
+    component: () =>
+      import(/* webpackChunkName: "reports" */ '@/views/ReportsView.vue'),
   },
   {
     path: '/reports/add',
     name: 'report-add',
-    component: ReportEdit,
+    component: () =>
+      import(/* webpackChunkName: "reports" */ '@/views/ReportEdit.vue'),
   },
   {
     path: '/reports/edit/:id',
     name: 'report-edit',
-    component: ReportEdit,
+    component: () =>
+      import(/* webpackChunkName: "reports" */ '@/views/ReportEdit.vue'),
   },
   {
     path: '/reports/:id',
     name: 'report',
-    component: ReportView,
+    component: () =>
+      import(/* webpackChunkName: "reports" */ '@/views/ReportView.vue'),
   },
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: About,
   },
   {
     path: '*',
