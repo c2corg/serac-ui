@@ -2,8 +2,6 @@
 
 - Error handling -> correctly display error, closable, etc
 - Prefetch data -> everywhere
-- Loading indicator -> color
-- Ag grid styling
 - Error page
 - Error message in form -> field is not interpolated
 - Helper in form
@@ -15,4 +13,3 @@
 - remove useless columns if narrow enough in edit form
 - event types input styling on hover
 - <https://www.ffcam.fr/logos-charte-graphique.html>
-- min / max scale

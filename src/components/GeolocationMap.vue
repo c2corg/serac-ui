@@ -6,10 +6,17 @@
     class="map"
     @click="handleClick"
   >
+    <l-control-layers position="bottomleft"></l-control-layers>
     <l-tile-layer
-      url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-      attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
-    ></l-tile-layer>
+      v-for="tileProvider in tileProviders"
+      :key="tileProvider.name"
+      :name="tileProvider.name"
+      :visible="tileProvider.visible"
+      :url="tileProvider.url"
+      :attribution="tileProvider.attribution"
+      :token="tileProvider.token"
+      layer-type="base"
+    />
     <l-circle-marker
       class="marker"
       v-if="marker"
@@ -36,7 +43,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { LMap, LTileLayer, LCircleMarker, LControl } from 'vue2-leaflet';
+import {
+  LMap,
+  LTileLayer,
+  LCircleMarker,
+  LControl,
+  LControlLayers,
+} from 'vue2-leaflet';
 import {
   latLng,
   MapOptions,
@@ -48,7 +61,9 @@ import {
 
 import { primary } from '@/utils/colors';
 
-@Component({ components: { LMap, LTileLayer, LCircleMarker, LControl } })
+@Component({
+  components: { LMap, LTileLayer, LCircleMarker, LControl, LControlLayers },
+})
 export default class GeolocationMap extends Vue {
   @Prop({ type: Boolean, default: false })
   editable!: boolean;
@@ -58,7 +73,32 @@ export default class GeolocationMap extends Vue {
 
   zoom: number = 6;
   center: LatLng = latLng(45.011369, 366.141357);
-  mapOptions: MapOptions = { zoomSnap: 0.5 };
+  mapOptions: MapOptions = { zoomSnap: 0.5, maxZoom: 17 };
+
+  tileProviders = [
+    {
+      name: 'OpenTopoMap',
+      visible: true,
+      url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+      attribution:
+        'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+    },
+    {
+      name: 'OpenStreetMap',
+      visible: false,
+      attribution:
+        '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    },
+    {
+      name: 'ESRI',
+      visible: false,
+      attribution:
+        '<a href="https://www.arcgis.com/home/item.html?id=30e5fe3149c34df1ba922e6f5bbf808f" target="_blank" rel="noreferer">Esri</a>',
+      url:
+        'https://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/WMTS?layer=World_Topo_Map&style=default&tilematrixset=GoogleMapsCompatible&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}',
+    },
+  ];
 
   initialCoords!: LatLng;
   marker: LatLng | undefined = latLng(0, 0);
