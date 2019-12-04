@@ -117,6 +117,11 @@ export const messages: LocaleMessages = {
           female: 'Femme',
         },
       },
+      geometry: {
+        label: 'Coordonnées',
+        lat: 'Latitude',
+        lng: 'Longitude',
+      },
       group_management: {
         label: 'Gestion du groupe',
         placeholder:

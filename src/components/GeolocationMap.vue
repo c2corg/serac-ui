@@ -11,11 +11,14 @@
       attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
     ></l-tile-layer>
     <l-circle-marker
+      class="marker"
       v-if="marker"
       :lat-lng="marker"
-      :fill="false"
       :radius="8"
-      color="#666"
+      :color="primary"
+      :fill="true"
+      :fillColor="primary"
+      fillOpactity="0.3"
     ></l-circle-marker>
   </l-map>
 </template>
@@ -33,6 +36,8 @@ import {
   Point,
 } from 'leaflet';
 
+import { primary } from '@/utils/colors';
+
 @Component({ components: { LMap, LTileLayer, LCircleMarker } })
 export default class GeolocationMap extends Vue {
   @Prop({ type: Boolean, default: false })
@@ -45,17 +50,19 @@ export default class GeolocationMap extends Vue {
   center: LatLng = latLng(45.011369, 366.141357);
   mapOptions: MapOptions = { zoomSnap: 0.5 };
 
-  marker!: LatLng;
+  initialCoords!: LatLng;
+  marker: LatLng | undefined = latLng(0, 0);
+  primary: string = primary;
 
   mounted() {
-    console.log(this.coords);
     if (this.coords) {
-      this.marker = CRS.EPSG3857.unproject(
-        new Point(this.coords[0], this.coords[1])
-      );
-      this.center = this.marker;
+      this.initialCoords = new LatLng(this.coords[0], this.coords[1]);
+      this.marker = new LatLng(this.coords[0], this.coords[1]);
+      this.center = new LatLng(this.coords[0], this.coords[1]);
+      this.zoom = 13;
     } else {
       this.center = latLng(45.011369, 366.141357);
+      this.marker = undefined;
     }
   }
 
@@ -64,13 +71,31 @@ export default class GeolocationMap extends Vue {
       return;
     }
     this.marker = event.latlng;
+    this.$emit('geolocation', this.marker);
+  }
+
+  // ! TODO:
+  resetCoords() {
+    this.marker = new LatLng(this.initialCoords.lat, this.initialCoords.lng);
+    this.$emit('geolocation', this.marker);
+  }
+
+  clearCoords() {
+    this.marker = undefined;
+    this.$emit('geolocation', undefined);
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/variables.scss';
+
 .map {
   height: 275px;
   width: 100%;
+}
+
+.marker {
+  stroke: $primary;
 }
 </style>
