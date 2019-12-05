@@ -120,15 +120,16 @@ export default class GeolocationMap extends Vue {
     if (!this.editable) {
       return;
     }
-    // ensure the coordinates are valid, i.e. -180 < lng < 180. Map event could have any offset value for lng.
+    this.marker = new LatLng(event.latlng.lat, event.latlng.lng);
+
+    // ensure the coordinates emitted are valid, i.e. -180 < lng < 180. Map event could have any offset value for lng.
     let lng = event.latlng.lng % 360;
     if (lng > 180) {
       lng -= 360;
     } else if (lng < -180) {
       lng += 360;
     }
-    this.marker = new LatLng(event.latlng.lat, lng);
-    this.$emit('geolocation', this.marker);
+    this.$emit('geolocation', new LatLng(event.latlng.lat, lng));
   }
 
   resetCoords() {
