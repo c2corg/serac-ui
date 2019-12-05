@@ -1,7 +1,9 @@
 <template>
   <section v-if="report" class="container is-fluid">
-    <div class="box level">
-      <h1>{{ report.locales[0].title }} {{ date }}</h1>
+    <div class="box level report-title">
+      <p class="is-size-3">
+        {{ report.locales[0].title }} <span class="is-size-6">{{ date }}</span>
+      </p>
       <div class="level-right">
         <router-link
           :to="{ name: 'report-edit', params: { id: report.id } }"
@@ -219,3 +221,9 @@ export default class ReportView extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.report-title {
+  margin-top: 1em;
+}
+</style>
