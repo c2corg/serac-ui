@@ -51,7 +51,7 @@
           <simple-field-view :report="report" field="rescue" />
           <simple-field-view :report="report" field="severity" />
         </div>
-        <div class="box">
+        <div class="box" v-if="coords">
           <geolocation-map :coords="coords"></geolocation-map>
         </div>
       </div>
