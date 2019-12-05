@@ -8,8 +8,9 @@ export const messages: LocaleMessages = {
       cancel: 'Annuler',
       edit: 'Éditer',
       new: 'Ajouter un nouveau rapport',
+      publish: 'Publier sur camptcamp.org',
       submit: 'Soumettre',
-      validate: 'Publier sur camptcamp.org',
+      validate: 'Valider',
     },
     error: { default: 'Un erreur est survenue', reload: 'Recharger la page' },
     field: {
@@ -245,6 +246,15 @@ export const messages: LocaleMessages = {
         title: 'Insérer un lien',
         url: 'URL',
       },
+    },
+    publish: {
+      dialog: {
+        title: 'Valider et publier sur camptocamp.org ?',
+        message:
+          'En validant ce rapport, il ne pourra plus être modifié et sera publié sur le site <a href="https://www.camptocamp.org">camptocamp.org</a>.',
+      },
+      success: 'Le rapport a été validé et soumis sur camptocamp.org',
+      error: "Le rapport n'a pas pu être validé. Merci de réessayer plus tard.",
     },
     table: {
       next: 'Page suivante',

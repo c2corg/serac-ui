@@ -13,7 +13,7 @@
         </router-link>
         <a
           href="#"
-          :title="$t('button.validate')"
+          :title="$t('button.publish')"
           @click="publish"
           v-if="!report.validated"
         >
@@ -184,14 +184,12 @@ export default class ReportView extends Vue {
     this.report = report;
   }
 
-  // ! FIXME i18n
   publish() {
     this.$buefy.dialog.confirm({
-      title: 'Valider et publier sur camptocamp.org?',
-      message:
-        'En validant ce rapport, il ne pourra plus être modifié et sera publié sur le site <a href="https://www.camptocamp.org">camptocamp.org</a>.',
-      cancelText: 'Annuler',
-      confirmText: 'Valider',
+      title: this.$t('publish.dialog.title').toString(),
+      message: this.$t('publish.dialog.message').toString(),
+      cancelText: this.$t('button.cancel').toString(),
+      confirmText: this.$t('button.validate').toString(),
       type: 'is-info',
       hasIcon: true,
       icon: 'info',
@@ -205,14 +203,13 @@ export default class ReportView extends Vue {
           .then(() =>
             this.$buefy.toast.open({
               type: 'is-success',
-              message: 'Something happened',
+              message: this.$t('publish.success').toString(),
             })
           ) // ! FIXME: more to do on success
           .catch(() =>
             this.$buefy.toast.open({
               type: 'is-danger',
-              message:
-                "Le rapport n'a pas pu être validé. Merci de réessayer plus tard.",
+              message: this.$t('publish.error').toString(),
             })
           )
           .finally(() => loadingComponent.close());
