@@ -10,7 +10,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import MarkdownView from '../components/MardownView.vue';
+import MarkdownView from '../components/MarkdownView.vue';
 
 @Component({ components: { MarkdownView } })
 export default class TextView extends Vue {
@@ -23,7 +23,13 @@ export default class TextView extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/variables.scss';
+
 .text-view {
   padding-top: 1em;
+
+  .title {
+    border-bottom: 1px solid $grey-light;
+  }
 }
 </style>

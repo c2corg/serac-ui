@@ -1,0 +1,40 @@
+.markdown {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: bold !important;
+  }
+
+  h1 {
+    font-size: 1.4em !important;
+  }
+
+  h2 {
+    font-size: 1.3em !important;
+  }
+
+  h3 {
+    font-size: 1.2em !important;
+  }
+
+  ul {
+    display: block !important;
+    list-style-type: disc !important;
+    margin-block-start: 1em !important;
+    margin-block-end: 1em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    padding-inline-start: 40px !important;
+  }
+
+  ol {
+    display: block !important;
+    list-style-type: decimal !important;
+    margin-block-start: 1em !important;
+    margin-block-end: 1em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    padding-inline-start: 40px !important;
+  }
+}

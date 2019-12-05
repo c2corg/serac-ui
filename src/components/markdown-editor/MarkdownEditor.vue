@@ -80,7 +80,7 @@
       />
 
       <div
-        class="markdown-editor__preview"
+        class="markdown-editor__preview markdown"
         v-if="preview"
         v-dompurify-html="cooked"
       ></div>
@@ -128,6 +128,8 @@ export default class MarkdownEditor extends Vue {
   linkText: string = '';
   linkUrl: string = '';
 
+  cooked!: string;
+
   $refs!: {
     textarea: HTMLTextAreaElement;
   };
@@ -159,10 +161,7 @@ export default class MarkdownEditor extends Vue {
     if (!this.preview) {
       return;
     }
-  }
-
-  get cooked() {
-    return marked(this.$refs.textarea.value);
+    this.cooked = marked(this.$refs.textarea.value);
   }
 
   handleSimpleMarkdownTag(tag: string, defaultChunk: string) {

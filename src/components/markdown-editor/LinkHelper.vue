@@ -7,7 +7,7 @@
           {{ $t('markdown.link-helper.text-to-display') }}
         </label>
         <div class="control">
-          <input class="input" v-model="chunk" />
+          <input class="input" v-model="userChunk" />
         </div>
       </div>
       <div class="field">
@@ -15,7 +15,7 @@
           {{ $t('markdown.link-helper.url') }}
         </label>
         <div class="control">
-          <input class="input" v-model="url" />
+          <input class="input" v-model="userUrl" />
         </div>
       </div>
     </section>
@@ -43,10 +43,18 @@ export default class LinkHelper extends Vue {
   @Prop({ type: String, required: true })
   url!: string;
 
+  userChunk: string = '';
+  userUrl: string = '';
+
   $parent!: any;
 
+  mounted() {
+    this.userChunk = this.chunk;
+    this.userUrl = this.url;
+  }
+
   insert() {
-    this.$emit('insert', this.chunk, this.url);
+    this.$emit('insert', this.userChunk, this.userUrl);
     this.$parent.close();
   }
 }

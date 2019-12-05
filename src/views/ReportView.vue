@@ -57,7 +57,7 @@
         <div class="box">
           <div
             v-if="report.locales[0].summary"
-            v-dompurify-html="report.locales[0].summary"
+            v-dompurify-html="cookedSummary"
             class="is-italic"
           ></div>
           <div v-for="field in textFields" :key="field">
@@ -81,6 +81,7 @@ import { format } from 'date-fns';
 import { parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CRS, LatLng, Point } from 'leaflet';
+import marked from 'marked';
 
 import api from '@/services/api.service';
 import Report from '@/model/report';
@@ -169,6 +170,12 @@ export default class ReportView extends Vue {
     const coords: [number, number] = JSON.parse(this.report.geometry)
       .coordinates;
     return CRS.EPSG3857.unproject(new Point(coords[0], coords[1]));
+  }
+
+  get cookedSummary() {
+    return this.report && this.report.locales[0].summary
+      ? marked(this.report.locales[0].summary)
+      : '';
   }
 
   setReport(report: Report) {
