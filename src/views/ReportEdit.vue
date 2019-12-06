@@ -344,6 +344,8 @@
               type="is-primary"
               native-type="submit"
               v-t="'button.submit'"
+              :class="{ 'is-loading': submitting }"
+              :disabled="submitting"
             ></b-button>
           </div>
         </form>
@@ -414,6 +416,7 @@ export default class ReportEdit extends Vue {
   report!: Report;
 
   model: Report | Omit<Report, 'id'> | null = null;
+  submitting: boolean = false;
 
   today: Date = new Date();
   severities = ALL_SEVERITIES;
@@ -509,17 +512,20 @@ export default class ReportEdit extends Vue {
       return;
     }
     //! FIXME: handle submission error
+    this.submitting = true;
     if (this.isExistingReport(this.model)) {
       const id = this.model.id;
       api
         .editReport(this.model)
-        .then(() => this.$router.push({ name: 'report', params: { id: id } }));
+        .then(() => this.$router.push({ name: 'report', params: { id: id } }))
+        .finally(() => (this.submitting = false));
     } else {
       api
         .createReport(this.model)
         .then(response =>
           this.$router.push({ name: 'report', params: { id: response.id } })
-        );
+        )
+        .finally(() => (this.submitting = false));
     }
   }
 
