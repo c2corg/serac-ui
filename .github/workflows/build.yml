@@ -1,10 +1,14 @@
 name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - .*
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -12,14 +16,21 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm ci
-        npm run build
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, build, and test
+        run: |
+          npm ci
+          npm run lint
+          npm run build
+        env:
+          CI: true
+      - name: Build and publish Docker image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: c2corg/serac-ui
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
