@@ -12,7 +12,7 @@ export const messages: LocaleMessages = {
       submit: 'Soumettre',
       validate: 'Valider',
     },
-    error: { default: 'Un erreur est survenue', reload: 'Recharger la page' },
+    error: { default: 'Une erreur est survenue', reload: 'Recharger la page' },
     field: {
       activities: {
         label: 'Activités',
