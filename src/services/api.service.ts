@@ -13,7 +13,6 @@ const baseUrl: () => string = () => {
   return baseUrl;
 };
 
-// FIXME error handling, interceptors & all
 export default {
   getReports(page: number = 1): Promise<Page<Report>> {
     return axios

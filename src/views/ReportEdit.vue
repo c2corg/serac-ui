@@ -40,8 +40,8 @@
                 </b-field>
               </b-field>
             </div>
-            <div class="column"></div>
-            <div class="column"></div>
+            <div class="column is-hidden-mobile"></div>
+            <div class="column is-hidden-mobile"></div>
           </div>
 
           <b-field :label="$t('field.geometry.label')">
@@ -155,7 +155,7 @@
                 :values="avalancheSlopes"
               ></input-select>
             </div>
-            <div class="column"></div>
+            <div class="column is-hidden-mobile"></div>
           </div>
 
           <div class="columns">
@@ -212,8 +212,8 @@
                 :values="previousInjuries"
               ></input-select>
             </div>
-            <div class="column"></div>
-            <div class="column"></div>
+            <div class="column is-hidden-mobile"></div>
+            <div class="column is-hidden-mobile"></div>
           </div>
 
           <b-field label="Résumé">
