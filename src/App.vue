@@ -36,6 +36,7 @@ export default class App extends Vue {
   error: string = '';
 
   mounted() {
+    document!.getElementById('splash')!.style.display = 'none';
     // [App.vue specific] When App.vue is finish loading finish the progress bar
     this.$Progress.finish();
     this.installAxiosInterceptors();
