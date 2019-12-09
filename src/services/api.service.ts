@@ -42,6 +42,12 @@ export default {
   validateReport(report: Report): Promise<void> {
     return this.editReport({ ...report, validated: true });
   },
+
+  deleteReport(report: Report): Promise<void> {
+    return axios
+      .delete<void>(`${baseUrl()}/xreports/${report.id}`)
+      .then(response => response.data);
+  },
 };
 
 export interface CreateResponse {

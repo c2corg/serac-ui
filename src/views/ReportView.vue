@@ -11,6 +11,9 @@
         >
           <fa-icon icon="edit" />
         </router-link>
+        <a href="#" :title="$t('button.delete')" @click="deleteReport">
+          <fa-icon icon="trash" />
+        </a>
         <a
           href="#"
           :title="$t('button.publish')"
@@ -27,7 +30,6 @@
           <field-view title="Activités">
             <activity-list :activities="report.activities" />
           </field-view>
-          <!-- FIXME: contributeur -->
           <field-view
             class="is-lowercase"
             :title="$t('field.event_type.label')"
@@ -92,6 +94,7 @@ import TextView from '@/components/TextView.vue';
 import FieldView from '@/components/FieldView.vue';
 import SimpleFieldView from '@/components/SimpleFieldView.vue';
 import GeolocationMap from '@/components/GeolocationMap.vue';
+import { DialogConfig } from 'buefy/types/components';
 
 @Component({
   name: 'report',
@@ -194,12 +197,9 @@ export default class ReportView extends Vue {
       hasIcon: true,
       icon: 'info',
       onConfirm: () => {
-        if (!this.report) {
-          return;
-        }
         const loadingComponent = this.$buefy.loading.open({});
         api
-          .validateReport(this.report)
+          .validateReport(this.report!)
           .then(() =>
             this.$buefy.toast.open({
               type: 'is-success',
@@ -215,6 +215,48 @@ export default class ReportView extends Vue {
           .finally(() => loadingComponent.close());
       },
     });
+  }
+
+  deleteReport() {
+    // warn before deleting
+    let options: Partial<DialogConfig> = {
+      cancelText: this.$t('button.cancel').toString(),
+      confirmText: this.$t('button.delete').toString(),
+      type: 'is-info',
+      hasIcon: true,
+      icon: 'info',
+      onConfirm: this.onDeleteConfirm,
+    };
+    let dialogOptions: DialogConfig;
+    if (this.report!.validated) {
+      dialogOptions = {
+        ...options,
+        title: this.$t('delete.dialog.title').toString(),
+        message: this.$t('delete.dialog.message').toString(),
+      };
+    } else {
+      dialogOptions = {
+        ...options,
+        message: this.$t('delete.dialog.title').toString(),
+      };
+    }
+    this.$buefy.dialog.confirm(dialogOptions);
+  }
+
+  private onDeleteConfirm() {
+    const loadingComponent = this.$buefy.loading.open({});
+    api
+      .deleteReport(this.report!)
+      .then(() => {
+        this.$router.push({ name: 'reports' });
+      })
+      .catch(() =>
+        this.$buefy.toast.open({
+          type: 'is-danger',
+          message: this.$t('delete.error').toString(),
+        })
+      )
+      .finally(() => loadingComponent.close());
   }
 }
 </script>

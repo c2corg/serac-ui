@@ -6,11 +6,21 @@ export const messages: LocaleMessages = {
     required: 'Ce champ est obligatoire',
     button: {
       cancel: 'Annuler',
+      delete: 'Supprimer',
       edit: 'Éditer',
       new: 'Ajouter un nouveau rapport',
       publish: 'Publier sur camptcamp.org',
       submit: 'Soumettre',
       validate: 'Valider',
+    },
+    delete: {
+      dialog: {
+        title: 'Supprimer le rapport',
+        message:
+          'Voulez vous supprimer ce rapport ?. Il a déjà été soumis sur le site <a href="https://www.camptocamp.org">camptocamp.org</a>, il est nécessaire de contacter les modérateurs.',
+      },
+      error:
+        "Le rapport n'a pas pu être supprimé. Merci de réessayer ultérieurement",
     },
     error: { default: 'Une erreur est survenue', reload: 'Recharger la page' },
     field: {
@@ -254,7 +264,8 @@ export const messages: LocaleMessages = {
           'En validant ce rapport, il ne pourra plus être modifié et sera publié sur le site <a href="https://www.camptocamp.org">camptocamp.org</a>.',
       },
       success: 'Le rapport a été validé et soumis sur camptocamp.org',
-      error: "Le rapport n'a pas pu être validé. Merci de réessayer plus tard.",
+      error:
+        "Le rapport n'a pas pu être validé. Merci de réessayer ultérieurement.",
     },
     table: {
       next: 'Page suivante',
