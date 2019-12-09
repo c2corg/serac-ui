@@ -9,6 +9,8 @@ export const messages: LocaleMessages = {
       delete: 'Supprimer',
       edit: 'Éditer',
       new: 'Ajouter un nouveau rapport',
+      next: 'Suivant',
+      previous: 'Précédent',
       publish: 'Publier sur camptcamp.org',
       submit: 'Soumettre',
       validate: 'Valider',
@@ -272,6 +274,25 @@ export const messages: LocaleMessages = {
       previous: 'Page précédente',
       current: 'Page actuelle',
       page: 'Page',
+    },
+    wizard: {
+      general: {
+        title: 'Informations générales',
+        details: 'Titre du rapport, activités',
+      },
+      geolocation: {
+        title: 'Géolocalisation',
+        details: "Localisation précise de l'évènement",
+      },
+      context: {
+        title: 'Participants et contexte',
+        details: "Détails sur les participants et le contexte de l'évènement",
+      },
+      text: {
+        title: 'Description textuelle',
+        details:
+          "Champs libres pour raconter au mieux les circonstances de l'évènement.",
+      },
     },
   },
 };
