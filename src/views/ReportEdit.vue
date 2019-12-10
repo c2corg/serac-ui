@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <validation-observer v-slot="{ handleSubmit }">
+      <validation-observer ref="observer">
         <form v-if="model" action="#" @submit.prevent="handleSubmit(onSubmit)">
           <b-steps v-model="activeStep">
             <b-step-item
@@ -496,6 +496,10 @@ export default class ReportEdit extends Vue {
   lat: number | undefined = 0;
   lng: number | undefined = 0;
 
+  $refs!: {
+    observer: InstanceType<typeof ValidationObserver>;
+  };
+
   get coords() {
     return !this.lat || !this.lng ? undefined : new LatLng(this.lat, this.lng);
   }
@@ -569,6 +573,31 @@ export default class ReportEdit extends Vue {
       this.lat = latLng.lat;
       this.lng = latLng.lng;
     }
+  }
+
+  async handleSubmit() {
+    const isValid = await this.$refs.observer.validate();
+    if (!isValid) {
+      // scroll to first error, show corresponding step if needed
+      const field: Element | null = document.querySelector('.field .is-danger');
+      if (!field) {
+        return;
+      }
+      const step: Element | null = field.closest('div.step-item');
+      if (!step) {
+        return;
+      }
+      const index: number = Array.from(
+        document.querySelectorAll('div.step-item')
+      ).indexOf(step);
+      if (index < 0) {
+        return;
+      }
+      this.activeStep = index;
+      field.scrollIntoView();
+      return;
+    }
+    return this.onSubmit();
   }
 
   onSubmit() {
