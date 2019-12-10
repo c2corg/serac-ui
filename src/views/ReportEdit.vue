@@ -1,353 +1,416 @@
 <template>
   <section>
     <div class="container">
-      <validation-observer v-slot="{ handleSubmit }">
+      <validation-observer ref="observer">
         <form v-if="model" action="#" @submit.prevent="handleSubmit(onSubmit)">
-          <validation-provider rules="required" v-slot="{ errors }">
-            <b-field
-              :label="$t('field.title.label')"
-              :type="{ 'is-danger': errors.length }"
-              :message="errors[0]"
+          <b-steps v-model="activeStep">
+            <b-step-item
+              :label="$t('wizard.general.title')"
+              :clickable="true"
+              icon="info"
             >
-              <b-input
-                v-model.trim="model.locales[0].title"
-                name="title"
-              ></b-input>
-            </b-field>
-          </validation-provider>
-
-          <validation-provider rules="required" v-slot="{ errors }">
-            <b-field
-              :label="$t('field.activities.label')"
-              :type="{ 'is-danger': errors.length }"
-              :message="errors[0]"
-            >
-              <input-activity
-                class="control"
-                v-model="model.activities"
-              ></input-activity>
-            </b-field>
-          </validation-provider>
-
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.elevation.label')">
-                <b-field>
-                  <b-input type="number" min="1" max="9999" expanded></b-input>
-                  <p class="control">
-                    <span class="button is-static">m</span>
-                  </p>
+              <h1 class="title">{{ $t('wizard.general.title') }}</h1>
+              <p class="subtitle">{{ $t('wizard.general.details') }}</p>
+              <validation-provider rules="required" v-slot="{ errors }">
+                <b-field
+                  :label="$t('field.title.label')"
+                  :type="{ 'is-danger': errors.length }"
+                  :message="errors[0]"
+                >
+                  <b-input
+                    v-model.trim="model.locales[0].title"
+                    name="title"
+                  ></b-input>
                 </b-field>
-              </b-field>
-            </div>
-            <div class="column is-hidden-mobile"></div>
-            <div class="column is-hidden-mobile"></div>
-          </div>
+              </validation-provider>
 
-          <b-field :label="$t('field.geometry.label')">
-            <geolocation-map
-              @geolocation="handleGeometry"
-              :editable="true"
-              :coords="coords"
-            ></geolocation-map>
-          </b-field>
+              <validation-provider rules="required" v-slot="{ errors }">
+                <b-field
+                  :label="$t('field.activities.label')"
+                  :type="{ 'is-danger': errors.length }"
+                  :message="errors[0]"
+                >
+                  <input-activity
+                    class="control"
+                    v-model="model.activities"
+                  ></input-activity>
+                </b-field>
+              </validation-provider>
+            </b-step-item>
 
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.geometry.lat')">
-                <b-input :value="dmsLat" readonly></b-input>
-              </b-field>
-            </div>
-            <div class="column">
-              <b-field :label="$t('field.geometry.lng')">
-                <b-input :value="dmsLng" readonly></b-input>
-              </b-field>
-            </div>
-          </div>
-
-          <div class="columns">
-            <validation-provider
-              rules="required"
-              v-slot="{ errors }"
-              tag="div"
-              class="column"
+            <b-step-item
+              :label="$t('wizard.geolocation.title')"
+              icon="globe-europe"
+              :clickable="true"
             >
-              <b-field
-                :label="$t('field.date.label')"
-                :message="errors[0]"
-                :type="{ 'is-danger': errors.length }"
-              >
-                <b-datepicker
-                  :placeholder="$t('field.date.placeholder')"
-                  icon="calendar"
-                  :max-date="today"
-                  v-model="date"
-                ></b-datepicker>
-              </b-field>
-            </validation-provider>
-
-            <div class="column">
-              <b-field :label="$t('field.nb_participants.label')">
-                <b-input
-                  type="number"
-                  min="1"
-                  v-model="model.nb_participants"
-                ></b-input>
-              </b-field>
-            </div>
-          </div>
-
-          <b-field :label="$t('field.event_type.label')">
-            <input-event-type
-              class="control"
-              v-model="model.event_type"
-            ></input-event-type>
-          </b-field>
-
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.nb_impacted.label')">
-                <b-input
-                  type="number"
-                  min="0"
-                  v-model="model.nb_impacted"
-                ></b-input>
-              </b-field>
-            </div>
-
-            <div class="column">
-              <input-select
-                field="severity"
-                :report="model"
-                :values="severities"
-              ></input-select>
-            </div>
-
-            <div class="column">
-              <b-field :label="$t('field.rescue.label')">
-                <div>
-                  <b-radio v-model="model.rescue" native-value="true">
-                    {{ $t('field.rescue.values.true') }}
-                  </b-radio>
-                  <b-radio v-model="model.rescue" native-value="false">
-                    {{ $t('field.rescue.values.false') }}
-                  </b-radio>
-                  <b-radio v-model="model.rescue" native-value="null">
-                    <em v-t="'field.rescue.values.null'"></em>
-                  </b-radio>
+              <h1 class="title">{{ $t('wizard.geolocation.title') }}</h1>
+              <p class="subtitle">{{ $t('wizard.geolocation.details') }}</p>
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.elevation.label')">
+                    <b-field>
+                      <b-input
+                        type="number"
+                        min="1"
+                        max="9999"
+                        expanded
+                      ></b-input>
+                      <p class="control">
+                        <span class="button is-static">m</span>
+                      </p>
+                    </b-field>
+                  </b-field>
                 </div>
+                <div class="column is-hidden-mobile"></div>
+                <div class="column is-hidden-mobile"></div>
+              </div>
+
+              <b-field :label="$t('field.geometry.label')">
+                <geolocation-map
+                  @geolocation="handleGeometry"
+                  :editable="true"
+                  :coords="coords"
+                ></geolocation-map>
               </b-field>
-            </div>
-          </div>
 
-          <div class="columns">
-            <div class="column">
-              <input-select
-                field="avalanche_level"
-                :report="model"
-                :values="avalancheLevels"
-              ></input-select>
-            </div>
-            <div class="column">
-              <input-select
-                field="avalanche_slope"
-                :report="model"
-                :values="avalancheSlopes"
-              ></input-select>
-            </div>
-            <div class="column is-hidden-mobile"></div>
-          </div>
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.geometry.lat')">
+                    <b-input :value="dmsLat" readonly></b-input>
+                  </b-field>
+                </div>
+                <div class="column">
+                  <b-field :label="$t('field.geometry.lng')">
+                    <b-input :value="dmsLng" readonly></b-input>
+                  </b-field>
+                </div>
+              </div>
+            </b-step-item>
 
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.age.label')">
-                <b-input type="number" v-model="model.age" min="1"></b-input>
-              </b-field>
-            </div>
-            <div class="column">
-              <input-select
-                field="gender"
-                :report="model"
-                :values="genders"
-              ></input-select>
-            </div>
-            <div class="column">
-              <input-select
-                field="author_status"
-                :report="model"
-                :values="statuses"
-              ></input-select>
-            </div>
-          </div>
-
-          <div class="columns">
-            <div class="column">
-              <input-select
-                field="autonomy"
-                :report="model"
-                :values="autonomies"
-              ></input-select>
-            </div>
-            <div class="column">
-              <input-select
-                field="activity_rate"
-                :report="model"
-                :values="activityRates"
-              ></input-select>
-            </div>
-            <div class="column">
-              <input-select
-                field="nb_outings"
-                :report="model"
-                :values="nbOutings"
-              ></input-select>
-            </div>
-          </div>
-
-          <div class="columns">
-            <div class="column">
-              <input-select
-                field="previous_injuries"
-                :report="model"
-                :values="previousInjuries"
-              ></input-select>
-            </div>
-            <div class="column is-hidden-mobile"></div>
-            <div class="column is-hidden-mobile"></div>
-          </div>
-
-          <b-field label="Résumé">
-            <markdown-editor
-              v-model="model.locales[0].summary"
-            ></markdown-editor>
-          </b-field>
-
-          <b-field :label="$t('field.description.label')">
-            <markdown-editor
-              v-model="model.locales[0].description"
-              :placeholder="$t('field.description.placeholder')"
+            <b-step-item
+              :label="$t('wizard.context.title')"
+              icon="user-friends"
+              :clickable="true"
             >
-            </markdown-editor>
-          </b-field>
+              <h1 class="title">{{ $t('wizard.context.title') }}</h1>
+              <p class="subtitle">{{ $t('wizard.context.details') }}</p>
+              <div class="columns">
+                <validation-provider
+                  rules="required"
+                  v-slot="{ errors }"
+                  tag="div"
+                  class="column"
+                >
+                  <b-field
+                    :label="$t('field.date.label')"
+                    :message="errors[0]"
+                    :type="{ 'is-danger': errors.length }"
+                  >
+                    <b-datepicker
+                      :placeholder="$t('field.date.placeholder')"
+                      icon="calendar"
+                      :max-date="today"
+                      v-model="date"
+                    ></b-datepicker>
+                  </b-field>
+                </validation-provider>
 
-          <b-field :label="$t('field.place.label')">
-            <markdown-editor
-              v-model="model.locales[0].place"
-              :placeholder="$t('field.place.placeholder')"
-            ></markdown-editor>
-          </b-field>
+                <div class="column">
+                  <b-field :label="$t('field.nb_participants.label')">
+                    <b-input
+                      type="number"
+                      min="1"
+                      v-model="model.nb_participants"
+                    ></b-input>
+                  </b-field>
+                </div>
+              </div>
 
-          <b-field :label="$t('field.route_study.label')">
-            <markdown-editor
-              v-model="model.locales[0].route_study"
-              :placeholder="$t('field.route_study.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <b-field :label="$t('field.event_type.label')">
+                <input-event-type
+                  class="control"
+                  v-model="model.event_type"
+                ></input-event-type>
+              </b-field>
 
-          <b-field :label="$t('field.conditions.label')">
-            <markdown-editor
-              v-model="model.locales[0].conditions"
-              :placeholder="$t('field.conditions.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.nb_impacted.label')">
+                    <b-input
+                      type="number"
+                      min="0"
+                      v-model="model.nb_impacted"
+                    ></b-input>
+                  </b-field>
+                </div>
 
-          <b-field :label="$t('field.training.label')">
-            <markdown-editor
-              v-model="model.locales[0].training"
-              :placeholder="$t('field.training.placeholder')"
-            ></markdown-editor>
-          </b-field>
+                <div class="column">
+                  <input-select
+                    field="severity"
+                    :report="model"
+                    :values="severities"
+                  ></input-select>
+                </div>
 
-          <b-field :label="$t('field.motivations.label')">
-            <markdown-editor
-              v-model="model.locales[0].motivations"
-              :placeholder="$t('field.motivations.placeholder')"
-            ></markdown-editor>
-          </b-field>
+                <div class="column">
+                  <b-field :label="$t('field.rescue.label')">
+                    <div>
+                      <b-radio v-model="model.rescue" native-value="true">
+                        {{ $t('field.rescue.values.true') }}
+                      </b-radio>
+                      <b-radio v-model="model.rescue" native-value="false">
+                        {{ $t('field.rescue.values.false') }}
+                      </b-radio>
+                      <b-radio v-model="model.rescue" native-value="null">
+                        <em v-t="'field.rescue.values.null'"></em>
+                      </b-radio>
+                    </div>
+                  </b-field>
+                </div>
+              </div>
 
-          <b-field :label="$t('field.group_management.label')">
-            <markdown-editor
-              v-model="model.locales[0].group_management"
-              :placeholder="$t('field.group_management.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <div class="columns">
+                <div class="column">
+                  <input-select
+                    field="avalanche_level"
+                    :report="model"
+                    :values="avalancheLevels"
+                  ></input-select>
+                </div>
+                <div class="column">
+                  <input-select
+                    field="avalanche_slope"
+                    :report="model"
+                    :values="avalancheSlopes"
+                  ></input-select>
+                </div>
+                <div class="column is-hidden-mobile"></div>
+              </div>
 
-          <b-field :label="$t('field.risk_study.label')">
-            <markdown-editor
-              v-model="model.locales[0].risk_study"
-              :placeholder="$t('field.risk_study.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.age.label')">
+                    <b-input
+                      type="number"
+                      v-model="model.age"
+                      min="1"
+                    ></b-input>
+                  </b-field>
+                </div>
+                <div class="column">
+                  <input-select
+                    field="gender"
+                    :report="model"
+                    :values="genders"
+                  ></input-select>
+                </div>
+                <div class="column">
+                  <input-select
+                    field="author_status"
+                    :report="model"
+                    :values="statuses"
+                  ></input-select>
+                </div>
+              </div>
 
-          <b-field :label="$t('field.time_management.label')">
-            <markdown-editor
-              v-model="model.locales[0].time_management"
-              :placeholder="$t('field.time_management.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <div class="columns">
+                <div class="column">
+                  <input-select
+                    field="autonomy"
+                    :report="model"
+                    :values="autonomies"
+                  ></input-select>
+                </div>
+                <div class="column">
+                  <input-select
+                    field="activity_rate"
+                    :report="model"
+                    :values="activityRates"
+                  ></input-select>
+                </div>
+                <div class="column">
+                  <input-select
+                    field="nb_outings"
+                    :report="model"
+                    :values="nbOutings"
+                  ></input-select>
+                </div>
+              </div>
 
-          <b-field :label="$t('field.safety.label')">
-            <markdown-editor
-              v-model="model.locales[0].safety"
-              :placeholder="$t('field.safety.placeholder')"
-            ></markdown-editor>
-          </b-field>
+              <div class="columns">
+                <div class="column">
+                  <input-select
+                    field="previous_injuries"
+                    :report="model"
+                    :values="previousInjuries"
+                  ></input-select>
+                </div>
+                <div class="column is-hidden-mobile"></div>
+                <div class="column is-hidden-mobile"></div>
+              </div>
+            </b-step-item>
 
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.reduce_impact.label')">
+            <b-step-item
+              :label="$t('wizard.text.title')"
+              :clickable="true"
+              icon="comments"
+            >
+              <h1 class="title">{{ $t('wizard.text.title') }}</h1>
+              <p class="subtitle">{{ $t('wizard.text.details') }}</p>
+              <b-field label="Résumé">
                 <markdown-editor
-                  v-model="model.locales[0].reduce_impact"
+                  v-model="model.locales[0].summary"
                 ></markdown-editor>
               </b-field>
-            </div>
 
-            <div class="column">
-              <b-field :label="$t('field.increase_impact.label')">
+              <b-field :label="$t('field.description.label')">
                 <markdown-editor
-                  v-model="model.locales[0].increase_impact"
+                  v-model="model.locales[0].description"
+                  :placeholder="$t('field.description.placeholder')"
+                >
+                </markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.place.label')">
+                <markdown-editor
+                  v-model="model.locales[0].place"
+                  :placeholder="$t('field.place.placeholder')"
                 ></markdown-editor>
               </b-field>
-            </div>
-          </div>
 
-          <div class="columns">
-            <div class="column">
-              <b-field :label="$t('field.modifications.label')">
+              <b-field :label="$t('field.route_study.label')">
                 <markdown-editor
-                  v-model="model.locales[0].modifications"
-                  :placeholder="$t('field.modifications.placeholder')"
+                  v-model="model.locales[0].route_study"
+                  :placeholder="$t('field.route_study.placeholder')"
                 ></markdown-editor>
               </b-field>
-            </div>
 
-            <div class="column">
-              <b-field :label="$t('field.other_comments.label')">
+              <b-field :label="$t('field.conditions.label')">
                 <markdown-editor
-                  v-model="model.locales[0].other_comments"
-                  :placeholder="$t('field.other_comments.placeholder')"
+                  v-model="model.locales[0].conditions"
+                  :placeholder="$t('field.conditions.placeholder')"
                 ></markdown-editor>
               </b-field>
-            </div>
-          </div>
-          <div class="buttons is-right">
-            <b-button
-              @click="
-                $router.push({
-                  name: 'report',
-                  params: { id: $route.params.id },
-                })
-              "
-              v-t="'button.cancel'"
-            ></b-button>
-            <b-button
-              type="is-primary"
-              native-type="submit"
-              v-t="'button.submit'"
-              :class="{ 'is-loading': submitting }"
-              :disabled="submitting"
-            ></b-button>
-          </div>
+
+              <b-field :label="$t('field.training.label')">
+                <markdown-editor
+                  v-model="model.locales[0].training"
+                  :placeholder="$t('field.training.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.motivations.label')">
+                <markdown-editor
+                  v-model="model.locales[0].motivations"
+                  :placeholder="$t('field.motivations.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.group_management.label')">
+                <markdown-editor
+                  v-model="model.locales[0].group_management"
+                  :placeholder="$t('field.group_management.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.risk_study.label')">
+                <markdown-editor
+                  v-model="model.locales[0].risk_study"
+                  :placeholder="$t('field.risk_study.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.time_management.label')">
+                <markdown-editor
+                  v-model="model.locales[0].time_management"
+                  :placeholder="$t('field.time_management.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <b-field :label="$t('field.safety.label')">
+                <markdown-editor
+                  v-model="model.locales[0].safety"
+                  :placeholder="$t('field.safety.placeholder')"
+                ></markdown-editor>
+              </b-field>
+
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.reduce_impact.label')">
+                    <markdown-editor
+                      v-model="model.locales[0].reduce_impact"
+                    ></markdown-editor>
+                  </b-field>
+                </div>
+
+                <div class="column">
+                  <b-field :label="$t('field.increase_impact.label')">
+                    <markdown-editor
+                      v-model="model.locales[0].increase_impact"
+                    ></markdown-editor>
+                  </b-field>
+                </div>
+              </div>
+
+              <div class="columns">
+                <div class="column">
+                  <b-field :label="$t('field.modifications.label')">
+                    <markdown-editor
+                      v-model="model.locales[0].modifications"
+                      :placeholder="$t('field.modifications.placeholder')"
+                    ></markdown-editor>
+                  </b-field>
+                </div>
+
+                <div class="column">
+                  <b-field :label="$t('field.other_comments.label')">
+                    <markdown-editor
+                      v-model="model.locales[0].other_comments"
+                      :placeholder="$t('field.other_comments.placeholder')"
+                    ></markdown-editor>
+                  </b-field>
+                </div>
+              </div>
+            </b-step-item>
+
+            <template slot="navigation" slot-scope="{ previous, next }">
+              <div class="buttons is-right">
+                <b-button
+                  @click="
+                    $router.push({
+                      name: 'report',
+                      params: { id: $route.params.id },
+                    })
+                  "
+                  v-t="'button.cancel'"
+                ></b-button>
+                <b-button
+                  :disabled="previous.disabled"
+                  icon-left="angle-left"
+                  @click.prevent="previous.action"
+                >
+                  {{ $t('button.previous') }}
+                </b-button>
+                <b-button
+                  v-show="activeStep < 3"
+                  :disabled="next.disabled"
+                  @click.prevent="next.action"
+                  icon-right="angle-right"
+                  type="is-primary"
+                >
+                  {{ $t('button.next') }}
+                </b-button>
+                <b-button
+                  v-show="activeStep === 3"
+                  type="is-primary"
+                  native-type="submit"
+                  v-t="'button.submit'"
+                  :class="{ 'is-loading': submitting }"
+                  :disabled="submitting"
+                ></b-button>
+              </div>
+            </template>
+          </b-steps>
         </form>
       </validation-observer>
     </div>
@@ -416,6 +479,7 @@ export default class ReportEdit extends Vue {
   report!: Report;
 
   model: Report | Omit<Report, 'id'> | null = null;
+  activeStep: number = 0;
   submitting: boolean = false;
 
   today: Date = new Date();
@@ -431,6 +495,10 @@ export default class ReportEdit extends Vue {
 
   lat: number | undefined = 0;
   lng: number | undefined = 0;
+
+  $refs!: {
+    observer: InstanceType<typeof ValidationObserver>;
+  };
 
   get coords() {
     return !this.lat || !this.lng ? undefined : new LatLng(this.lat, this.lng);
@@ -505,6 +573,31 @@ export default class ReportEdit extends Vue {
       this.lat = latLng.lat;
       this.lng = latLng.lng;
     }
+  }
+
+  async handleSubmit() {
+    const isValid = await this.$refs.observer.validate();
+    if (!isValid) {
+      // scroll to first error, show corresponding step if needed
+      const field: Element | null = document.querySelector('.field .is-danger');
+      if (!field) {
+        return;
+      }
+      const step: Element | null = field.closest('div.step-item');
+      if (!step) {
+        return;
+      }
+      const index: number = Array.from(
+        document.querySelectorAll('div.step-item')
+      ).indexOf(step);
+      if (index < 0) {
+        return;
+      }
+      this.activeStep = index;
+      field.scrollIntoView();
+      return;
+    }
+    return this.onSubmit();
   }
 
   onSubmit() {

@@ -52,6 +52,9 @@ import {
   faLink,
   faArrowUp,
   faTrash,
+  faGlobeEurope,
+  faUserFriends,
+  faComments,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -86,7 +89,10 @@ library.add(
   faCompress,
   faLink,
   faArrowUp,
-  faTrash
+  faTrash,
+  faGlobeEurope,
+  faUserFriends,
+  faComments
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);
