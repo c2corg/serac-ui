@@ -50,14 +50,7 @@ import {
   LControl,
   LControlLayers,
 } from 'vue2-leaflet';
-import {
-  latLng,
-  MapOptions,
-  LatLng,
-  LeafletMouseEvent,
-  CRS,
-  Point,
-} from 'leaflet';
+import { latLng, MapOptions, LatLng, LeafletMouseEvent } from 'leaflet';
 
 import { primary } from '@/utils/colors';
 

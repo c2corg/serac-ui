@@ -72,7 +72,6 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 import ActivityList from '../components/ActivityList.vue';
-import ReportsTable from '../components/ReportsTable.vue';
 import Report from '../model/report';
 import api from '../services/api.service';
 import { Route, RawLocation } from 'vue-router';

@@ -33,7 +33,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { ModalProgrammatic } from 'buefy';
 
 @Component
 export default class LinkHelper extends Vue {

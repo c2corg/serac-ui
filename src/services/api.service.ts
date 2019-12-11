@@ -14,7 +14,7 @@ const baseUrl: () => string = () => {
 };
 
 export default {
-  getReports(page: number = 1): Promise<Page<Report>> {
+  getReports(page = 1): Promise<Page<Report>> {
     return axios
       .get<Page<Report>>(`${baseUrl()}/xreports?page=${page - 1}`)
       .then(response => response.data);

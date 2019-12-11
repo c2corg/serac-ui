@@ -29,7 +29,6 @@ import { Component } from 'vue-property-decorator';
 import { Route, RawLocation } from 'vue-router';
 import axios, { AxiosResponse } from 'axios';
 import NetworkError from './components/NetworkError.vue';
-import ReportView from './views/ReportView.vue';
 
 @Component({ components: { NetworkError } })
 export default class App extends Vue {
@@ -59,11 +58,11 @@ export default class App extends Vue {
       }
     );
     // hook the progress bar to finish after we've finished moving router-view
-    this.$router.afterEach((to: Route, from: Route) => {
+    this.$router.afterEach(() => {
       // finish the progress bar
       this.$Progress.finish();
     });
-    this.$router.onError((err: Error) => {
+    this.$router.onError(() => {
       this.$Progress.fail();
     });
   }

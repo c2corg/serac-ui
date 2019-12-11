@@ -9,11 +9,11 @@ function extractHash(content: string, hash: string): C2cHelp {
   const el: HTMLDivElement = document.createElement('div');
   el.innerHTML = content;
 
-  let title: string = '';
-  let description: string = '';
+  let title = '';
+  let description = '';
   const html: string[] = [];
-  let appending: boolean = false;
-  let mainNodeTag: string = '';
+  let appending = false;
+  let mainNodeTag = '';
 
   for (const node of el.children) {
     const isHeader = node.nodeName.match(/^[hH]\d$/);
@@ -37,14 +37,14 @@ function extractHash(content: string, hash: string): C2cHelp {
 export default {
   help(id: string): Promise<C2cHelp> {
     let documentId: string = id;
-    let hash: string = '';
+    let hash = '';
     const match = id.match(/^(\d+)(?:#([a-z0-9-_]+))?$/);
     if (match) {
       documentId = match[1];
       hash = match[2];
     }
     return axios
-      .get(`https://api.camptocamp.org/articles/${id}`, {
+      .get(`https://api.camptocamp.org/articles/${documentId}`, {
         params: { cook: 'fr' },
       })
       .then(response => {

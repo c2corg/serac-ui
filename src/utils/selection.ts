@@ -41,7 +41,7 @@ export default class Selection {
     this.end = end;
   }
 
-  setText(text: string, before: string = '', after: string = '') {
+  setText(text: string, before = '', after = '') {
     const chunk = before + text + after;
 
     const start = this.start;
