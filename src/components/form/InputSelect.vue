@@ -1,6 +1,12 @@
 <template>
-  <b-field :label="label"
-    ><b-select expanded v-model="report[field]">
+  <b-field>
+    <template slot="label">
+      {{ $t(`field.${field}.label`) }}
+      <a v-if="helpId" @click="helper(helpId)">
+        <fa-icon icon="question-circle"></fa-icon>
+      </a>
+    </template>
+    <b-select expanded v-model="report[field]">
       <option v-for="option in options" :key="option.key" :value="option.key">
         {{ option.value }}
       </option>
@@ -12,9 +18,11 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Report from '../../model/report';
+import HelperMixin from '../HelperMixin.vue';
+import { mixins } from 'vue-class-component';
 
 @Component
-export default class InputSelect extends Vue {
+export default class InputSelect extends mixins(HelperMixin) {
   @Prop({ type: Object, required: true })
   report!: Report;
 
@@ -23,6 +31,9 @@ export default class InputSelect extends Vue {
 
   @Prop({ type: Array, required: true })
   values!: string[];
+
+  @Prop({ type: String, required: false })
+  helpId!: string;
 
   get label() {
     return this.$t(`field.${this.field}.label`);

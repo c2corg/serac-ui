@@ -131,7 +131,13 @@
                 </div>
               </div>
 
-              <b-field :label="$t('field.event_type.label')">
+              <b-field>
+                <template slot="label">
+                  {{ $t('field.event_type.label') }}
+                  <a @click="helper('1063015#event-type')">
+                    <fa-icon icon="question-circle"></fa-icon>
+                  </a>
+                </template>
                 <input-event-type
                   class="control"
                   v-model="model.event_type"
@@ -140,7 +146,13 @@
 
               <div class="columns">
                 <div class="column">
-                  <b-field :label="$t('field.nb_impacted.label')">
+                  <b-field>
+                    <template slot="label">
+                      {{ $t('field.nb_impacted.label') }}
+                      <a @click="helper('1063015#nb-impacted')">
+                        <fa-icon icon="question-circle"></fa-icon>
+                      </a>
+                    </template>
                     <b-input
                       type="number"
                       min="0"
@@ -152,13 +164,20 @@
                 <div class="column">
                   <input-select
                     field="severity"
+                    helpId="1063015#severity"
                     :report="model"
                     :values="severities"
                   ></input-select>
                 </div>
 
                 <div class="column">
-                  <b-field :label="$t('field.rescue.label')">
+                  <b-field>
+                    <template slot="label">
+                      {{ $t('field.rescue.label') }}
+                      <a @click="helper('1063015#rescue')">
+                        <fa-icon icon="question-circle"></fa-icon>
+                      </a>
+                    </template>
                     <div>
                       <b-radio v-model="model.rescue" native-value="true">
                         {{ $t('field.rescue.values.true') }}
@@ -178,6 +197,7 @@
                 <div class="column">
                   <input-select
                     field="avalanche_level"
+                    helpId="1063015#avalanche-level"
                     :report="model"
                     :values="avalancheLevels"
                   ></input-select>
@@ -185,6 +205,7 @@
                 <div class="column">
                   <input-select
                     field="avalanche_slope"
+                    helpId="1063015#avalanche-slope"
                     :report="model"
                     :values="avalancheSlopes"
                   ></input-select>
@@ -212,6 +233,7 @@
                 <div class="column">
                   <input-select
                     field="author_status"
+                    helperId="1063015#author-status"
                     :report="model"
                     :values="statuses"
                   ></input-select>
@@ -222,6 +244,7 @@
                 <div class="column">
                   <input-select
                     field="autonomy"
+                    helpId="1063015#autonomy"
                     :report="model"
                     :values="autonomies"
                   ></input-select>
@@ -332,7 +355,13 @@
                 ></markdown-editor>
               </b-field>
 
-              <b-field :label="$t('field.safety.label')">
+              <b-field>
+                <template slot="label">
+                  {{ $t('field.safety.label') }}
+                  <a @click="helper('1063015#safety')">
+                    <fa-icon icon="question-circle"></fa-icon>
+                  </a>
+                </template>
                 <markdown-editor
                   v-model="model.locales[0].safety"
                   :placeholder="$t('field.safety.placeholder')"
@@ -341,7 +370,13 @@
 
               <div class="columns">
                 <div class="column">
-                  <b-field :label="$t('field.reduce_impact.label')">
+                  <b-field>
+                    <template slot="label">
+                      {{ $t('field.reduce_impact.label') }}
+                      <a @click="helper('1063015#reduce-impact')">
+                        <fa-icon icon="question-circle"></fa-icon>
+                      </a>
+                    </template>
                     <markdown-editor
                       v-model="model.locales[0].reduce_impact"
                     ></markdown-editor>
@@ -349,7 +384,13 @@
                 </div>
 
                 <div class="column">
-                  <b-field :label="$t('field.increase_impact.label')">
+                  <b-field>
+                    <template slot="label">
+                      {{ $t('field.increase_impact.label') }}
+                      <a @click="helper('1063015#increase-impact')">
+                        <fa-icon icon="question-circle"></fa-icon>
+                      </a>
+                    </template>
                     <markdown-editor
                       v-model="model.locales[0].increase_impact"
                     ></markdown-editor>
@@ -359,7 +400,13 @@
 
               <div class="columns">
                 <div class="column">
-                  <b-field :label="$t('field.modifications.label')">
+                  <b-field>
+                    <template slot="label">
+                      {{ $t('field.modifications.label') }}
+                      <a @click="helper('1063015#modifications')">
+                        <fa-icon icon="question-circle"></fa-icon>
+                      </a>
+                    </template>
                     <markdown-editor
                       v-model="model.locales[0].modifications"
                       :placeholder="$t('field.modifications.placeholder')"
@@ -450,8 +497,8 @@ import Report, {
   ALL_PREVIOUS_INJURIES,
 } from '@/model/report';
 import { messages } from '@/i18n';
-import c2c from '@/services/c2c.service';
-import { sanitize } from 'dompurify';
+import HelperMixin from '../components/HelperMixin.vue';
+import { mixins } from 'vue-class-component';
 
 extend('required', {
   ...required,
@@ -481,7 +528,7 @@ const newReport = (): Omit<Report, 'id'> => ({
     GeolocationMap,
   },
 })
-export default class ReportEdit extends Vue {
+export default class ReportEdit extends mixins(HelperMixin) {
   @Prop()
   report!: Report;
 
@@ -661,24 +708,6 @@ export default class ReportEdit extends Vue {
       this.lat = undefined;
       this.lng = undefined;
     }
-  }
-
-  helper(id: string) {
-    c2c
-      .help(id)
-      .then(({ title, description }) =>
-        this.$buefy.dialog.alert({
-          title,
-          message: sanitize(description),
-          size: 'is-small',
-        })
-      )
-      .catch(() => {
-        this.$buefy.toast.open({
-          type: 'is-danger',
-          message: this.$t('helper.error').toString(),
-        });
-      });
   }
 }
 </script>
