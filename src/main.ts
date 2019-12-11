@@ -55,6 +55,7 @@ import {
   faGlobeEurope,
   faUserFriends,
   faComments,
+  faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -92,7 +93,8 @@ library.add(
   faTrash,
   faGlobeEurope,
   faUserFriends,
-  faComments
+  faComments,
+  faQuestionCircle
 );
 
 Vue.component('fa-icon', FontAwesomeIcon);

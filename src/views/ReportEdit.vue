@@ -26,10 +26,15 @@
 
               <validation-provider rules="required" v-slot="{ errors }">
                 <b-field
-                  :label="$t('field.activities.label')"
                   :type="{ 'is-danger': errors.length }"
                   :message="errors[0]"
                 >
+                  <template slot="label">
+                    {{ $t('field.activities.label') }}
+                    <a @click="helper('1063015#activities')">
+                      <fa-icon icon="question-circle"></fa-icon>
+                    </a>
+                  </template>
                   <input-activity
                     class="control"
                     v-model="model.activities"
@@ -445,6 +450,8 @@ import Report, {
   ALL_PREVIOUS_INJURIES,
 } from '@/model/report';
 import { messages } from '@/i18n';
+import c2c from '@/services/c2c.service';
+import { sanitize } from 'dompurify';
 
 extend('required', {
   ...required,
@@ -654,6 +661,24 @@ export default class ReportEdit extends Vue {
       this.lat = undefined;
       this.lng = undefined;
     }
+  }
+
+  helper(id: string) {
+    c2c
+      .help(id)
+      .then(({ title, description }) =>
+        this.$buefy.dialog.alert({
+          title,
+          message: sanitize(description),
+          size: 'is-small',
+        })
+      )
+      .catch(() => {
+        this.$buefy.toast.open({
+          type: 'is-danger',
+          message: this.$t('helper.error').toString(),
+        });
+      });
   }
 }
 </script>

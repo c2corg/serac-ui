@@ -232,6 +232,9 @@ export const messages: LocaleMessages = {
           'Décrivez votre niveau technique et expérience par rapport à l’objectif choisi, votre condition physique, la fatigue accumulée avant la sortie, l’acclimatation pour une sortie en altitude, etc.',
       },
     },
+    helper: {
+      error: "Impossible de charger l'aide contextuelle",
+    },
     list: { title: 'Rapports incidents/accidents' },
     map: {
       control: {
