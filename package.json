@@ -20,7 +20,7 @@
     "dms-conversion": "3.1.1",
     "leaflet": "1.6.0",
     "marked": "0.8.0",
-    "vee-validate": "3.1.1",
+    "vee-validate": "3.2.0",
     "vue": "2.6.11",
     "vue-class-component": "7.1.0",
     "vue-dompurify-html": "2.1.1",
