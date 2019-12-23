@@ -31,7 +31,7 @@ export default class InputActivity extends Vue {
   value!: Activity[];
 
   get value_() {
-    return this.value || [];
+    return this.value ?? [];
   }
 
   set value_(value: Activity[]) {
