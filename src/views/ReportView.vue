@@ -155,13 +155,13 @@ export default class ReportView extends Vue {
   }
 
   get date() {
-    return this.report && this.report.date
+    return this.report?.date
       ? format(parseISO(this.report.date), 'd MMMM y', { locale: fr })
       : '';
   }
 
   get eventTypes() {
-    return this.report && this.report.event_type
+    return this.report?.event_type
       ? this.report.event_type
           .map(event => this.$t(`field.event_type.values.${event}`))
           .join(', ')
@@ -169,7 +169,7 @@ export default class ReportView extends Vue {
   }
 
   get coords(): LatLng | undefined {
-    if (!this.report || !this.report.geometry) {
+    if (!this.report?.geometry) {
       return undefined;
     }
     const coords: [number, number] = JSON.parse(this.report.geometry)
@@ -178,7 +178,7 @@ export default class ReportView extends Vue {
   }
 
   get cookedSummary() {
-    return this.report && this.report.locales[0].summary
+    return this.report?.locales[0]?.summary
       ? marked(this.report.locales[0].summary)
       : '';
   }

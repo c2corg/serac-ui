@@ -24,7 +24,7 @@ export default class InputEventType extends Vue {
   value!: EventType[];
 
   get value_() {
-    return this.value || [];
+    return this.value ?? [];
   }
 
   set value_(value: EventType[]) {

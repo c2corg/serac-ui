@@ -677,7 +677,7 @@ export default class ReportEdit extends mixins(HelperMixin) {
   }
 
   get date(): Date | null {
-    return this.model && this.model.date ? new Date(this.model.date) : null;
+    return this.model?.date ? new Date(this.model.date) : null;
   }
 
   set date(date: Date | null) {
