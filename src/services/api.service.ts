@@ -39,7 +39,7 @@ export default {
   },
 
   validateReport(report: Report): Promise<void> {
-    return this.editReport({ ...report, validated: true });
+    return this.editReport({ ...report, custom: { validated: 'true' } });
   },
 
   deleteReport(report: Report): Promise<void> {

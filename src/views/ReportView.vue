@@ -18,7 +18,7 @@
           href="#"
           :title="$t('button.publish')"
           @click="publish"
-          v-if="!report.validated"
+          v-if="!validated"
         >
           <fa-icon icon="upload" />
         </a>
@@ -183,6 +183,10 @@ export default class ReportView extends Vue {
       : '';
   }
 
+  get validated() {
+    return this.report?.custom?.validated == 'true';
+  }
+
   setReport(report: Report) {
     this.report = report;
   }
@@ -228,7 +232,7 @@ export default class ReportView extends Vue {
       onConfirm: this.onDeleteConfirm,
     };
     let dialogOptions: DialogConfig;
-    if (this.report!.validated) {
+    if (this.validated) {
       dialogOptions = {
         ...options,
         title: this.$t('delete.dialog.title').toString(),

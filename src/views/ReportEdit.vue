@@ -506,8 +506,7 @@ extend('required', {
 });
 
 const newReport = (): Omit<Report, 'id'> => ({
-  validated: false,
-  custom: {},
+  custom: { validated: 'false' },
   activities: [],
   event_type: [],
   locales: [
