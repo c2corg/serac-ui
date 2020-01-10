@@ -52,12 +52,14 @@
           <simple-field-view :report="report" field="nb_impacted" />
           <simple-field-view :report="report" field="rescue" />
           <simple-field-view :report="report" field="severity" />
+          <!-- TODO: add supervision, autonomy (?), activity_rate (?), qualification -->
         </div>
         <div class="box" v-if="coords">
           <geolocation-map :coords="coords"></geolocation-map>
         </div>
       </div>
       <div class="column">
+        <!-- TODO: remove summary -->
         <div class="box">
           <div
             v-if="report.locales[0].summary"

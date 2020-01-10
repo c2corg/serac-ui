@@ -24,6 +24,7 @@
                 </b-field>
               </validation-provider>
 
+              <!-- FIXME: single event_activity selection -->
               <validation-provider rules="required" v-slot="{ errors }">
                 <b-field
                   :type="{ 'is-danger': errors.length }"
@@ -265,6 +266,7 @@
                 </div>
               </div>
 
+              <!-- FIXME: add supervision,  qualification -->
               <div class="columns">
                 <div class="column">
                   <input-select
@@ -273,6 +275,7 @@
                     :values="previousInjuries"
                   ></input-select>
                 </div>
+
                 <div class="column is-hidden-mobile"></div>
                 <div class="column is-hidden-mobile"></div>
               </div>
