@@ -8,18 +8,19 @@ export default interface Report {
   age?: number;
   autonomy?: Autonomy;
   avalanche_slope?: AvalancheSlope;
-  activities: Activity[];
-  nb_outings?: NbOutings;
+  event_activity: EventActivity;
   gender?: Gender;
   nb_impacted?: number;
   date?: string;
   rescue?: boolean;
   author_status?: AuthorStatus;
-  event_type: EventType[];
+  event_type?: EventType;
   severity?: Severity;
   activity_rate?: ActivityRate;
   previous_injuries?: PreviousInjuries;
   avalanche_level?: AvalancheLevel;
+  supervision?: Supervision;
+  qualification?: Qualification;
   locales: Locale[];
 }
 
@@ -29,7 +30,6 @@ export interface Locale {
   training?: string;
   place?: string;
   route_study?: string;
-  summary?: string;
   safety?: string;
   description?: string;
   reduce_impact?: string;
@@ -42,32 +42,24 @@ export interface Locale {
   group_management?: string;
 }
 
-export const ALL_ACTIVITIES = [
-  'skitouring',
+export const ALL_EVENT_ACTIVITIES = [
+  'sport_climbing',
+  'multipitch_climbing',
+  'alpine_climbing',
   'snow_ice_mixed',
-  'mountain_climbing',
-  'rock_climbing',
   'ice_climbing',
-  'hiking',
-  'snowshoeing',
-  'paragliding',
-  'mountain_biking',
-  'via_ferrata',
-  'slacklining',
+  'skitouring',
+  'other',
 ];
 
-export type Activity =
-  | 'skitouring'
+export type EventActivity =
+  | 'sport_climbing'
+  | 'multipitch_climbing'
+  | 'alpine_climbing'
   | 'snow_ice_mixed'
-  | 'mountain_climbing'
-  | 'rock_climbing'
   | 'ice_climbing'
-  | 'hiking'
-  | 'snowshoeing'
-  | 'paragliding'
-  | 'mountain_biking'
-  | 'via_ferrata'
-  | 'slacklining';
+  | 'skitouring'
+  | 'other';
 
 export const ALL_SEVERITIES = [
   'severity_no',
@@ -86,25 +78,31 @@ export type Severity =
 
 export const ALL_EVENT_TYPES = [
   'avalanche',
-  'stone_fall',
-  'falling_ice',
+  'stone_ice_fall',
+  'ice_cornice_collapse',
   'person_fall',
   'crevasse_fall',
-  'roped_fall',
   'physical_failure',
-  'lightning',
+  'injury_without_fall',
+  'blocked_person',
+  'weather_event',
+  'safety_operation',
+  'critical_situation',
   'other',
 ];
 
 export type EventType =
   | 'avalanche'
-  | 'stone_fall'
-  | 'falling_ice'
+  | 'stone_ice_fall'
+  | 'ice_cornice_collapse'
   | 'person_fall'
   | 'crevasse_fall'
-  | 'roped_fall'
   | 'physical_failure'
-  | 'lightning'
+  | 'injury_without_fall'
+  | 'blocked_person'
+  | 'weather_event'
+  | 'safety_operation'
+  | 'critical_situation'
   | 'other';
 
 export const ALL_AVALANCHE_LEVELS = [
@@ -155,46 +153,20 @@ export type AuthorStatus =
   | 'internal_witness'
   | 'external_witness';
 
-export const ALL_AUTONOMIES = [
-  'non_autonomous',
-  'autonomous',
-  'initiator',
-  'expert',
-];
+export const ALL_AUTONOMIES = ['non_autonomous', 'autonomous', 'expert'];
 
-export type Autonomy = 'non_autonomous' | 'autonomous' | 'initiator' | 'expert';
-
-export const ALL_NB_OUTINGS = [
-  'nb_outings_4',
-  'nb_outings_9',
-  'nb_outings_14',
-  'nb_outings_15',
-];
-
-export type NbOutings =
-  | 'nb_outings_4'
-  | 'nb_outings_9'
-  | 'nb_outings_14'
-  | 'nb_outings_15';
+export type Autonomy = 'non_autonomous' | 'autonomous' | 'expert';
 
 export const ALL_ACTIVITY_RATES = [
-  'activity_rate_150',
-  'activity_rate_50',
-  'activity_rate_30',
-  'activity_rate_20',
-  'activity_rate_10',
-  'activity_rate_5',
-  'activity_rate_1',
+  'activity_rate_y5',
+  'activity_rate_m2',
+  'activity_rate_w1',
 ];
 
 export type ActivityRate =
-  | 'activity_rate_150'
-  | 'activity_rate_50'
-  | 'activity_rate_30'
-  | 'activity_rate_20'
-  | 'activity_rate_10'
-  | 'activity_rate_5'
-  | 'activity_rate_1';
+  | 'activity_rate_y5'
+  | 'activity_rate_m2'
+  | 'activity_rate_w1';
 
 export const ALL_PREVIOUS_INJURIES = [
   'no',
@@ -206,3 +178,25 @@ export type PreviousInjuries =
   | 'no'
   | 'previous_injuries_2'
   | 'previous_injuries_3';
+
+export const ALL_SUPERVISIONS = [
+  'no_supervision',
+  'federal_supervision',
+  'professional_supervision',
+];
+
+export type Supervision =
+  | 'no_supervision'
+  | 'federal_supervision'
+  | 'professional_supervision';
+
+export const ALL_QUALIFICATIONS = [
+  'federal_supervisor',
+  'federal_trainer',
+  'professional_diploma',
+];
+
+export type Qualification =
+  | 'federal_supervisor'
+  | 'federal_trainer'
+  | 'professional_diploma';

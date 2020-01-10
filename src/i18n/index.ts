@@ -26,32 +26,12 @@ export const messages: LocaleMessages = {
     },
     error: { default: 'Une erreur est survenue', reload: 'Recharger la page' },
     field: {
-      activities: {
-        label: 'Activités',
-        values: {
-          skitouring: 'Ski de randonnée',
-          snow_ice_mixed: 'Neige, glace, mixte',
-          mountain_climbing: 'Rocher haute montagne',
-          rock_climbing: 'Escalade',
-          ice_climbing: 'Cascade de glace',
-          hiking: 'Randonnée',
-          snowshoeing: 'Raquettes',
-          paragliding: 'Parapente',
-          mountain_biking: 'VTT',
-          via_ferrata: 'Via ferrata',
-          slacklining: 'Slackline',
-        },
-      },
       activity_rate: {
         label: "Fréquence de pratique dans l'activité",
         values: {
-          activity_rate_150: 'Au moins 3 fois par semaine',
-          activity_rate_50: '1 à 2 fois par semaine',
-          activity_rate_30: '2 à 3 fois par mois',
-          activity_rate_20: '1 fois par mois',
-          activity_rate_10: "Moins d'une fois par mois",
-          activity_rate_5: "Moins d'une fois par an",
-          activity_rate_1: 'Première fois de sa vie',
+          activity_rate_y5: '5 fois par an',
+          activity_rate_m2: '2 fois par mois',
+          activity_rate_w1: '1 fois par semaine',
         },
       },
       age: { label: 'Âge' },
@@ -94,6 +74,11 @@ export const messages: LocaleMessages = {
           slope_gt_45: 'Pente supérieure à 45°',
         },
       },
+      conditions: {
+        label: 'Conditions',
+        placeholder:
+          "Décrivez les informations récoltées avant la sortie et le suivi de leur évolution sur le terrain. Cela concerne les prévisions météo, les bulletins d'évaluation du risque d'avalanche, la qualité du regel, la qualité de la neige/glace/rocher, les compte rendu des jours précédents, etc.",
+      },
       date: {
         label: 'Date',
         placeholder: 'Cliquez pour choisir la date',
@@ -103,23 +88,33 @@ export const messages: LocaleMessages = {
         placeholder:
           "Décrivez le déroulement de la sortie et de l'incident/accident. Si vous avez déjà saisi une sortie, vous pouvez décrire uniquement l'évènement, puis associez ce compte-rendu à la sortie.",
       },
-      conditions: {
-        label: 'Conditions',
-        placeholder:
-          "Décrivez les informations récoltées avant la sortie et le suivi de leur évolution sur le terrain. Cela concerne les prévisions météo, les bulletins d'évaluation du risque d'avalanche, la qualité du regel, la qualité de la neige/glace/rocher, les compte rendu des jours précédents, etc.",
-      },
       elevation: { label: 'Altitude' },
+      event_activity: {
+        label: 'Activité',
+        values: {
+          sport_climbing: 'Escalade en falaise',
+          multipitch_climbing: 'Escalade en grande voie',
+          alpine_climbing: 'Rocher montagne (TA)',
+          snow_ice_mixed: 'Neige, glace, mixte',
+          ice_climbing: 'Cascade de glace',
+          skitouring: 'Ski de randonnée',
+          other: 'Autres activités',
+        },
+      },
       event_type: {
         label: "Type d'évènement",
         values: {
           avalanche: 'Avalanche',
-          stone_fall: 'Chute de pierre',
-          falling_ice: 'Chute de glace',
-          person_fall: "Chute d'une personne",
+          stone_ice_fall: 'Chute de pierre/glace/serac',
+          ice_cornice_collapse: 'Effondrement cascade ou corniche',
+          person_fall: 'Déséquilibre/chute',
           crevasse_fall: 'Chute en crevasse',
-          roped_fall: 'Chute encordé',
           physical_failure: 'Défaillance physique',
-          lightning: 'Foudre',
+          injury_without_fall: 'Lésion sans chute',
+          blocked_person: 'Personne bloquée',
+          weather_event: 'Évènement météo',
+          safety_operation: 'Manœuvre de sécurité',
+          critical_situation: 'Situation complexe sans incident',
           other: 'Autre',
         },
       },
@@ -182,6 +177,14 @@ export const messages: LocaleMessages = {
           previous_injuries_3: 'Autres blessures',
         },
       },
+      qualification: {
+        label: 'Qualification',
+        values: {
+          federal_supervisor: 'Initiateur fédéral',
+          federal_trainer: 'Entraineur fédéral',
+          professional_diploma: 'Diplôme professionel',
+        },
+      },
       reduce_impact: {
         label: "Éléments ayant atténué les conséquences de l'évènement",
       },
@@ -216,6 +219,14 @@ export const messages: LocaleMessages = {
           '4d_to_1m': 'De 4 jours à 1 mois',
           '1m_to_3m': 'De 1 à 3 mois',
           more_than_3m: 'Supérieur à 3 mois',
+        },
+      },
+      supervision: {
+        label: 'Encadrement',
+        values: {
+          no_supervision: 'Non encadré',
+          federal_supervision: 'Encadrement fédéral',
+          professional_supervision: 'Encadrement professionel',
         },
       },
       time_management: {
