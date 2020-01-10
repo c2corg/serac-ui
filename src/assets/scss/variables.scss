@@ -1,8 +1,30 @@
 // Import Bulma's core
 @import '~bulma/sass/utilities/_all';
 
+$family-sans-serif: 'Arial', BlinkMacSystemFont, -apple-system, 'Segoe UI',
+  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+  'Helvetica Neue', 'Helvetica', sans-serif;
+
+// FFCAM colors
+$ffcam-green1: #588527;
+$ffcam-green2: #38b449;
+$ffcam-green3: #71be43;
+$ffcam-green4: #71be43;
+$ffcam-blue1: #0e6588;
+$ffcam-blue2: #00b1d5;
+$ffcam-blue3: #00bbd6;
+$ffcam-blue4: #33c2df;
+$ffcam-orange1: #d04e1c;
+$ffcam-orange2: #f36f28;
+$ffcam-orange3: #f7931d;
+$ffcam-orange4: #fbaf17;
+$ffcam-black: #000;
+$ffcam-black70: #6d6e70;
+$ffcam-black30: #bbbdc0;
+$ffcam-white: #fff;
+
+$primary: $ffcam-orange2;
 $primary-invert: findColorInvert($primary);
-$primary: #f93;
 
 // Set your colors
 
@@ -17,3 +39,7 @@ $colors: (
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+
+// Navbar
+$navbar-item-color: $ffcam-black70;
+$navbar-item-hover-color: $ffcam-orange2;

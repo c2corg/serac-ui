@@ -2,15 +2,18 @@
   <div id="container">
     <vue-progress-bar></vue-progress-bar>
     <network-error :error="error"></network-error>
-    <b-navbar>
-      <template slot="brand"><h1>Serac-UI</h1></template>
-      <template slot="start">
-        <b-navbar-item><router-link to="/">Home</router-link></b-navbar-item>
-        <b-navbar-item>
-          <router-link to="/reports">Reports</router-link>
+    <b-navbar fixed-top shadow>
+      <template slot="brand">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+          <img src="./assets/logo.png" height="90" />
         </b-navbar-item>
-        <b-navbar-item>
-          <router-link to="/about">À propos</router-link>
+      </template>
+      <template slot="start">
+        <b-navbar-item tag="router-link" :to="{ path: '/reports' }">
+          Reports
+        </b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/about' }">
+          À propos
         </b-navbar-item>
       </template>
       <template slot="end">

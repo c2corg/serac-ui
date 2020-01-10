@@ -30,7 +30,7 @@
               <p class="title">Middle tile</p>
               <p class="subtitle">With an image</p>
               <figure class="image">
-                <img src="../assets/ffcam.png" />
+                <img src="../assets/logo.png" />
               </figure>
             </article>
           </div>
@@ -51,7 +51,7 @@
             <p class="title">Tall tile</p>
             <p class="subtitle">With even more content</p>
             <div class="content">
-              <img src="../assets/fondation-petzl.jpg" />
+              <img src="../assets/fondation-petzl.png" />
             </div>
           </div>
         </article>
