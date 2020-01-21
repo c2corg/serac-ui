@@ -14,7 +14,7 @@
     "@types/leaflet": "1.5.8",
     "@types/node": "13.1.8",
     "axios": "0.19.1",
-    "buefy": "0.8.9",
+    "buefy": "0.8.10",
     "core-js": "3.6.4",
     "date-fns": "2.9.0",
     "dms-conversion": "3.1.1",
