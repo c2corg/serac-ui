@@ -44,7 +44,7 @@ export default {
       hash = match[2];
     }
     return axios
-      .get(`https://api.camptocamp.org/articles/${id}`, {
+      .get(`https://api.camptocamp.org/articles/${documentId}`, {
         params: { cook: 'fr' },
       })
       .then(response => {
