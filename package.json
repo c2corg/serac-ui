@@ -28,13 +28,13 @@
     "vue-progressbar": "0.7.5",
     "vue-property-decorator": "8.4.0",
     "vue-router": "3.1.5",
-    "vue2-leaflet": "2.4.3"
+    "vue2-leaflet": "2.5.2"
   },
   "devDependencies": {
     "@types/dompurify": "2.0.1",
     "@types/marked": "0.7.2",
     "@typescript-eslint/eslint-plugin": "2.19.2",
-    "@typescript-eslint/parser": "2.19.0",
+    "@typescript-eslint/parser": "2.19.2",
     "@vue/cli-plugin-babel": "4.2.2",
     "@vue/cli-plugin-eslint": "4.2.2",
     "@vue/cli-plugin-router": "4.2.2",
