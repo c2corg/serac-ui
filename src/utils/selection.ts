@@ -95,7 +95,7 @@ export default class Selection {
     this.setText(
       this.text
         .split('\n')
-        .map(line => line.substr(tag.length))
+        .map((line) => line.substr(tag.length))
         .join('\n')
     );
   }
@@ -104,7 +104,7 @@ export default class Selection {
     this.setText(
       this.text
         .split('\n')
-        .map(line => tag + line)
+        .map((line) => tag + line)
         .join('\n')
     );
   }

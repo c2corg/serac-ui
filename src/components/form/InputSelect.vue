@@ -40,7 +40,7 @@ export default class InputSelect extends mixins(HelperMixin) {
   }
 
   get options() {
-    return this.values.map(value => ({
+    return this.values.map((value) => ({
       key: value,
       value: this.$t(`field.${this.field}.values.${value}`),
     }));

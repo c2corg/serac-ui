@@ -48,7 +48,7 @@
           >
             {{
               props.row.event_type
-                .map(event => $t('field.event_type.values.' + event))
+                .map((event) => $t('field.event_type.values.' + event))
                 .join(', ')
             }}
           </b-table-column>
@@ -89,7 +89,7 @@ export default class ReportsView extends Vue {
     from: Route,
     next: (to?: RawLocation | false | ((vm: ReportsView) => any) | void) => void
   ): void {
-    next(vm => {
+    next((vm) => {
       const page: number = +to.query['page'] || 1;
       vm.currentPage = page;
       vm.fetchData(page);
@@ -112,7 +112,7 @@ export default class ReportsView extends Vue {
     this.loading = true;
     api
       .getReports(page)
-      .then(result => {
+      .then((result) => {
         this.reports = [...result.content];
         this.total = result.totalElements;
         this.currentPage = page;

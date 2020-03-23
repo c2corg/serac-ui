@@ -586,8 +586,9 @@ export default class ReportEdit extends mixins(HelperMixin) {
     seconds: number,
     hemisphere: string
   ) {
-    return `${degree}°${minute}′${Math.floor(1000 * seconds) /
-      1000}″ ${hemisphere}`;
+    return `${degree}°${minute}′${
+      Math.floor(1000 * seconds) / 1000
+    }″ ${hemisphere}`;
   }
 
   beforeRouteEnter(
@@ -596,8 +597,8 @@ export default class ReportEdit extends mixins(HelperMixin) {
     next: (to?: RawLocation | false | ((vm: ReportEdit) => any) | void) => void
   ): void {
     (to.params.id ? api.getReport(to.params.id) : Promise.resolve(newReport()))
-      .then(report => {
-        next(vm => vm.setReport(report));
+      .then((report) => {
+        next((vm) => vm.setReport(report));
       })
       .catch((err: Error) => next(err));
   }
@@ -609,7 +610,7 @@ export default class ReportEdit extends mixins(HelperMixin) {
   ): void {
     this.model = null;
     (to.params.id ? api.getReport(to.params.id) : Promise.resolve(newReport()))
-      .then(report => {
+      .then((report) => {
         this.model = report;
         next();
       })
@@ -669,7 +670,7 @@ export default class ReportEdit extends mixins(HelperMixin) {
     } else {
       api
         .createReport(this.model)
-        .then(response =>
+        .then((response) =>
           this.$router.push({ name: 'report', params: { id: response.id } })
         )
         .finally(() => (this.submitting = false));

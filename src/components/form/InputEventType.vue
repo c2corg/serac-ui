@@ -32,7 +32,7 @@ export default class InputEventType extends Vue {
   }
 
   get types() {
-    return ALL_EVENT_TYPES.map(type => ({
+    return ALL_EVENT_TYPES.map((type) => ({
       key: type,
       value: this.$t('field.event_type.values.' + type),
     }));
