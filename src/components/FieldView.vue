@@ -15,9 +15,7 @@ export default class FieldView extends Vue {
   title!: string;
 
   get titleWithColons() {
-    return this.title && this.title.endsWith(':')
-      ? this.title
-      : this.title + '\u00a0:';
+    return this.title?.endsWith(':') ? this.title : this.title + '\u00a0:';
   }
 }
 </script>

@@ -47,7 +47,7 @@ export default {
       .get(`https://api.camptocamp.org/articles/${documentId}`, {
         params: { cook: 'fr' },
       })
-      .then((response) => {
+      .then(response => {
         if (!hash) {
           return {
             title: response.data.cooked.title,

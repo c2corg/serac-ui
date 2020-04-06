@@ -133,8 +133,8 @@ export default class ReportView extends Vue {
   ): void {
     api
       .getReport(to.params.id)
-      .then((report) => {
-        next((vm) => vm.setReport(report));
+      .then(report => {
+        next(vm => vm.setReport(report));
       })
       .catch((err: Error) => next(err));
   }
@@ -147,7 +147,7 @@ export default class ReportView extends Vue {
     this.report = null;
     api
       .getReport(to.params.id)
-      .then((report) => {
+      .then(report => {
         this.report = report;
         next();
       })
@@ -163,7 +163,7 @@ export default class ReportView extends Vue {
   get eventTypes() {
     return this.report?.event_type
       ? this.report.event_type
-          .map((event) => this.$t(`field.event_type.values.${event}`))
+          .map(event => this.$t(`field.event_type.values.${event}`))
           .join(', ')
       : '';
   }

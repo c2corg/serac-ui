@@ -4,7 +4,7 @@ const parser = require('xml2js');
 
 const HEADER = '// Auto-generated file by generate-icons.js';
 
-const getJsTemplate = function(prefix, name, width, height, svgPathData) {
+const getJsTemplate = function (prefix, name, width, height, svgPathData) {
   return `${HEADER}
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -24,7 +24,7 @@ export default ${name};
 `;
 };
 
-const getIndexDotJsFileContent = function(names) {
+const getIndexDotJsFileContent = function (names) {
   const imports = names.map(name => `import ${name} from './${name}';`);
 
   return `${HEADER}
@@ -53,17 +53,17 @@ function main() {
         if (file.endsWith('.svg')) {
           names.push(file.replace('.svg', ''));
 
-          fs.readFile(root + 'svg/' + subDir + '/' + file, function(err, data) {
+          fs.readFile(root + 'svg/' + subDir + '/' + file, (err, data) => {
             if (err) {
               console.error('Fail: ' + err);
             }
-            parser.parseString(data, function(err, result) {
+            parser.parseString(data, function (err, result) {
               if (err) {
                 console.error('Fail: ' + err);
               }
               const name = file.replace('.svg', '');
 
-              if (result && result.svg && result.svg.path) {
+              if (result?.svg?.path) {
                 fs.writeFileSync(
                   root + 'js/' + subDir + '/' + name + '.ts',
                   getJsTemplate(

@@ -39,7 +39,7 @@ export default class InputActivity extends Vue {
   }
 
   get activities() {
-    return ALL_ACTIVITIES.map((activity) => ({
+    return ALL_ACTIVITIES.map(activity => ({
       key: activity,
       value: this.$t('field.activities.values.' + activity),
     }));
