@@ -94,7 +94,7 @@ import TextView from '@/components/TextView.vue';
 import FieldView from '@/components/FieldView.vue';
 import SimpleFieldView from '@/components/SimpleFieldView.vue';
 import GeolocationMap from '@/components/GeolocationMap.vue';
-import { DialogConfig } from 'buefy/types/components';
+import { BDialogConfig } from 'buefy/types/components';
 
 @Component({
   name: 'report',
@@ -219,7 +219,7 @@ export default class ReportView extends Vue {
 
   deleteReport() {
     // warn before deleting
-    let options: Partial<DialogConfig> = {
+    let options: Partial<BDialogConfig> = {
       cancelText: this.$t('button.cancel').toString(),
       confirmText: this.$t('button.delete').toString(),
       type: 'is-info',
@@ -227,7 +227,7 @@ export default class ReportView extends Vue {
       icon: 'info',
       onConfirm: this.onDeleteConfirm,
     };
-    let dialogOptions: DialogConfig;
+    let dialogOptions: BDialogConfig;
     if (this.report!.validated) {
       dialogOptions = {
         ...options,
