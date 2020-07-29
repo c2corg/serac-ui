@@ -30,7 +30,7 @@
     "vue2-leaflet": "2.5.2"
   },
   "devDependencies": {
-    "@types/dompurify": "2.0.2",
+    "@types/dompurify": "2.0.3",
     "@types/marked": "1.1.0",
     "@typescript-eslint/eslint-plugin": "3.7.1",
     "@typescript-eslint/parser": "3.7.1",
