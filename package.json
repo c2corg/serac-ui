@@ -13,7 +13,7 @@
     "@fortawesome/vue-fontawesome": "0.1.10",
     "@types/leaflet": "1.5.17",
     "axios": "0.19.2",
-    "buefy": "0.8.20",
+    "buefy": "0.9.1",
     "core-js": "3.6.5",
     "date-fns": "2.15.0",
     "dms-conversion": "3.1.1",
