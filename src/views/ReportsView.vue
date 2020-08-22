@@ -31,37 +31,45 @@
         :aria-current-label="$t('table.current')"
         striped
       >
-        <template slot-scope="props">
-          <b-table-column field="date" :label="$t('field.date.label')">
-            <span class="cell--nowrap">{{ props.row.date }}</span>
-          </b-table-column>
+        <b-table-column
+          field="date"
+          :label="$t('field.date.label')"
+          v-slot="props"
+        >
+          <span class="cell--nowrap">{{ props.row.date }}</span>
+        </b-table-column>
 
-          <b-table-column field="title" :label="$t('field.title.label')">
-            <router-link :to="{ name: 'report', params: { id: props.row.id } }">
-              {{ props.row.locales[0].title }}
-            </router-link>
-          </b-table-column>
+        <b-table-column
+          field="title"
+          :label="$t('field.title.label')"
+          v-slot="props"
+        >
+          <router-link :to="{ name: 'report', params: { id: props.row.id } }">
+            {{ props.row.locales[0].title }}
+          </router-link>
+        </b-table-column>
 
-          <b-table-column
-            field="event_type"
-            :label="$t('field.event_type.label')"
-          >
-            {{
-              props.row.event_type
-                .map(event => $t('field.event_type.values.' + event))
-                .join(', ')
-            }}
-          </b-table-column>
+        <b-table-column
+          field="event_type"
+          :label="$t('field.event_type.label')"
+          v-slot="props"
+        >
+          {{
+            props.row.event_type
+              .map(event => $t('field.event_type.values.' + event))
+              .join(', ')
+          }}
+        </b-table-column>
 
-          <b-table-column
-            field="activities"
-            :label="$t('field.activities.label')"
-          >
-            <div class="activities-column">
-              <activity-list :activities="props.row.activities"></activity-list>
-            </div>
-          </b-table-column>
-        </template>
+        <b-table-column
+          field="activities"
+          :label="$t('field.activities.label')"
+          v-slot="props"
+        >
+          <div class="activities-column">
+            <activity-list :activities="props.row.activities"></activity-list>
+          </div>
+        </b-table-column>
       </b-table>
     </section>
   </div>
