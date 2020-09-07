@@ -17,7 +17,7 @@
     "core-js": "3.6.5",
     "date-fns": "2.16.1",
     "dms-conversion": "3.1.1",
-    "leaflet": "1.6.0",
+    "leaflet": "1.7.1",
     "marked": "1.1.1",
     "vee-validate": "3.3.9",
     "vue": "2.6.12",
