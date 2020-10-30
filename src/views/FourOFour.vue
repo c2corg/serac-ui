@@ -2,9 +2,7 @@
   <section class="hero is-fullheight">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
-          Oops
-        </h1>
+        <h1 class="title">Oops</h1>
         <h2 class="subtitle">
           Nous ne trouvons pas la page que vous recherchez.
         </h2>
