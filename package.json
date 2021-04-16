@@ -15,7 +15,7 @@
     "axios": "0.21.1",
     "buefy": "0.9.6",
     "core-js": "3.10.1",
-    "date-fns": "2.21.0",
+    "date-fns": "2.21.1",
     "dms-conversion": "3.1.1",
     "leaflet": "1.7.1",
     "marked": "2.0.3",
