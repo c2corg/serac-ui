@@ -172,8 +172,9 @@ export default class ReportView extends Vue {
     if (!this.report?.geometry) {
       return undefined;
     }
-    const coords: [number, number] = JSON.parse(this.report.geometry)
-      .coordinates;
+    const coords: [number, number] = JSON.parse(
+      this.report.geometry
+    ).coordinates;
     return CRS.EPSG3857.unproject(new Point(coords[0], coords[1]));
   }
 

@@ -620,8 +620,9 @@ export default class ReportEdit extends mixins(HelperMixin) {
   setReport(report: Report | Omit<Report, 'id'>) {
     this.model = report;
     if (this.model.geometry) {
-      const coords: [number, number] = JSON.parse(this.model.geometry)
-        .coordinates;
+      const coords: [number, number] = JSON.parse(
+        this.model.geometry
+      ).coordinates;
       const latLng: LatLng = CRS.EPSG3857.unproject(
         new Point(coords[0], coords[1])
       );
