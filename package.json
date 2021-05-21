@@ -18,7 +18,7 @@
     "date-fns": "2.21.3",
     "dms-conversion": "3.1.1",
     "leaflet": "1.7.1",
-    "marked": "2.0.3",
+    "marked": "2.0.4",
     "vee-validate": "3.4.5",
     "vue": "2.6.12",
     "vue-class-component": "7.2.6",
