@@ -33,7 +33,7 @@
     "@types/dompurify": "2.2.3",
     "@types/marked": "2.0.4",
     "@typescript-eslint/eslint-plugin": "4.28.4",
-    "@typescript-eslint/parser": "4.28.4",
+    "@typescript-eslint/parser": "4.28.5",
     "@vue/cli-plugin-babel": "4.5.10",
     "@vue/cli-plugin-eslint": "4.5.10",
     "@vue/cli-plugin-router": "4.5.10",
