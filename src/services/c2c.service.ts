@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 export interface C2cHelp {
   title: string;
@@ -44,7 +44,10 @@ export default {
       hash = match[2];
     }
     return axios
-      .get(`https://api.camptocamp.org/articles/${documentId}`, {
+      .get<
+        void,
+        AxiosResponse<{ cooked: { title: string; description: string } }>
+      >(`https://api.camptocamp.org/articles/${documentId}`, {
         params: { cook: 'fr' },
       })
       .then(response => {

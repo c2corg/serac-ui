@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Report from '../model/report';
 import { Page } from '../model/page';
 
@@ -16,25 +16,33 @@ const baseUrl: () => string = () => {
 export default {
   getReports(page: number = 1): Promise<Page<Report>> {
     return axios
-      .get<Page<Report>>(`${baseUrl()}/xreports?page=${page - 1}`)
+      .get<void, AxiosResponse<Page<Report>>>(
+        `${baseUrl()}/xreports?page=${page - 1}`
+      )
       .then(response => response.data);
   },
 
   getReport(id: string): Promise<Report> {
     return axios
-      .get<Report>(`${baseUrl()}/xreports/${id}`)
+      .get<void, AxiosResponse<Report>>(`${baseUrl()}/xreports/${id}`)
       .then(response => response.data);
   },
 
   createReport(report: Omit<Report, 'id'>): Promise<CreateResponse> {
     return axios
-      .post<CreateResponse>(`${baseUrl()}/xreports`, report)
+      .post<Omit<Report, 'id'>, AxiosResponse<CreateResponse>>(
+        `${baseUrl()}/xreports`,
+        report
+      )
       .then(response => response.data);
   },
 
   editReport(report: Report): Promise<void> {
     return axios
-      .put<void>(`${baseUrl()}/xreports/${report.id}`, report)
+      .put<Report, AxiosResponse<void>>(
+        `${baseUrl()}/xreports/${report.id}`,
+        report
+      )
       .then(response => response.data);
   },
 
@@ -44,7 +52,7 @@ export default {
 
   deleteReport(report: Report): Promise<void> {
     return axios
-      .delete<void>(`${baseUrl()}/xreports/${report.id}`)
+      .delete<void, AxiosResponse<void>>(`${baseUrl()}/xreports/${report.id}`)
       .then(response => response.data);
   },
 };
